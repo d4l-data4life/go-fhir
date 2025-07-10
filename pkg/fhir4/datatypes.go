@@ -1,10 +1,10 @@
-// Package fhir3 contains FHIR R3 (version 3.0.2) type definitions
-package fhir3
+// Package fhir4 contains FHIR R4 (version 4.0.1) type definitions
+package fhir4
 
 import (
 	"time"
 
-	"github.com/go-fhir/go-fhir/common"
+	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
 // Address represents an address expressed using postal conventions
@@ -14,7 +14,7 @@ type Address struct {
 	// The name of the city, town, suburb, village or other community or delivery center
 	City *string `json:"city,omitempty"`
 
-	// Country - a nation as commonly understood or generally accepted
+	// ISO 3166 3 letter codes can be used in place of a human readable country name
 	Country *string `json:"country,omitempty"`
 
 	// District is sometimes known as county
@@ -38,7 +38,7 @@ type Address struct {
 	// postal | physical | both - The definition of Address
 	Type *AddressType `json:"type,omitempty"`
 
-	// home | work | temp | old | billing - purpose of this address (billing added in R3)
+	// home | work | temp | old | billing - purpose of this address
 	Use *AddressUse `json:"use,omitempty"`
 }
 
@@ -51,7 +51,7 @@ const (
 	AddressTypeBoth     AddressType = "both"
 )
 
-// AddressUse represents the use of an address (R3 version - includes billing)
+// AddressUse represents the use of an address
 type AddressUse string
 
 const (
@@ -59,7 +59,7 @@ const (
 	AddressUseWork    AddressUse = "work"
 	AddressUseTemp    AddressUse = "temp"
 	AddressUseOld     AddressUse = "old"
-	AddressUseBilling AddressUse = "billing" // Added in R3
+	AddressUseBilling AddressUse = "billing"
 )
 
 // Age represents a duration of time during which an organism (or a process) has existed
@@ -132,7 +132,7 @@ type ContactPoint struct {
 	// Rank for determining order of preference
 	Rank *int `json:"rank,omitempty"`
 
-	// phone | fax | email | pager | url | sms | other (url and sms added in R3+)
+	// phone | fax | email | pager | url | sms | other
 	System *ContactPointSystem `json:"system,omitempty"`
 
 	// home | work | temp | old | mobile
@@ -142,7 +142,7 @@ type ContactPoint struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// ContactPointSystem represents telecommunications form for contact point (R3 version)
+// ContactPointSystem represents telecommunications form for contact point
 type ContactPointSystem string
 
 const (
@@ -150,8 +150,8 @@ const (
 	ContactPointSystemFax   ContactPointSystem = "fax"
 	ContactPointSystemEmail ContactPointSystem = "email"
 	ContactPointSystemPager ContactPointSystem = "pager"
-	ContactPointSystemURL   ContactPointSystem = "url" // Added in R3
-	ContactPointSystemSMS   ContactPointSystem = "sms" // Added in R3
+	ContactPointSystemURL   ContactPointSystem = "url"
+	ContactPointSystemSMS   ContactPointSystem = "sms"
 	ContactPointSystemOther ContactPointSystem = "other"
 )
 

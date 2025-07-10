@@ -1,21 +1,26 @@
-// Package fhir4b contains FHIR R4B (version 4.3.0) type definitions
-package fhir4b
+// Package fhir5 contains FHIR R5 (version 5.0.0) type definitions
+package fhir5
 
 import (
 	"time"
 
-	"github.com/go-fhir/go-fhir/common"
+	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
-// Address represents an address expressed using postal conventions
-// Note: R4B is very similar to R4 with minor corrections and clarifications
-type Address struct {
+// DataType is the base type for all data types in FHIR R5 (note: this differs from R4 which used Element)
+type DataType struct {
 	common.Element
+}
+
+// Address represents an address expressed using postal conventions
+// Note: R5 has additional fields compared to R4
+type Address struct {
+	DataType
 
 	// The name of the city, town, suburb, village or other community or delivery center
 	City *string `json:"city,omitempty"`
 
-	// ISO 3166 3 letter codes can be used in place of a human readable country name
+	// ISO 3166 2- or 3- letter codes MAY be used in place of a human readable country name
 	Country *string `json:"country,omitempty"`
 
 	// District is sometimes known as county
@@ -70,7 +75,7 @@ type Age struct {
 
 // Annotation represents a text note which also contains information about who made the statement and when
 type Annotation struct {
-	common.Element
+	DataType
 
 	// Organization is used when there's no need for specific attribution
 	AuthorReference *common.Reference `json:"authorReference,omitempty"`
@@ -84,8 +89,9 @@ type Annotation struct {
 }
 
 // Attachment represents data content defined in other formats
+// Note: R5 has additional fields like duration, frames, height, width, pages compared to R4
 type Attachment struct {
-	common.Element
+	DataType
 
 	// Identifies the type of the data in the attachment
 	ContentType *string `json:"contentType,omitempty"`
@@ -96,99 +102,87 @@ type Attachment struct {
 	// The base64-encoded data
 	Data *string `json:"data,omitempty"`
 
+	// The duration might differ from occurrencePeriod if recording was paused
+	Duration *int `json:"duration,omitempty"`
+
+	// Number of frames if not supplied, value may be unknown
+	Frames *int `json:"frames,omitempty"`
+
 	// Hash of the data (sha-1, base64ed)
 	Hash *string `json:"hash,omitempty"`
+
+	// Height of the image in pixels (photo/video)
+	Height *int `json:"height,omitempty"`
 
 	// Human language of the content (BCP-47)
 	Language *string `json:"language,omitempty"`
 
-	// Number of bytes of content (if url provided)
-	Size *int `json:"size,omitempty"`
+	// The number of pages when printed
+	Pages *int `json:"pages,omitempty"`
+
+	// Number of bytes of content (if url provided) - Note: string in R5, int in R4
+	Size *string `json:"size,omitempty"`
 
 	// Label to display in place of the data
 	Title *string `json:"title,omitempty"`
 
 	// Uri where the data can be found
 	URL *string `json:"url,omitempty"`
+
+	// Width of the image in pixels (photo/video)
+	Width *int `json:"width,omitempty"`
 }
 
-// ContactDetail specifies contact information for a person or organization
-type ContactDetail struct {
+// Availability represents availability data for an item (new in R5)
+type Availability struct {
+	DataType
+
+	// Times the item is available
+	AvailableTime []AvailabilityAvailableTime `json:"availableTime,omitempty"`
+
+	// Not available during this time due to provided reason
+	NotAvailableTime []AvailabilityNotAvailableTime `json:"notAvailableTime,omitempty"`
+}
+
+// AvailabilityAvailableTime represents times the item is available
+type AvailabilityAvailableTime struct {
 	common.Element
 
-	// Name of an individual to contact
-	Name *string `json:"name,omitempty"`
+	// Always available? i.e. 24 hour service
+	AllDay *bool `json:"allDay,omitempty"`
 
-	// Contact details for individual or organization
-	Telecom []ContactPoint `json:"telecom,omitempty"`
+	// Closing time of day (ignored if allDay = true)
+	AvailableEndTime *string `json:"availableEndTime,omitempty"`
+
+	// Opening time of day (ignored if allDay = true)
+	AvailableStartTime *string `json:"availableStartTime,omitempty"`
+
+	// mon | tue | wed | thu | fri | sat | sun
+	DaysOfWeek []DaysOfWeek `json:"daysOfWeek,omitempty"`
 }
 
-// ContactPoint represents details for technology mediated contact points
-type ContactPoint struct {
+// AvailabilityNotAvailableTime represents not available during this time due to provided reason
+type AvailabilityNotAvailableTime struct {
 	common.Element
 
-	// Time period when the contact point was/is in use
-	Period *common.Period `json:"period,omitempty"`
+	// Reason presented to the user explaining why time not available
+	Description *string `json:"description,omitempty"`
 
-	// Rank for determining order of preference
-	Rank *int `json:"rank,omitempty"`
-
-	// phone | fax | email | pager | url | sms | other
-	System *ContactPointSystem `json:"system,omitempty"`
-
-	// home | work | temp | old | mobile
-	Use *ContactPointUse `json:"use,omitempty"`
-
-	// The actual contact point details
-	Value *string `json:"value,omitempty"`
+	// Service not available during this period
+	During *common.Period `json:"during,omitempty"`
 }
 
-// ContactPointSystem represents telecommunications form for contact point
-type ContactPointSystem string
+// DaysOfWeek represents days of the week
+type DaysOfWeek string
 
 const (
-	ContactPointSystemPhone ContactPointSystem = "phone"
-	ContactPointSystemFax   ContactPointSystem = "fax"
-	ContactPointSystemEmail ContactPointSystem = "email"
-	ContactPointSystemPager ContactPointSystem = "pager"
-	ContactPointSystemURL   ContactPointSystem = "url"
-	ContactPointSystemSMS   ContactPointSystem = "sms"
-	ContactPointSystemOther ContactPointSystem = "other"
-)
-
-// ContactPointUse represents the use of a contact point
-type ContactPointUse string
-
-const (
-	ContactPointUseHome   ContactPointUse = "home"
-	ContactPointUseWork   ContactPointUse = "work"
-	ContactPointUseTemp   ContactPointUse = "temp"
-	ContactPointUseOld    ContactPointUse = "old"
-	ContactPointUseMobile ContactPointUse = "mobile"
-)
-
-// Contributor represents a contributor to the content of a knowledge asset
-type Contributor struct {
-	common.Element
-
-	// Contact details to assist a user in finding and communicating with the contributor
-	Contact []ContactDetail `json:"contact,omitempty"`
-
-	// The name of the individual or organization responsible for the contribution
-	Name string `json:"name"`
-
-	// author | editor | reviewer | endorser
-	Type ContributorType `json:"type"`
-}
-
-// ContributorType represents the type of contributor
-type ContributorType string
-
-const (
-	ContributorTypeAuthor   ContributorType = "author"
-	ContributorTypeEditor   ContributorType = "editor"
-	ContributorTypeReviewer ContributorType = "reviewer"
-	ContributorTypeEndorser ContributorType = "endorser"
+	DaysOfWeekMon DaysOfWeek = "mon"
+	DaysOfWeekTue DaysOfWeek = "tue"
+	DaysOfWeekWed DaysOfWeek = "wed"
+	DaysOfWeekThu DaysOfWeek = "thu"
+	DaysOfWeekFri DaysOfWeek = "fri"
+	DaysOfWeekSat DaysOfWeek = "sat"
+	DaysOfWeekSun DaysOfWeek = "sun"
 )
 
 // Count represents a measured amount (or an amount that can potentially be measured)
@@ -208,7 +202,7 @@ type Duration struct {
 
 // Range represents a set of values bounded by low and high
 type Range struct {
-	common.Element
+	DataType
 
 	// Low limit
 	Low *common.Quantity `json:"low,omitempty"`
@@ -219,7 +213,7 @@ type Range struct {
 
 // Ratio represents a relationship of two Quantity values
 type Ratio struct {
-	common.Element
+	DataType
 
 	// Numerator value
 	Numerator *common.Quantity `json:"numerator,omitempty"`

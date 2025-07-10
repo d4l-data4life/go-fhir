@@ -1,29 +1,30 @@
-// Package fhir4 contains FHIR R4 (version 4.0.1) type definitions
-package fhir4
+// Package fhir2 contains FHIR R2 (version 1.0.2) type definitions
+package fhir2
 
 import (
 	"time"
 
-	"github.com/go-fhir/go-fhir/common"
+	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
 // Address represents an address expressed using postal conventions
+// Note: R2 is the oldest version with fewer fields than later versions
 type Address struct {
 	common.Element
 
-	// The name of the city, town, suburb, village or other community or delivery center
+	// The name of the city, town, village or other community or delivery center
 	City *string `json:"city,omitempty"`
 
-	// ISO 3166 3 letter codes can be used in place of a human readable country name
+	// Country - a nation as commonly understood or generally accepted
 	Country *string `json:"country,omitempty"`
 
-	// District is sometimes known as county
+	// The name of the administrative area (county)
 	District *string `json:"district,omitempty"`
 
-	// House number, apartment number, street name, street direction, P.O. Box number, delivery hints
+	// This component contains the house number, apartment number, street name, street direction
 	Line []string `json:"line,omitempty"`
 
-	// Time period when address was/is in use
+	// Allows addresses to be placed in historical context
 	Period *common.Period `json:"period,omitempty"`
 
 	// A postal code designating a region defined by the postal service
@@ -32,17 +33,17 @@ type Address struct {
 	// Sub-unit of a country with limited sovereignty in a federally organized country
 	State *string `json:"state,omitempty"`
 
-	// Text representation of the address
+	// A renderable, unencoded form
 	Text *string `json:"text,omitempty"`
 
-	// postal | physical | both - The definition of Address
+	// postal | physical | both - Distinguishes between physical and mailing addresses
 	Type *AddressType `json:"type,omitempty"`
 
-	// home | work | temp | old | billing - purpose of this address
+	// home | work | temp | old - purpose of this address
 	Use *AddressUse `json:"use,omitempty"`
 }
 
-// AddressType represents the type of address
+// AddressType represents the type of address (R2 version)
 type AddressType string
 
 const (
@@ -51,31 +52,30 @@ const (
 	AddressTypeBoth     AddressType = "both"
 )
 
-// AddressUse represents the use of an address
+// AddressUse represents the use of an address (R2 version - no billing option)
 type AddressUse string
 
 const (
-	AddressUseHome    AddressUse = "home"
-	AddressUseWork    AddressUse = "work"
-	AddressUseTemp    AddressUse = "temp"
-	AddressUseOld     AddressUse = "old"
-	AddressUseBilling AddressUse = "billing"
+	AddressUseHome AddressUse = "home"
+	AddressUseWork AddressUse = "work"
+	AddressUseTemp AddressUse = "temp"
+	AddressUseOld  AddressUse = "old"
 )
 
-// Age represents a duration of time during which an organism (or a process) has existed
+// Age represents a duration of time during which an organism has existed
 type Age struct {
 	common.Quantity
 }
 
-// Annotation represents a text note which also contains information about who made the statement and when
+// Annotation represents a text note with information about who made the statement and when
 type Annotation struct {
 	common.Element
 
-	// Organization is used when there's no need for specific attribution
+	// The individual responsible for making the annotation
 	AuthorReference *common.Reference `json:"authorReference,omitempty"`
 	AuthorString    *string           `json:"authorString,omitempty"`
 
-	// The text of the annotation in markdown format
+	// The text of the annotation
 	Text string `json:"text"`
 
 	// Indicates when this particular annotation was made
@@ -86,40 +86,29 @@ type Annotation struct {
 type Attachment struct {
 	common.Element
 
-	// Identifies the type of the data in the attachment
+	// Processors of the data need to be able to know how to interpret the data
 	ContentType *string `json:"contentType,omitempty"`
 
-	// The date that the attachment was first created
+	// This is often tracked as an integrity issue for use of the attachment
 	Creation *time.Time `json:"creation,omitempty"`
 
-	// The base64-encoded data
+	// The data needs to able to be transmitted inline
 	Data *string `json:"data,omitempty"`
 
-	// Hash of the data (sha-1, base64ed)
+	// Included so that applications can verify that the contents have not changed
 	Hash *string `json:"hash,omitempty"`
 
-	// Human language of the content (BCP-47)
+	// Users need to be able to choose between the languages in a set of attachments
 	Language *string `json:"language,omitempty"`
 
-	// Number of bytes of content (if url provided)
+	// Representing the size allows applications to determine whether they should fetch the content
 	Size *int `json:"size,omitempty"`
 
-	// Label to display in place of the data
+	// Applications need a label to display to a human user in place of the actual data
 	Title *string `json:"title,omitempty"`
 
-	// Uri where the data can be found
+	// The data needs to be transmitted by reference
 	URL *string `json:"url,omitempty"`
-}
-
-// ContactDetail specifies contact information for a person or organization
-type ContactDetail struct {
-	common.Element
-
-	// Name of an individual to contact
-	Name *string `json:"name,omitempty"`
-
-	// Contact details for individual or organization
-	Telecom []ContactPoint `json:"telecom,omitempty"`
 }
 
 // ContactPoint represents details for technology mediated contact points
@@ -129,20 +118,20 @@ type ContactPoint struct {
 	// Time period when the contact point was/is in use
 	Period *common.Period `json:"period,omitempty"`
 
-	// Rank for determining order of preference
+	// Specifies a preferred order in which to use a set of contacts
 	Rank *int `json:"rank,omitempty"`
 
-	// phone | fax | email | pager | url | sms | other
+	// phone | fax | email | pager | other - Telecommunications form for contact point
 	System *ContactPointSystem `json:"system,omitempty"`
 
-	// home | work | temp | old | mobile
+	// home | work | temp | old | mobile - The use of a contact point
 	Use *ContactPointUse `json:"use,omitempty"`
 
 	// The actual contact point details
 	Value *string `json:"value,omitempty"`
 }
 
-// ContactPointSystem represents telecommunications form for contact point
+// ContactPointSystem represents telecommunications form for contact point (R2 version)
 type ContactPointSystem string
 
 const (
@@ -150,12 +139,11 @@ const (
 	ContactPointSystemFax   ContactPointSystem = "fax"
 	ContactPointSystemEmail ContactPointSystem = "email"
 	ContactPointSystemPager ContactPointSystem = "pager"
-	ContactPointSystemURL   ContactPointSystem = "url"
-	ContactPointSystemSMS   ContactPointSystem = "sms"
 	ContactPointSystemOther ContactPointSystem = "other"
+	// Note: R2 doesn't have "url" or "sms" options that were added in later versions
 )
 
-// ContactPointUse represents the use of a contact point
+// ContactPointUse represents the use of a contact point (R2 version)
 type ContactPointUse string
 
 const (
@@ -166,31 +154,7 @@ const (
 	ContactPointUseMobile ContactPointUse = "mobile"
 )
 
-// Contributor represents a contributor to the content of a knowledge asset
-type Contributor struct {
-	common.Element
-
-	// Contact details to assist a user in finding and communicating with the contributor
-	Contact []ContactDetail `json:"contact,omitempty"`
-
-	// The name of the individual or organization responsible for the contribution
-	Name string `json:"name"`
-
-	// author | editor | reviewer | endorser
-	Type ContributorType `json:"type"`
-}
-
-// ContributorType represents the type of contributor
-type ContributorType string
-
-const (
-	ContributorTypeAuthor   ContributorType = "author"
-	ContributorTypeEditor   ContributorType = "editor"
-	ContributorTypeReviewer ContributorType = "reviewer"
-	ContributorTypeEndorser ContributorType = "endorser"
-)
-
-// Count represents a measured amount (or an amount that can potentially be measured)
+// Count represents a measured amount
 type Count struct {
 	common.Quantity
 }

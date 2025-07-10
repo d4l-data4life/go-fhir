@@ -2,7 +2,7 @@
 package fhir4
 
 import (
-	"github.com/go-fhir/go-fhir/common"
+	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
 // Resource is the base definition for all resources
