@@ -6,6 +6,8 @@ This project contains Go type definitions for HL7 FHIR (Fast Healthcare Interope
 
 FHIR is a standard for exchanging healthcare information electronically. This Go library provides strongly-typed data structures for working with FHIR resources across different versions.
 
+**Source Attribution**: This library is based on the comprehensive TypeScript definitions from the [@types/fhir](https://www.npmjs.com/package/@types/fhir) package, which provides official FHIR type definitions for the JavaScript/TypeScript ecosystem. The Go types in this project were systematically converted from those TypeScript definitions to maintain consistency and completeness across all supported FHIR versions.
+
 ### Supported FHIR Versions
 
 - **FHIR R2** (DSTU2, version 1.0.2) - `fhir2` package
@@ -18,19 +20,23 @@ FHIR is a standard for exchanging healthcare information electronically. This Go
 
 ```
 go-fhir/
-├── common/         # Shared base types and utilities
-│   └── types.go
-├── fhir2/          # FHIR R2/DSTU2 definitions
-│   └── datatypes.go
-├── fhir3/          # FHIR R3/STU3 definitions
-│   └── datatypes.go
-├── fhir4/          # FHIR R4 definitions
-│   ├── datatypes.go
-│   └── resources.go
-├── fhir4b/         # FHIR R4B definitions
-│   └── datatypes.go
-├── fhir5/          # FHIR R5 definitions
-│   └── datatypes.go
+├── pkg/            # All Go packages
+│   ├── common/     # Shared base types and utilities
+│   │   └── types.go
+│   ├── fhir2/      # FHIR R2/DSTU2 definitions
+│   │   └── datatypes.go
+│   ├── fhir3/      # FHIR R3/STU3 definitions
+│   │   └── datatypes.go
+│   ├── fhir4/      # FHIR R4 definitions
+│   │   ├── datatypes.go
+│   │   └── resources.go
+│   ├── fhir4b/     # FHIR R4B definitions
+│   │   └── datatypes.go
+│   └── fhir5/      # FHIR R5 definitions
+│       └── datatypes.go
+├── examples/       # Usage examples
+│   └── patient_example.go
+├── js/            # Original TypeScript definitions (reference)
 ├── go.mod
 └── README.md
 ```
@@ -51,8 +57,8 @@ package main
 import (
     "encoding/json"
     "fmt"
-    "github.com/go-fhir/go-fhir/fhir4"
-    "github.com/go-fhir/go-fhir/common"
+    "github.com/go-fhir/go-fhir/pkg/fhir4"
+    "github.com/go-fhir/go-fhir/pkg/common"
 )
 
 func main() {
@@ -108,8 +114,8 @@ package main
 import (
     "encoding/json"
     "fmt"
-    "github.com/go-fhir/go-fhir/fhir4"
-    "github.com/go-fhir/go-fhir/common"
+    "github.com/go-fhir/go-fhir/pkg/fhir4"
+    "github.com/go-fhir/go-fhir/pkg/common"
 )
 
 func main() {
@@ -198,14 +204,14 @@ func stringPtr(s string) *string { return &s }
 
 ```go
 // Using FHIR R4
-import "github.com/go-fhir/go-fhir/fhir4"
+import "github.com/go-fhir/go-fhir/pkg/fhir4"
 
 patient4 := &fhir4.Patient{
     // R4 Patient structure
 }
 
 // Using FHIR R5  
-import "github.com/go-fhir/go-fhir/fhir5"
+import "github.com/go-fhir/go-fhir/pkg/fhir5"
 
 // Note: R5 uses DataType as base instead of Element
 address5 := &fhir5.Address{
@@ -213,7 +219,7 @@ address5 := &fhir5.Address{
 }
 
 // Using FHIR R2 (older version with fewer fields)
-import "github.com/go-fhir/go-fhir/fhir2"
+import "github.com/go-fhir/go-fhir/pkg/fhir2"
 
 address2 := &fhir2.Address{
     // R2 Address structure - no billing use option

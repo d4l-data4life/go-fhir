@@ -226,3 +226,67 @@ type Ratio struct {
 	// Denominator value
 	Denominator *common.Quantity `json:"denominator,omitempty"`
 }
+
+// Dosage represents how medication is/was taken or should be taken by the patient
+type Dosage struct {
+	common.BackboneElement
+
+	// Indicates the order in which the dosage instructions should be applied or interpreted
+	Sequence *int `json:"sequence,omitempty"`
+
+	// Free text dosage instructions e.g. SIG
+	Text *string `json:"text,omitempty"`
+
+	// Supplemental instructions - e.g. "with meals"
+	AdditionalInstruction []common.CodeableConcept `json:"additionalInstruction,omitempty"`
+
+	// Patient or consumer oriented instructions
+	PatientInstruction *string `json:"patientInstruction,omitempty"`
+
+	// When medication should be taken
+	Timing *Timing `json:"timing,omitempty"`
+
+	// Take "as needed" (boolean)
+	AsNeededBoolean *bool `json:"asNeededBoolean,omitempty"`
+
+	// Take "as needed" (for x)
+	AsNeededCodeableConcept *common.CodeableConcept `json:"asNeededCodeableConcept,omitempty"`
+
+	// Body site to administer to
+	Site *common.CodeableConcept `json:"site,omitempty"`
+
+	// How drug should enter body
+	Route *common.CodeableConcept `json:"route,omitempty"`
+
+	// Technique for administering medication
+	Method *common.CodeableConcept `json:"method,omitempty"`
+
+	// Amount of medication administered
+	DoseAndRate []DosageDoseAndRate `json:"doseAndRate,omitempty"`
+
+	// Upper limit on medication per administration
+	MaxDosePerAdministration *common.Quantity `json:"maxDosePerAdministration,omitempty"`
+
+	// Upper limit on medication per unit of time
+	MaxDosePerPeriod *Ratio `json:"maxDosePerPeriod,omitempty"`
+
+	// Upper limit on medication per lifetime of the patient
+	MaxDosePerLifetime *common.Quantity `json:"maxDosePerLifetime,omitempty"`
+}
+
+// DosageDoseAndRate represents the amount of medication administered
+type DosageDoseAndRate struct {
+	common.Element
+
+	// The kind of dose or rate specified
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// Amount of medication per dose
+	DoseRange    *Range           `json:"doseRange,omitempty"`
+	DoseQuantity *common.Quantity `json:"doseQuantity,omitempty"`
+
+	// Amount of medication per unit of time
+	RateRatio    *Ratio           `json:"rateRatio,omitempty"`
+	RateRange    *Range           `json:"rateRange,omitempty"`
+	RateQuantity *common.Quantity `json:"rateQuantity,omitempty"`
+}
