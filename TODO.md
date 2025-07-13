@@ -6,7 +6,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 | FHIR Version | Total Resources | Go Implemented | Percentage |
 |--------------|-----------------|----------------|------------|
-| R5           | 162             | 48             | 29.6%      |
+| R5           | 162             | 82             | 50.6%      |
 | R4B          | 116             | 6              | 5.2%       |
 | R4           | 106             | 23             | 21.7%      |
 | R3           | 98              | 23             | 23.5%      |
@@ -14,7 +14,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (48/162)
+### ✅ Implemented (82/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -58,17 +58,48 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] Immunization
 - [x] ImmunizationEvaluation
 - [x] ImmunizationRecommendation
+- [x] ImplementationGuide
+- [x] Ingredient
+- [x] InsurancePlan
+- [x] InventoryItem
+- [x] InventoryReport
+- [x] Invoice
+- [x] Library
+- [x] Linkage
+- [x] List
 - [x] Location
+- [x] ManufacturedItemDefinition
+- [x] Measure
+- [x] MeasureReport
 - [x] Medication
+- [x] MedicationAdministration
+- [x] MedicationDispense
+- [x] MedicationKnowledge
 - [x] MedicationRequest
+- [x] MedicationStatement
+- [x] MedicinalProductDefinition
+- [x] MessageDefinition
+- [x] MessageHeader
+- [x] MolecularSequence
+- [x] NamingSystem
 - [x] Observation
 - [x] Organization
 - [x] Patient
 - [x] Practitioner
 - [x] Procedure
 - [x] ServiceRequest
+- [x] ObservationDefinition
+- [x] OperationDefinition
+- [x] OperationOutcome
+- [x] OrganizationAffiliation
+- [x] PackagedProductDefinition
+- [x] Parameters
+- [x] PaymentNotice
+- [x] PaymentReconciliation
+- [x] Permission
+- [x] Person
 
-### ❌ Not Implemented (114/162)
+### ❌ Not Implemented (80/162)
 - [ ] ArtifactAssessment
 - [ ] AuditEvent
 - [ ] Binary
@@ -101,40 +132,10 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] DeviceMetric
 - [ ] DeviceRequest
 - [ ] DeviceUsage
-- [ ] ImplementationGuide
-- [ ] Ingredient
-- [ ] InsurancePlan
-- [ ] InventoryItem
-- [ ] InventoryReport
-- [ ] Invoice
-- [ ] Library
-- [ ] Linkage
-- [ ] List
-- [ ] ManufacturedItemDefinition
-- [ ] Measure
-- [ ] MeasureReport
-- [ ] MedicationAdministration
-- [ ] MedicationDispense
-- [ ] MedicationKnowledge
-- [ ] MedicationStatement
-- [ ] MedicinalProductDefinition
-- [ ] MessageDefinition
-- [ ] MessageHeader
-- [ ] MolecularSequence
-- [ ] NamingSystem
-- [ ] NutritionIntake
-- [ ] NutritionOrder
-- [ ] NutritionProduct
-- [ ] ObservationDefinition
-- [ ] OperationDefinition
-- [ ] OperationOutcome
-- [ ] OrganizationAffiliation
-- [ ] PackagedProductDefinition
-- [ ] Parameters
-- [ ] PaymentNotice
-- [ ] PaymentReconciliation
-- [ ] Permission
-- [ ] Person
+- [x] NutritionIntake
+- [x] NutritionOrder
+- [x] NutritionProduct
+
 - [ ] PlanDefinition
 - [ ] PractitionerRole
 - [ ] Provenance
@@ -217,6 +218,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] CompartmentDefinition
 - [ ] Composition
 - [ ] ConceptMap
+- [ ] ConditionDefinition
 - [ ] Consent
 - [ ] Contract
 - [ ] Coverage
@@ -302,7 +304,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] RiskAssessment
 - [ ] Schedule
 - [ ] SearchParameter
-- [ ] ServiceRequest
 - [ ] Slot
 - [ ] Specimen
 - [ ] SpecimenDefinition
@@ -313,6 +314,11 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] SubscriptionTopic
 - [ ] Substance
 - [ ] SubstanceDefinition
+- [ ] SubstanceNucleicAcid
+- [ ] SubstancePolymer
+- [ ] SubstanceProtein
+- [ ] SubstanceReferenceInformation
+- [ ] SubstanceSourceMaterial
 - [ ] SupplyDelivery
 - [ ] SupplyRequest
 - [ ] Task
