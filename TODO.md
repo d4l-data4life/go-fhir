@@ -6,7 +6,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 | FHIR Version | Total Resources | Go Implemented | Percentage |
 |--------------|-----------------|----------------|------------|
-| R5           | 162             | 22             | 13.6%      |
+| R5           | 162             | 48             | 29.6%      |
 | R4B          | 116             | 6              | 5.2%       |
 | R4           | 106             | 23             | 21.7%      |
 | R3           | 98              | 23             | 23.5%      |
@@ -14,7 +14,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (22/162)
+### ✅ Implemented (48/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -31,17 +31,44 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] ChargeItem
 - [x] Condition
 - [x] DiagnosticReport
+- [x] DocumentReference
 - [x] Encounter
+- [x] EncounterHistory
+- [x] Endpoint
+- [x] EnrollmentRequest
+- [x] EnrollmentResponse
+- [x] EpisodeOfCare
+- [x] EventDefinition
+- [x] Evidence
+- [x] EvidenceReport
+- [x] EvidenceVariable
+- [x] ExampleScenario
+- [x] ExplanationOfBenefit
+- [x] FamilyMemberHistory
+- [x] Flag
+- [x] FormularyItem
+- [x] GenomicStudy
+- [x] Goal
+- [x] GraphDefinition
+- [x] Group
+- [x] GuidanceResponse
+- [x] HealthcareService
+- [x] ImagingSelection
+- [x] ImagingStudy
+- [x] Immunization
+- [x] ImmunizationEvaluation
+- [x] ImmunizationRecommendation
+- [x] Location
 - [x] Medication
 - [x] MedicationRequest
 - [x] Observation
 - [x] Organization
+- [x] Patient
 - [x] Practitioner
+- [x] Procedure
+- [x] ServiceRequest
 
-### 🔄 In Progress (1/162)
-- [ ] Patient
-
-### ❌ Not Implemented (139/162)
+### ❌ Not Implemented (114/162)
 - [ ] ArtifactAssessment
 - [ ] AuditEvent
 - [ ] Binary
@@ -74,32 +101,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] DeviceMetric
 - [ ] DeviceRequest
 - [ ] DeviceUsage
-- [ ] DocumentReference
-- [ ] EncounterHistory
-- [ ] Endpoint
-- [ ] EnrollmentRequest
-- [ ] EnrollmentResponse
-- [ ] EpisodeOfCare
-- [ ] EventDefinition
-- [ ] Evidence
-- [ ] EvidenceReport
-- [ ] EvidenceVariable
-- [ ] ExampleScenario
-- [ ] ExplanationOfBenefit
-- [ ] FamilyMemberHistory
-- [ ] Flag
-- [ ] FormularyItem
-- [ ] GenomicStudy
-- [ ] Goal
-- [ ] GraphDefinition
-- [ ] Group
-- [ ] GuidanceResponse
-- [ ] HealthcareService
-- [ ] ImagingSelection
-- [ ] ImagingStudy
-- [ ] Immunization
-- [ ] ImmunizationEvaluation
-- [ ] ImmunizationRecommendation
 - [ ] ImplementationGuide
 - [ ] Ingredient
 - [ ] InsurancePlan
@@ -109,7 +110,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] Library
 - [ ] Linkage
 - [ ] List
-- [ ] Location
 - [ ] ManufacturedItemDefinition
 - [ ] Measure
 - [ ] MeasureReport
@@ -137,7 +137,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] Person
 - [ ] PlanDefinition
 - [ ] PractitionerRole
-- [ ] Procedure
 - [ ] Provenance
 - [ ] Questionnaire
 - [ ] QuestionnaireResponse
@@ -150,7 +149,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [ ] RiskAssessment
 - [ ] Schedule
 - [ ] SearchParameter
-- [ ] ServiceRequest
 - [ ] Slot
 - [ ] Specimen
 - [ ] SpecimenDefinition
@@ -739,7 +737,7 @@ Based on usage patterns and clinical importance, the following resources are pri
 
 ## Next Steps
 
-1. **Continue R5 Implementation**: Focus on completing the high-priority resources listed above (Patient is currently in progress)
+1. **Continue R5 Implementation**: Focus on completing the high-priority resources listed above
 2. **Expand R4B Resources**: Add the remaining high-priority resources to match R4/R3/R2 coverage
 3. **Maintain R4/R3/R2 Support**: Keep existing implementations up to date with any changes
 4. **Add Missing Resources**: Focus on the remaining unimplemented resources across all versions
