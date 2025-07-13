@@ -10410,6 +10410,1612 @@ type NamingSystem struct {
 	UseContext []UsageContext `json:"useContext,omitempty"`
 }
 
+// PlanDefinitionStatus represents status of plan definition
+type PlanDefinitionStatus string
+
+const (
+	PlanDefinitionStatusDraft   PlanDefinitionStatus = "draft"
+	PlanDefinitionStatusActive  PlanDefinitionStatus = "active"
+	PlanDefinitionStatusRetired PlanDefinitionStatus = "retired"
+	PlanDefinitionStatusUnknown PlanDefinitionStatus = "unknown"
+)
+
+// PlanDefinitionGoal represents a goal in a plan definition
+type PlanDefinitionGoal struct {
+	common.BackboneElement
+
+	// Identifies problems, conditions, issues, or concerns the goal is intended to address
+	Addresses []common.CodeableConcept `json:"addresses,omitempty"`
+
+	// Indicates a category the goal falls within
+	Category *common.CodeableConcept `json:"category,omitempty"`
+
+	// Human-readable and/or coded description of a specific desired objective of care
+	Description common.CodeableConcept `json:"description"`
+
+	// Didactic or other informational resources associated with the goal
+	Documentation []interface{} `json:"documentation,omitempty"`
+
+	// Identifies the expected level of importance associated with reaching/sustaining the defined goal
+	Priority *common.CodeableConcept `json:"priority,omitempty"`
+
+	// The event after which the goal should begin being pursued
+	Start *common.CodeableConcept `json:"start,omitempty"`
+
+	// Indicates what should be done and within what timeframe
+	Target []interface{} `json:"target,omitempty"`
+}
+
+// PlanDefinitionAction represents an action in a plan definition
+type PlanDefinitionAction struct {
+	common.BackboneElement
+
+	// Sub actions that are contained within the action
+	Action []PlanDefinitionAction `json:"action,omitempty"`
+
+	// Defines whether the action can be selected multiple times
+	CardinalityBehavior *string `json:"cardinalityBehavior,omitempty"`
+
+	// A code that provides a meaning, grouping, or classification for the action or action group
+	Code *common.CodeableConcept `json:"code,omitempty"`
+
+	// When multiple conditions of the same kind are present, the effects are combined using AND semantics
+	Condition []interface{} `json:"condition,omitempty"`
+
+	// Note that the definition is optional, and if no definition is specified, a dynamicValue with a root ($this) path can be used to define the entire resource dynamically
+	DefinitionCanonical *string `json:"definitionCanonical,omitempty"`
+
+	// Note that the definition is optional, and if no definition is specified, a dynamicValue with a root ($this) path can be used to define the entire resource dynamically
+	DefinitionUri *string `json:"definitionUri,omitempty"`
+
+	// A short description of the action used to provide a summary to display to the user
+	Description *string `json:"description,omitempty"`
+
+	// Didactic or other informational resources associated with the action
+	Documentation []interface{} `json:"documentation,omitempty"`
+
+	// Dynamic values that will be evaluated to produce values for elements of the resulting resource
+	DynamicValue []interface{} `json:"dynamicValue,omitempty"`
+
+	// An expression that describes applicability criteria, or start/stop conditions for the action
+	Expression *interface{} `json:"expression,omitempty"`
+
+	// A goal that this action helps to achieve within the plan
+	GoalId []string `json:"goalId,omitempty"`
+
+	// Defines the grouping behavior for the action and its children
+	GroupingBehavior *string `json:"groupingBehavior,omitempty"`
+
+	// Defines the input data requirements for the action
+	Input []interface{} `json:"input,omitempty"`
+
+	// Defines the output data requirements for the action
+	Output []interface{} `json:"output,omitempty"`
+
+	// The participant that should perform or be responsible for this action
+	Participant []interface{} `json:"participant,omitempty"`
+
+	// Defines whether the action should usually be preselected
+	PrecheckBehavior *string `json:"precheckBehavior,omitempty"`
+
+	// Defines the required behavior for the action
+	RequiredBehavior *string `json:"requiredBehavior,omitempty"`
+
+	// Defines the selection behavior for the action and its children
+	SelectionBehavior *string `json:"selectionBehavior,omitempty"`
+
+	// A text equivalent of the action to be performed
+	TextEquivalent *string `json:"textEquivalent,omitempty"`
+
+	// A time period when the action should occur
+	TimingDateTime *string        `json:"timingDateTime,omitempty"`
+	TimingAge      *Age           `json:"timingAge,omitempty"`
+	TimingPeriod   *common.Period `json:"timingPeriod,omitempty"`
+	TimingDuration *Duration      `json:"timingDuration,omitempty"`
+	TimingRange    *Range         `json:"timingRange,omitempty"`
+	TimingTiming   *Timing        `json:"timingTiming,omitempty"`
+
+	// The title of the action displayed to a user
+	Title *string `json:"title,omitempty"`
+
+	// A transformation to apply to the input data before the data is used by the action
+	Transform *string `json:"transform,omitempty"`
+
+	// A description of when this action should be triggered
+	Trigger []interface{} `json:"trigger,omitempty"`
+
+	// The type of action to perform (create, update, remove)
+	Type *common.CodeableConcept `json:"type,omitempty"`
+}
+
+// PlanDefinition represents a plan definition
+type PlanDefinition struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "PlanDefinition"
+
+	// Note that there is overlap between many of the elements defined here and the ActivityDefinition resource
+	Action []PlanDefinitionAction `json:"action,omitempty"`
+
+	// Actors represent the individuals or groups involved in the execution of the defined set of activities
+	Actor []interface{} `json:"actor,omitempty"`
+
+	// The 'date' element may be more recent than the approval date because of minor changes or editorial corrections
+	ApprovalDate *string `json:"approvalDate,omitempty"`
+
+	// If a CodeableConcept is present, it indicates the pre-condition for performing the service
+	AsNeededBoolean         *bool                   `json:"asNeededBoolean,omitempty"`
+	AsNeededCodeableConcept *common.CodeableConcept `json:"asNeededCodeableConcept,omitempty"`
+
+	// An individiual or organization primarily involved in the creation and maintenance of the content
+	Author []ContactDetail `json:"author,omitempty"`
+
+	// May be a web site, an email address, a telephone number, etc
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// A copyright statement relating to the plan definition and/or its contents
+	Copyright *string `json:"copyright,omitempty"`
+
+	// Note that this is not the same as the resource last-modified-date, since the resource may be a secondary representation of the plan definition
+	Date *string `json:"date,omitempty"`
+
+	// This description can be used to capture details such as why the plan definition was built
+	Description *string `json:"description,omitempty"`
+
+	// An individual or organization primarily responsible for internal coherence of the content
+	Editor []ContactDetail `json:"editor,omitempty"`
+
+	// The effective period for a plan definition determines when the content is applicable for usage
+	EffectivePeriod *common.Period `json:"effectivePeriod,omitempty"`
+
+	// An individual or organization responsible for officially endorsing the content for use in some setting
+	Endorser []ContactDetail `json:"endorser,omitempty"`
+
+	// Allows filtering of plan definitions that are appropriate for use versus not
+	Experimental *bool `json:"experimental,omitempty"`
+
+	// A goal describes an expected outcome that activities within the plan are intended to achieve
+	Goal []PlanDefinitionGoal `json:"goal,omitempty"`
+
+	// Typically, this is used for identifiers that can go in an HL7 V3 II (instance identifier) data type
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// It may be possible for the plan definition to be used in jurisdictions other than those for which it was originally designed or intended
+	Jurisdiction []common.CodeableConcept `json:"jurisdiction,omitempty"`
+
+	// If specified, this date follows the original approval date
+	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+
+	// A reference to a Library resource containing any formal logic used by the plan definition
+	Library []string `json:"library,omitempty"`
+
+	// The name is not expected to be globally unique
+	Name *string `json:"name,omitempty"`
+
+	// Usually an organization but may be an individual
+	Publisher *string `json:"publisher,omitempty"`
+
+	// This element does not describe the usage of the plan definition
+	Purpose *string `json:"purpose,omitempty"`
+
+	// Each related artifact is either an attachment, or a reference to another resource, but not both
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
+
+	// An individual or organization primarily responsible for review of some aspect of the content
+	Reviewer []ContactDetail `json:"reviewer,omitempty"`
+
+	// Allows filtering of plan definitions that are appropriate for use versus not
+	Status PlanDefinitionStatus `json:"status"`
+
+	// Note that the choice of canonical for the subject element was introduced in R4B to support pharmaceutical quality use cases
+	SubjectCodeableConcept *common.CodeableConcept `json:"subjectCodeableConcept,omitempty"`
+	SubjectReference       *common.Reference       `json:"subjectReference,omitempty"`
+	SubjectCanonical       *string                 `json:"subjectCanonical,omitempty"`
+
+	// An explanatory or alternate title for the plan definition giving additional information about its content
+	Subtitle *string `json:"subtitle,omitempty"`
+
+	// This name does not need to be machine-processing friendly and may contain punctuation, white-space, etc
+	Title *string `json:"title,omitempty"`
+
+	// Descriptive topics related to the content of the plan definition
+	Topic []common.CodeableConcept `json:"topic,omitempty"`
+
+	// A high-level category for the plan definition that distinguishes the kinds of systems that would be interested in the plan definition
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred
+	URL *string `json:"url,omitempty"`
+
+	// A detailed description of how the plan definition is used from a clinical perspective
+	Usage *string `json:"usage,omitempty"`
+
+	// When multiple useContexts are specified, there is no expectation that all or any of the contexts apply
+	UseContext []UsageContext `json:"useContext,omitempty"`
+
+	// There may be different plan definition instances that have the same identifier but different versions
+	Version *string `json:"version,omitempty"`
+}
+
+// PractitionerRole represents a specific set of roles/locations/specialties/services that a practitioner may perform at an organization for a period of time
+type PractitionerRole struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "PractitionerRole"
+
+	// If this value is false, you may refer to the period to see when the role was in active use
+	Active *bool `json:"active,omitempty"`
+
+	// More detailed availability information may be provided in associated Schedule/Slot resources
+	Availability []interface{} `json:"availability,omitempty"`
+
+	// These could be such things as is the service mode used by this role
+	Characteristic []common.CodeableConcept `json:"characteristic,omitempty"`
+
+	// A person may have more than one role
+	Code []common.CodeableConcept `json:"code,omitempty"`
+
+	// The structure aa-BB with this exact casing is one the most widely used notations for locale
+	Communication []common.CodeableConcept `json:"communication,omitempty"`
+
+	// The contact details of communication devices available relevant to the specific PractitionerRole
+	Contact []interface{} `json:"contact,omitempty"`
+
+	// Technical endpoints providing access to services operated for the practitioner with this role
+	Endpoint []common.Reference `json:"endpoint,omitempty"`
+
+	// The list of healthcare services that this worker provides for this role's Organization/Location(s)
+	HealthcareService []common.Reference `json:"healthcareService,omitempty"`
+
+	// A specific identifier value may appear on multiple PractitionerRole instances
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// The location(s) at which this practitioner provides care
+	Location []common.Reference `json:"location,omitempty"`
+
+	// The organization where the Practitioner performs the roles associated
+	Organization *common.Reference `json:"organization,omitempty"`
+
+	// If a practitioner is performing a role within an organization over multiple, non-adjacent periods
+	Period *common.Period `json:"period,omitempty"`
+
+	// Practitioner that is able to provide the defined services for the organization
+	Practitioner *common.Reference `json:"practitioner,omitempty"`
+
+	// The specialty represents the functional role a practitioner is playing within an organization/location
+	Specialty []common.CodeableConcept `json:"specialty,omitempty"`
+}
+
+// ProvenanceEntity represents an entity used in this activity
+type ProvenanceEntity struct {
+	common.BackboneElement
+
+	// A usecase where one Provenance.entity.agent is used where the Entity that was used in the creation/updating of the Target
+	Agent []interface{} `json:"agent,omitempty"`
+
+	// How the entity was used during the activity
+	Role string `json:"role"`
+
+	// whatIdentity should be used for entities that are not a Resource type
+	What common.Reference `json:"what"`
+}
+
+// Provenance represents provenance of a resource
+type Provenance struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "Provenance"
+
+	// An activity is something that occurs over a period of time and acts upon or with entities
+	Activity *common.CodeableConcept `json:"activity,omitempty"`
+
+	// Several agents may be associated with an activity and vice-versa
+	Agent []interface{} `json:"agent"`
+
+	// The authorization that was used during the event being recorded
+	Authorization []CodeableReference `json:"authorization,omitempty"`
+
+	// Allows tracing of authorization for the events and tracking whether proposals/recommendations were acted upon
+	BasedOn []common.Reference `json:"basedOn,omitempty"`
+
+	// This will typically be the encounter the event occurred
+	Encounter *common.Reference `json:"encounter,omitempty"`
+
+	// An entity used in this activity
+	Entity []ProvenanceEntity `json:"entity,omitempty"`
+
+	// Where the activity occurred, if relevant
+	Location *common.Reference `json:"location,omitempty"`
+
+	// The period can be a little arbitrary; where possible, the time should correspond to human assessment of the activity time
+	OccurredPeriod   *common.Period `json:"occurredPeriod,omitempty"`
+	OccurredDateTime *string        `json:"occurredDateTime,omitempty"`
+
+	// The patient element is available to enable deterministic tracking of activities that involve the patient as the subject
+	Patient *common.Reference `json:"patient,omitempty"`
+
+	// For example: Where an OAuth token authorizes, the unique identifier from the OAuth token is placed into the policy element
+	Policy []string `json:"policy,omitempty"`
+
+	// This can be a little different from the time stamp on the resource if there is a delay between recording the event
+	Recorded *string `json:"recorded,omitempty"`
+
+	// A digital signature on the target Reference(s)
+	Signature []Signature `json:"signature,omitempty"`
+
+	// Target references are usually version specific, but might not be
+	Target []common.Reference `json:"target"`
+}
+
+// QuestionnaireItem represents a single item within a questionnaire
+type QuestionnaireItem struct {
+	common.BackboneElement
+
+	// A constraint indicating that this item should only be enabled (displayed/allow answers) when the specified condition is true
+	EnableBehavior *string `json:"enableBehavior,omitempty"`
+
+	// A constraint indicating that this item should only be enabled when the specified condition is true
+	EnableWhen []interface{} `json:"enableWhen,omitempty"`
+
+	// The identifier that is unique to the questionnaire allowing referencing to this item from other questionnaires
+	LinkId string `json:"linkId"`
+
+	// The maximum number of characters that are permitted in the answer to be considered a "valid" QuestionnaireResponse
+	MaxLength *int `json:"maxLength,omitempty"`
+
+	// The name of a section, the text of a question or text displayed for the item
+	Prefix *string `json:"prefix,omitempty"`
+
+	// A particular question, question grouping or display text that is part of the questionnaire
+	Question *string `json:"question,omitempty"`
+
+	// An indication, when true, that the item may occur multiple times in the response, collecting multiple answers for questions or multiple sets of answers for groups
+	Repeats *bool `json:"repeats,omitempty"`
+
+	// An indication, when true, that the item must be present in a "completed" QuestionnaireResponse
+	Required *bool `json:"required,omitempty"`
+
+	// The type of questionnaire item this is - whether text for display, a grouping of other items or a particular type of data to be captured (string, integer, coded choice, etc.)
+	Type string `json:"type"`
+
+	// The value that should be defaulted when initially rendering the questionnaire for user input
+	Initial []interface{} `json:"initial,omitempty"`
+
+	// Text, questions and other groups to be nested beneath a question or group
+	Item []QuestionnaireItem `json:"item,omitempty"`
+
+	// A reference to a value set containing a list of codes representing permitted answers for a "choice" or "open-choice" question
+	AnswerOption []interface{} `json:"answerOption,omitempty"`
+
+	// One of the permitted answers for a "choice" or "open-choice" question
+	AnswerValueSet *string `json:"answerValueSet,omitempty"`
+
+	// A constraint indicating that this item should only be enabled when the specified condition is true
+	Definition *string `json:"definition,omitempty"`
+
+	// The text to be displayed in the questionnaire when this item is displayed
+	Text *string `json:"text,omitempty"`
+}
+
+// Questionnaire represents a structured set of questions intended to guide the collection of answers from end-users
+type Questionnaire struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "Questionnaire"
+
+	// The 'date' element may be more recent than the approval date because of minor changes or editorial corrections
+	ApprovalDate *string `json:"approvalDate,omitempty"`
+
+	// An individiual or organization primarily involved in the creation and maintenance of the content
+	Author []ContactDetail `json:"author,omitempty"`
+
+	// May be a web site, an email address, a telephone number, etc
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// A copyright statement relating to the questionnaire and/or its contents
+	Copyright *string `json:"copyright,omitempty"`
+
+	// Note that this is not the same as the resource last-modified-date, since the resource may be a secondary representation of the questionnaire
+	Date *string `json:"date,omitempty"`
+
+	// This description can be used to capture details such as why the questionnaire was built
+	Description *string `json:"description,omitempty"`
+
+	// An individual or organization primarily responsible for internal coherence of the content
+	Editor []ContactDetail `json:"editor,omitempty"`
+
+	// The effective period for a questionnaire determines when the content is applicable for usage
+	EffectivePeriod *common.Period `json:"effectivePeriod,omitempty"`
+
+	// An individual or organization responsible for officially endorsing the content for use in some setting
+	Endorser []ContactDetail `json:"endorser,omitempty"`
+
+	// Allows filtering of questionnaires that are appropriate for use versus not
+	Experimental *bool `json:"experimental,omitempty"`
+
+	// Typically, this is used for identifiers that can go in an HL7 V3 II (instance identifier) data type
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// It may be possible for the questionnaire to be used in jurisdictions other than those for which it was originally designed or intended
+	Jurisdiction []common.CodeableConcept `json:"jurisdiction,omitempty"`
+
+	// If specified, this date follows the original approval date
+	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+
+	// The name is not expected to be globally unique
+	Name *string `json:"name,omitempty"`
+
+	// Usually an organization but may be an individual
+	Publisher *string `json:"publisher,omitempty"`
+
+	// This element does not describe the usage of the questionnaire
+	Purpose *string `json:"purpose,omitempty"`
+
+	// Each related artifact is either an attachment, or a reference to another resource, but not both
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
+
+	// An individual or organization primarily responsible for review of some aspect of the content
+	Reviewer []ContactDetail `json:"reviewer,omitempty"`
+
+	// Allows filtering of questionnaires that are appropriate for use versus not
+	Status string `json:"status"`
+
+	// An explanatory or alternate title for the questionnaire giving additional information about its content
+	Subtitle *string `json:"subtitle,omitempty"`
+
+	// This name does not need to be machine-processing friendly and may contain punctuation, white-space, etc
+	Title *string `json:"title,omitempty"`
+
+	// Descriptive topics related to the content of the questionnaire
+	Topic []common.CodeableConcept `json:"topic,omitempty"`
+
+	// A high-level category for the questionnaire that distinguishes the kinds of systems that would be interested in the questionnaire
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred
+	URL *string `json:"url,omitempty"`
+
+	// A detailed description of how the questionnaire is used from a clinical perspective
+	Usage *string `json:"usage,omitempty"`
+
+	// When multiple useContexts are specified, there is no expectation that all or any of the contexts apply
+	UseContext []UsageContext `json:"useContext,omitempty"`
+
+	// There may be different questionnaire instances that have the same identifier but different versions
+	Version *string `json:"version,omitempty"`
+
+	// A particular question, question grouping or display text that is part of the questionnaire
+	Item []QuestionnaireItem `json:"item,omitempty"`
+
+	// A reference to a value set containing a list of codes representing permitted answers for a "choice" or "open-choice" question
+	Code []common.Coding `json:"code,omitempty"`
+
+	// The subject of the questionnaire
+	SubjectType []string `json:"subjectType,omitempty"`
+}
+
+// QuestionnaireResponseItemAnswer represents an answer to a question
+type QuestionnaireResponseItemAnswer struct {
+	common.BackboneElement
+
+	// The answer (or one of the answers) provided by the respondent to the question
+	ValueBoolean    *bool             `json:"valueBoolean,omitempty"`
+	ValueDecimal    *float64          `json:"valueDecimal,omitempty"`
+	ValueInteger    *int              `json:"valueInteger,omitempty"`
+	ValueDate       *string           `json:"valueDate,omitempty"`
+	ValueDateTime   *string           `json:"valueDateTime,omitempty"`
+	ValueTime       *string           `json:"valueTime,omitempty"`
+	ValueString     *string           `json:"valueString,omitempty"`
+	ValueUri        *string           `json:"valueUri,omitempty"`
+	ValueAttachment *Attachment       `json:"valueAttachment,omitempty"`
+	ValueCoding     *common.Coding    `json:"valueCoding,omitempty"`
+	ValueQuantity   *common.Quantity  `json:"valueQuantity,omitempty"`
+	ValueReference  *common.Reference `json:"valueReference,omitempty"`
+
+	// Nested groups and questions within this answer
+	Item []QuestionnaireResponseItem `json:"item,omitempty"`
+}
+
+// QuestionnaireResponseItem represents a group or question item from the original questionnaire
+type QuestionnaireResponseItem struct {
+	common.BackboneElement
+
+	// The respondent's answer(s) to the question
+	Answer []QuestionnaireResponseItemAnswer `json:"answer,omitempty"`
+
+	// The item from the Questionnaire that corresponds to this item in the QuestionnaireResponse resource
+	Definition *string `json:"definition,omitempty"`
+
+	// The identifier that is unique to the questionnaire allowing referencing to this item from other questionnaires
+	LinkId string `json:"linkId"`
+
+	// Text, questions and other groups to be nested beneath a question or group
+	Item []QuestionnaireResponseItem `json:"item,omitempty"`
+
+	// The name of a section, the text of a question or text displayed for the item
+	Prefix *string `json:"prefix,omitempty"`
+
+	// A question or group displayed in the questionnaire response
+	Question *string `json:"question,omitempty"`
+
+	// The type of questionnaire item this is - whether text for display, a grouping of other items or a particular type of data to be captured
+	Type string `json:"type"`
+
+	// The text to be displayed in the questionnaire response when this item is displayed
+	Text *string `json:"text,omitempty"`
+}
+
+// QuestionnaireResponse represents a structured set of questions and their answers
+type QuestionnaireResponse struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "QuestionnaireResponse"
+
+	// The individual or organization that received and recorded the answers to the questionnaire
+	Author *common.Reference `json:"author,omitempty"`
+
+	// The date and/or time that this set of answers was last changed
+	Authored *string `json:"authored,omitempty"`
+
+	// The encounter or episode of care with primary association to the questionnaire response
+	Encounter *common.Reference `json:"encounter,omitempty"`
+
+	// A group or question item from the original questionnaire for which answers are provided
+	Item []QuestionnaireResponseItem `json:"item,omitempty"`
+
+	// A procedure or observation that this questionnaire was performed as part of the execution of
+	PartOf []common.Reference `json:"partOf,omitempty"`
+
+	// The Questionnaire that defines and organizes this questionnaire response
+	Questionnaire *string `json:"questionnaire,omitempty"`
+
+	// The individual or organization that received the responses to the questionnaire
+	Source *common.Reference `json:"source,omitempty"`
+
+	// The position of the questionnaire response within its overall lifecycle
+	Status string `json:"status"`
+
+	// The subject of the questionnaire response
+	Subject *common.Reference `json:"subject,omitempty"`
+}
+
+// RegulatedAuthorization represents a regulatory authorization for a medicinal product
+type RegulatedAuthorization struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "RegulatedAuthorization"
+
+	// The case or regulatory procedure for granting or amending a regulated authorization
+	Case *interface{} `json:"case,omitempty"`
+
+	// The country in which the authorization has been granted
+	Country []common.CodeableConcept `json:"country,omitempty"`
+
+	// The date at which the current status was assigned
+	DateOfStatus *string `json:"dateOfStatus,omitempty"`
+
+	// The date when a suspended the marketing or the marketing authorization of the product is anticipated to be restored
+	RestoreDate *string `json:"restoreDate,omitempty"`
+
+	// The holder of the regulated authorization
+	Holder *common.Reference `json:"holder,omitempty"`
+
+	// Business identifier for the authorization, as assigned by a regulator
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// The legal or regulatory framework against which this authorization is granted
+	LegalBasis *common.CodeableConcept `json:"legalBasis,omitempty"`
+
+	// The organization that has been granted this authorization, by some authoritative body
+	Regulator *common.Reference `json:"regulator,omitempty"`
+
+	// The status that is authorised e.g. approved
+	Status *common.CodeableConcept `json:"status,omitempty"`
+
+	// The date at which the given status has become applicable
+	StatusDate *string `json:"statusDate,omitempty"`
+
+	// The type of regulated authorization, e.g. marketing or pediatric
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// The date when the authorization was granted
+	ValidFrom *string `json:"validFrom,omitempty"`
+
+	// The date when the authorization expires
+	ValidUntil *string `json:"validUntil,omitempty"`
+
+	// The medicinal product that is being granted the authorization
+	Subject []common.Reference `json:"subject,omitempty"`
+}
+
+// RelatedPerson represents information about a person that is involved in the care for a patient
+type RelatedPerson struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "RelatedPerson"
+
+	// Whether this related person record is in active use
+	Active *bool `json:"active,omitempty"`
+
+	// Address where the related person can be contacted or visited
+	Address []Address `json:"address,omitempty"`
+
+	// The date on which the related person was born
+	BirthDate *string `json:"birthDate,omitempty"`
+
+	// Administrative Gender - the gender that the person is considered to have for administration and record keeping purposes
+	Gender *string `json:"gender,omitempty"`
+
+	// Identifier for a person within a particular scope
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// The name of the related person
+	Name []HumanName `json:"name,omitempty"`
+
+	// The patient this person is related to
+	Patient common.Reference `json:"patient"`
+
+	// The nature of the relationship between a patient and the related person
+	Relationship []common.CodeableConcept `json:"relationship,omitempty"`
+
+	// A contact detail for the person
+	Telecom []ContactPoint `json:"telecom,omitempty"`
+
+	// Image of the person
+	Photo []Attachment `json:"photo,omitempty"`
+
+	// Period of time that this relationship is considered valid
+	Period *common.Period `json:"period,omitempty"`
+
+	// A language which may be used to communicate with the related person about the patient's health
+	Communication []interface{} `json:"communication,omitempty"`
+}
+
+// RequestOrchestration represents a set of related requests that can be used to capture and track the state of a request
+type RequestOrchestration struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "RequestOrchestration"
+
+	// The actions, if any, produced by the evaluation of the artifact
+	Action []interface{} `json:"action,omitempty"`
+
+	// The author of the request orchestration
+	Author *common.Reference `json:"author,omitempty"`
+
+	// A plan or request that is fulfilled in whole or in part by this request orchestration
+	BasedOn []common.Reference `json:"basedOn,omitempty"`
+
+	// The date when this request orchestration was created
+	Created *string `json:"created,omitempty"`
+
+	// A group of related requests that can be used to capture and track the state of a request
+	GroupIdentifier *common.Identifier `json:"groupIdentifier,omitempty"`
+
+	// Business identifier for the request orchestration
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// A reference to a formal or informal definition of the request orchestration
+	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+
+	// A reference to a formal or informal definition of the request orchestration
+	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+
+	// The intended performer of the request orchestration
+	Intent string `json:"intent"`
+
+	// A description of the request orchestration
+	Note []Annotation `json:"note,omitempty"`
+
+	// The priority of the request orchestration
+	Priority *string `json:"priority,omitempty"`
+
+	// A reference to a formal or informal definition of the request orchestration
+	Replaces []common.Reference `json:"replaces,omitempty"`
+
+	// The current state of the request orchestration
+	Status string `json:"status"`
+
+	// The subject of the request orchestration
+	Subject *common.Reference `json:"subject,omitempty"`
+
+	// A human-readable narrative that contains a summary of the request orchestration
+	Text *Narrative `json:"text,omitempty"`
+}
+
+// Requirements represents a set of requirements for a FHIR resource
+type Requirements struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "Requirements"
+
+	// The 'date' element may be more recent than the approval date because of minor changes or editorial corrections
+	ApprovalDate *string `json:"approvalDate,omitempty"`
+
+	// An individiual or organization primarily involved in the creation and maintenance of the content
+	Author []ContactDetail `json:"author,omitempty"`
+
+	// May be a web site, an email address, a telephone number, etc
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// A copyright statement relating to the requirements and/or its contents
+	Copyright *string `json:"copyright,omitempty"`
+
+	// Note that this is not the same as the resource last-modified-date, since the resource may be a secondary representation of the requirements
+	Date *string `json:"date,omitempty"`
+
+	// This description can be used to capture details such as why the requirements were built
+	Description *string `json:"description,omitempty"`
+
+	// An individual or organization primarily responsible for internal coherence of the content
+	Editor []ContactDetail `json:"editor,omitempty"`
+
+	// The effective period for a requirements determines when the content is applicable for usage
+	EffectivePeriod *common.Period `json:"effectivePeriod,omitempty"`
+
+	// An individual or organization responsible for officially endorsing the content for use in some setting
+	Endorser []ContactDetail `json:"endorser,omitempty"`
+
+	// Allows filtering of requirements that are appropriate for use versus not
+	Experimental *bool `json:"experimental,omitempty"`
+
+	// Typically, this is used for identifiers that can go in an HL7 V3 II (instance identifier) data type
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// It may be possible for the requirements to be used in jurisdictions other than those for which it was originally designed or intended
+	Jurisdiction []common.CodeableConcept `json:"jurisdiction,omitempty"`
+
+	// If specified, this date follows the original approval date
+	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+
+	// The name is not expected to be globally unique
+	Name *string `json:"name,omitempty"`
+
+	// Usually an organization but may be an individual
+	Publisher *string `json:"publisher,omitempty"`
+
+	// This element does not describe the usage of the requirements
+	Purpose *string `json:"purpose,omitempty"`
+
+	// Each related artifact is either an attachment, or a reference to another resource, but not both
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
+
+	// An individual or organization primarily responsible for review of some aspect of the content
+	Reviewer []ContactDetail `json:"reviewer,omitempty"`
+
+	// Allows filtering of requirements that are appropriate for use versus not
+	Status string `json:"status"`
+
+	// An explanatory or alternate title for the requirements giving additional information about its content
+	Subtitle *string `json:"subtitle,omitempty"`
+
+	// This name does not need to be machine-processing friendly and may contain punctuation, white-space, etc
+	Title *string `json:"title,omitempty"`
+
+	// Descriptive topics related to the content of the requirements
+	Topic []common.CodeableConcept `json:"topic,omitempty"`
+
+	// A high-level category for the requirements that distinguishes the kinds of systems that would be interested in the requirements
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred
+	URL *string `json:"url,omitempty"`
+
+	// A detailed description of how the requirements are used from a clinical perspective
+	Usage *string `json:"usage,omitempty"`
+
+	// When multiple useContexts are specified, there is no expectation that all or any of the contexts apply
+	UseContext []UsageContext `json:"useContext,omitempty"`
+
+	// There may be different requirements instances that have the same identifier but different versions
+	Version *string `json:"version,omitempty"`
+
+	// A statement of business rules that describes the scope, concerns, and objectives of the requirements
+	Statement []interface{} `json:"statement,omitempty"`
+}
+
+// ResearchStudy represents a process where a researcher or organization plans and then executes a series of steps intended to increase the field of healthcare-related knowledge
+type ResearchStudy struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "ResearchStudy"
+
+	// The date on which the research study was approved by the research ethics board
+	ApprovalDate *string `json:"approvalDate,omitempty"`
+
+	// Classification for the study
+	Category []common.CodeableConcept `json:"category,omitempty"`
+
+	// Contact details to assist a user in learning more about or engaging with the study
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// A full description of how the study is being conducted
+	Description *string `json:"description,omitempty"`
+
+	// The date on which the research study was terminated
+	EndDate *string `json:"endDate,omitempty"`
+
+	// The facility where the study is being conducted
+	Facility []common.Reference `json:"facility,omitempty"`
+
+	// The condition that is the focus of the research study
+	Focus []common.CodeableConcept `json:"focus,omitempty"`
+
+	// Identifiers assigned to this research study by the sponsor or other systems
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// A key word to identify the study
+	Keyword []common.CodeableConcept `json:"keyword,omitempty"`
+
+	// The location where the study is being conducted
+	Location []common.CodeableConcept `json:"location,omitempty"`
+
+	// A description and/or code explaining the premature termination of the study
+	Note []Annotation `json:"note,omitempty"`
+
+	// The party responsible for the execution of the study
+	Protocol []common.Reference `json:"protocol,omitempty"`
+
+	// A description and/or code explaining the premature termination of the study
+	ReasonStopped *common.CodeableConcept `json:"reasonStopped,omitempty"`
+
+	// Related artifacts such as publications, references, and other resources
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
+
+	// The party responsible for the execution of the study
+	Sponsor *common.Reference `json:"sponsor,omitempty"`
+
+	// The date on which the research study began
+	StartDate *string `json:"startDate,omitempty"`
+
+	// The current state of the study
+	Status string `json:"status"`
+
+	// The title of the study
+	Title *string `json:"title,omitempty"`
+
+	// The URL where the study can be found
+	URL *string `json:"url,omitempty"`
+
+	// The version of the study
+	Version *string `json:"version,omitempty"`
+
+	// The subjects that are part of the study
+	Enrollment []common.Reference `json:"enrollment,omitempty"`
+
+	// The period during which the study is conducted
+	Period *common.Period `json:"period,omitempty"`
+
+	// The phase of the study
+	Phase *common.CodeableConcept `json:"phase,omitempty"`
+
+	// The primary purpose of the study
+	PrimaryPurposeType *common.CodeableConcept `json:"primaryPurposeType,omitempty"`
+
+	// The sites where the study is being conducted
+	Site []common.Reference `json:"site,omitempty"`
+
+	// The design of the study
+	StudyDesign []interface{} `json:"studyDesign,omitempty"`
+
+	// The target population for the study
+	TargetPopulation []common.Reference `json:"targetPopulation,omitempty"`
+}
+
+// RiskAssessmentPrediction represents a prediction in a risk assessment
+type RiskAssessmentPrediction struct {
+	common.BackboneElement
+
+	// One of the potential outcomes for the patient (e.g. remission, death, a particular condition)
+	Outcome *common.CodeableConcept `json:"outcome,omitempty"`
+
+	// If range is used, it represents the lower and upper bounds of certainty; e.g. 40-60%
+	ProbabilityDecimal *float64 `json:"probabilityDecimal,omitempty"`
+	ProbabilityRange   *Range   `json:"probabilityRange,omitempty"`
+
+	// Indicates how likely the outcome is (in the specified timeframe), expressed as a qualitative value
+	QualitativeRisk *common.CodeableConcept `json:"qualitativeRisk,omitempty"`
+
+	// Additional information explaining the basis for the prediction
+	Rationale *string `json:"rationale,omitempty"`
+
+	// Indicates the risk for this particular subject divided by the risk of the population in general
+	RelativeRisk *float64 `json:"relativeRisk,omitempty"`
+
+	// If not specified, the risk applies "over the subject's lifespan"
+	WhenPeriod *common.Period `json:"whenPeriod,omitempty"`
+	WhenRange  *Range         `json:"whenRange,omitempty"`
+}
+
+// RiskAssessment represents an assessment of the likely outcome(s) for a patient or other subject
+type RiskAssessment struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "RiskAssessment"
+
+	// A reference to the request that is fulfilled by this risk assessment
+	BasedOn *common.Reference `json:"basedOn,omitempty"`
+
+	// Indicates the source data considered as part of the assessment
+	Basis []common.Reference `json:"basis,omitempty"`
+
+	// The type of the risk assessment performed
+	Code *common.CodeableConcept `json:"code,omitempty"`
+
+	// For assessments or prognosis specific to a particular condition, indicates the condition being assessed
+	Condition *common.Reference `json:"condition,omitempty"`
+
+	// The encounter where the assessment was performed
+	Encounter *common.Reference `json:"encounter,omitempty"`
+
+	// Business identifier assigned to the risk assessment
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// The algorithm, process or mechanism used to evaluate the risk
+	Method *common.CodeableConcept `json:"method,omitempty"`
+
+	// A description of the steps that might be taken to reduce the identified risk(s)
+	Mitigation *string `json:"mitigation,omitempty"`
+
+	// Additional comments about the risk assessment
+	Note []Annotation `json:"note,omitempty"`
+
+	// The date (and possibly time) the risk assessment was performed
+	OccurrenceDateTime *string        `json:"occurrenceDateTime,omitempty"`
+	OccurrencePeriod   *common.Period `json:"occurrencePeriod,omitempty"`
+
+	// A reference to a resource that this risk assessment is part of, such as a Procedure
+	Parent *common.Reference `json:"parent,omitempty"`
+
+	// The provider, patient, related person, or software application that performed the assessment
+	Performer *common.Reference `json:"performer,omitempty"`
+
+	// Multiple repetitions can be used to identify the same type of outcome in different timeframes
+	Prediction []RiskAssessmentPrediction `json:"prediction,omitempty"`
+
+	// The reason the risk assessment was performed
+	Reason []CodeableReference `json:"reason,omitempty"`
+
+	// The status of the RiskAssessment, using the same statuses as an Observation
+	Status string `json:"status"`
+
+	// The patient or group the risk assessment applies to
+	Subject common.Reference `json:"subject"`
+}
+
+// Schedule represents a container for slots of time that may be available for booking appointments
+type Schedule struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "Schedule"
+
+	// This element is labeled as a modifier because it may be used to mark that the resource was created in error
+	Active *bool `json:"active,omitempty"`
+
+	// The capacity to support multiple referenced resource types should be used in cases where the specific resources themselves cannot be scheduled without the other
+	Actor []common.Reference `json:"actor"`
+
+	// Comments on the availability to describe any extended information
+	Comment *string `json:"comment,omitempty"`
+
+	// External Ids for this item
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// This MAY be used to describe what the schedule is for where it is clearer than just the name of the single actor
+	Name *string `json:"name,omitempty"`
+
+	// The period of time that the slots that reference this Schedule resource cover
+	PlanningHorizon *common.Period `json:"planningHorizon,omitempty"`
+
+	// A broad categorization of the service that is to be performed during this appointment
+	ServiceCategory []common.CodeableConcept `json:"serviceCategory,omitempty"`
+
+	// The specific service that is to be performed during this appointment
+	ServiceType []CodeableReference `json:"serviceType,omitempty"`
+
+	// The specialty of a practitioner that would be required to perform the service requested in this appointment
+	Specialty []common.CodeableConcept `json:"specialty,omitempty"`
+}
+
+// SearchParameterComponent represents a component of a composite search parameter
+type SearchParameterComponent struct {
+	common.BackboneElement
+
+	// The definition of the search parameter that describes this part
+	Definition string `json:"definition"`
+
+	// This expression overrides the expression in the definition and extracts the index values from the outcome of the composite expression
+	Expression string `json:"expression"`
+}
+
+// SearchParameter represents a search parameter that defines a named search item that can be used to search/filter on a resource
+type SearchParameter struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "SearchParameter"
+
+	// A search parameter must always apply to at least one resource type
+	Base []string `json:"base"`
+
+	// Notes about chaining support
+	Chain []string `json:"chain,omitempty"`
+
+	// For maximum compatibility, use only lowercase ASCII characters
+	Code string `json:"code"`
+
+	// Used to define the parts of a composite search parameter
+	Component []SearchParameterComponent `json:"component,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Comparator []string `json:"comparator,omitempty"`
+
+	// A compound search parameter that can be used to define a complex search parameter
+	Composite *string `json:"composite,omitempty"`
+
+	// Contact details to assist a user in finding and communicating with the publisher
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// The date when the search parameter was last reviewed
+	Date *string `json:"date,omitempty"`
+
+	// A FHIRPath expression that returns a set of elements for the search parameter
+	DerivedFrom *string `json:"derivedFrom,omitempty"`
+
+	// This description can be used to capture details such as why the search parameter was built
+	Description *string `json:"description,omitempty"`
+
+	// Allows filtering of search parameters that are appropriate for use versus not
+	Experimental *bool `json:"experimental,omitempty"`
+
+	// A FHIRPath expression that returns a set of elements for the search parameter
+	Expression *string `json:"expression,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Modifier []string `json:"modifier,omitempty"`
+
+	// A natural language name identifying the search parameter
+	Name string `json:"name"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	MultipleOr *bool `json:"multipleOr,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	MultipleAnd *bool `json:"multipleAnd,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Operator []string `json:"operator,omitempty"`
+
+	// Usually an organization but may be an individual
+	Publisher *string `json:"publisher,omitempty"`
+
+	// This element does not describe the usage of the search parameter
+	Purpose *string `json:"purpose,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Status string `json:"status"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Target []string `json:"target,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Type string `json:"type"`
+
+	// Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred
+	URL string `json:"url"`
+
+	// A detailed description of how the search parameter is used from a clinical perspective
+	Usage *string `json:"usage,omitempty"`
+
+	// When multiple useContexts are specified, there is no expectation that all or any of the contexts apply
+	UseContext []UsageContext `json:"useContext,omitempty"`
+
+	// There may be different search parameter instances that have the same identifier but different versions
+	Version *string `json:"version,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	Xpath *string `json:"xpath,omitempty"`
+
+	// The type of value a search parameter refers to, and how the content is interpreted
+	XpathUsage *string `json:"xpathUsage,omitempty"`
+}
+
+// Slot represents a slot of time on a schedule that may be available for booking appointments
+type Slot struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "Slot"
+
+	// A slot may be allow multiple appointment types, but when booked, would only be used for one of the given appointment types
+	AppointmentType []common.CodeableConcept `json:"appointmentType,omitempty"`
+
+	// Comments on the slot to describe any extended information
+	Comment *string `json:"comment,omitempty"`
+
+	// Date/Time that the slot is to conclude
+	End string `json:"end"`
+
+	// External Ids for this item
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// This slot has already been overbooked, appointments are unlikely to be accepted for this time
+	Overbooked *bool `json:"overbooked,omitempty"`
+
+	// The schedule resource that this slot defines an interval of status information
+	Schedule common.Reference `json:"schedule"`
+
+	// A broad categorization of the service that is to be performed during this appointment
+	ServiceCategory []common.CodeableConcept `json:"serviceCategory,omitempty"`
+
+	// The type of appointments that can be booked into this slot
+	ServiceType []CodeableReference `json:"serviceType,omitempty"`
+
+	// The specialty of a practitioner that would be required to perform the service requested in this appointment
+	Specialty []common.CodeableConcept `json:"specialty,omitempty"`
+
+	// Date/Time that the slot is to begin
+	Start string `json:"start"`
+
+	// busy | free | busy-unavailable | busy-tentative | entered-in-error
+	Status string `json:"status"`
+}
+
+// SpecimenFeature represents a physical feature or landmark on a specimen
+type SpecimenFeature struct {
+	common.BackboneElement
+
+	// Description of the feature of the specimen
+	Description string `json:"description"`
+
+	// The landmark or feature being highlighted
+	Type common.CodeableConcept `json:"type"`
+}
+
+// SpecimenCollection represents details concerning the specimen collection
+type SpecimenCollection struct {
+	common.BackboneElement
+
+	// Reasons for using BodyStructure reference include: 1.) Need to identify a specific site instance
+	BodySite *CodeableReference `json:"bodySite,omitempty"`
+
+	// Time when specimen was collected from subject - the physiologically relevant time
+	CollectedDateTime *string        `json:"collectedDateTime,omitempty"`
+	CollectedPeriod   *common.Period `json:"collectedPeriod,omitempty"`
+
+	// Person who collected the specimen
+	Collector *common.Reference `json:"collector,omitempty"`
+
+	// A coded value specifying the technique that is used to perform the procedure
+	Device *CodeableReference `json:"device,omitempty"`
+
+	// The span of time over which the collection of a specimen occurred
+	Duration *Duration `json:"duration,omitempty"`
+
+	// Representing fasting status using this element is preferred to representing it with an observation
+	FastingStatusCodeableConcept *common.CodeableConcept `json:"fastingStatusCodeableConcept,omitempty"`
+	FastingStatusDuration        *Duration               `json:"fastingStatusDuration,omitempty"`
+
+	// A coded value specifying the technique that is used to perform the procedure
+	Method *common.CodeableConcept `json:"method,omitempty"`
+
+	// The procedure event during which the specimen was collected
+	Procedure *common.Reference `json:"procedure,omitempty"`
+
+	// The quantity of specimen collected
+	Quantity *common.Quantity `json:"quantity,omitempty"`
+}
+
+// SpecimenProcessing represents details concerning processing and processing steps for the specimen
+type SpecimenProcessing struct {
+	common.BackboneElement
+
+	// Material used in the processing step
+	Additive []common.Reference `json:"additive,omitempty"`
+
+	// Textual description of procedure
+	Description *string `json:"description,omitempty"`
+
+	// A coded value specifying the method used to process the specimen
+	Method *common.CodeableConcept `json:"method,omitempty"`
+
+	// A record of the time or period when the specimen processing occurred
+	TimeDateTime *string        `json:"timeDateTime,omitempty"`
+	TimePeriod   *common.Period `json:"timePeriod,omitempty"`
+}
+
+// SpecimenContainer represents the container holding the specimen
+type SpecimenContainer struct {
+	common.BackboneElement
+
+	// The device resource for the the container holding the specimen
+	Device common.Reference `json:"device"`
+
+	// The location of the container holding the specimen
+	Location *common.Reference `json:"location,omitempty"`
+
+	// The quantity of specimen in the container
+	SpecimenQuantity *common.Quantity `json:"specimenQuantity,omitempty"`
+}
+
+// Specimen represents a sample to be used for analysis
+type Specimen struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "Specimen"
+
+	// The identifier assigned by the lab when accessioning specimen(s)
+	AccessionIdentifier *common.Identifier `json:"accessionIdentifier,omitempty"`
+
+	// Details concerning the specimen collection
+	Collection *SpecimenCollection `json:"collection,omitempty"`
+
+	// This element signifies if the specimen is part of a group or pooled
+	Combined *string `json:"combined,omitempty"`
+
+	// Specimen condition is an observation made about the specimen
+	Condition []common.CodeableConcept `json:"condition,omitempty"`
+
+	// The container holding the specimen
+	Container []SpecimenContainer `json:"container,omitempty"`
+
+	// A physical feature or landmark on a specimen, highlighted for context by the collector
+	Feature []SpecimenFeature `json:"feature,omitempty"`
+
+	// Id for specimen
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// To communicate any details or issues about the specimen or during the specimen collection
+	Note []Annotation `json:"note,omitempty"`
+
+	// Details concerning processing and processing steps for the specimen
+	Processing []SpecimenProcessing `json:"processing,omitempty"`
+
+	// The parent specimen
+	Parent []common.Reference `json:"parent,omitempty"`
+
+	// Time when specimen was received and processed
+	ReceivedTime *string `json:"receivedTime,omitempty"`
+
+	// The request to be performed
+	Request []common.Reference `json:"request,omitempty"`
+
+	// The physical location where the specimen is located
+	Status *string `json:"status,omitempty"`
+
+	// Where the specimen came from
+	Subject *common.Reference `json:"subject,omitempty"`
+
+	// The kind of material that forms the specimen
+	Type *common.CodeableConcept `json:"type,omitempty"`
+}
+
+// SpecimenDefinitionTypeTestedContainerAdditive represents an additive in a specimen container
+type SpecimenDefinitionTypeTestedContainerAdditive struct {
+	common.BackboneElement
+
+	// Substance introduced in the kind of container to preserve, maintain or enhance the specimen
+	AdditiveCodeableConcept *common.CodeableConcept `json:"additiveCodeableConcept,omitempty"`
+	AdditiveReference       *common.Reference       `json:"additiveReference,omitempty"`
+}
+
+// SpecimenDefinitionTypeTestedContainer represents the container for a specimen
+type SpecimenDefinitionTypeTestedContainer struct {
+	common.BackboneElement
+
+	// Substance introduced in the kind of container to preserve, maintain or enhance the specimen
+	Additive []SpecimenDefinitionTypeTestedContainerAdditive `json:"additive,omitempty"`
+
+	// Color of container cap
+	Cap *common.CodeableConcept `json:"cap,omitempty"`
+
+	// The capacity (volume or other measure) the container may contain
+	Capacity *common.Quantity `json:"capacity,omitempty"`
+
+	// The type of material of the container
+	Material *common.CodeableConcept `json:"material,omitempty"`
+
+	// The minimum volume to be conditioned in the container
+	MinimumVolumeQuantity *common.Quantity `json:"minimumVolumeQuantity,omitempty"`
+	MinimumVolumeString   *string          `json:"minimumVolumeString,omitempty"`
+
+	// Special processing that should be applied to the container for this type of specimen
+	Preparation *string `json:"preparation,omitempty"`
+
+	// The type of container used to contain this kind of specimen
+	Type *common.CodeableConcept `json:"type,omitempty"`
+}
+
+// SpecimenDefinitionTypeTestedHandling represents handling instructions for a specimen
+type SpecimenDefinitionTypeTestedHandling struct {
+	common.BackboneElement
+
+	// Additional textual instructions for the preservation or transport of the specimen
+	Instruction *string `json:"instruction,omitempty"`
+
+	// The maximum time interval of preservation of the specimen with these conditions
+	MaxDuration *Duration `json:"maxDuration,omitempty"`
+
+	// It qualifies the interval of temperature, which characterizes an occurrence of handling
+	TemperatureQualifier *common.CodeableConcept `json:"temperatureQualifier,omitempty"`
+
+	// The temperature interval for this set of handling instructions
+	TemperatureRange *Range `json:"temperatureRange,omitempty"`
+}
+
+// SpecimenDefinitionTypeTested represents a type of specimen that can be collected
+type SpecimenDefinitionTypeTested struct {
+	common.BackboneElement
+
+	// The primary preferred container for this type of specimen
+	Container *SpecimenDefinitionTypeTestedContainer `json:"container,omitempty"`
+
+	// The preferred diagnostic service for this type of specimen
+	Diagnostic *common.Reference `json:"diagnostic,omitempty"`
+
+	// The preferred handling instructions for this type of specimen
+	Handling []SpecimenDefinitionTypeTestedHandling `json:"handling,omitempty"`
+
+	// Indicates if the specimen is preferred for this type of specimen
+	IsDerived *bool `json:"isDerived,omitempty"`
+
+	// The kind of specimen conditioned for testing expected by lab
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// The preference for this type of conditioned specimen
+	Preference string `json:"preference"`
+
+	// The usual or preferred rejection criteria for this type of specimen
+	RejectionCriterion []common.CodeableConcept `json:"rejectionCriterion,omitempty"`
+
+	// Requirements for delivery and special handling of this kind of conditioned specimen
+	Requirement *string `json:"requirement,omitempty"`
+
+	// The time period during which specimen is accepted
+	RetentionTime *Duration `json:"retentionTime,omitempty"`
+}
+
+// SpecimenDefinition represents a kind of specimen with associated set of requirements
+type SpecimenDefinition struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "SpecimenDefinition"
+
+	// The 'date' element may be more recent than the approval date because of minor changes or editorial corrections
+	ApprovalDate *string `json:"approvalDate,omitempty"`
+
+	// An individiual or organization primarily involved in the creation and maintenance of the content
+	Author []ContactDetail `json:"author,omitempty"`
+
+	// May be a web site, an email address, a telephone number, etc
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// A copyright statement relating to the specimen definition and/or its contents
+	Copyright *string `json:"copyright,omitempty"`
+
+	// Note that this is not the same as the resource last-modified-date, since the resource may be a secondary representation of the specimen definition
+	Date *string `json:"date,omitempty"`
+
+	// This description can be used to capture details such as why the specimen definition was built
+	Description *string `json:"description,omitempty"`
+
+	// An individual or organization primarily responsible for internal coherence of the content
+	Editor []ContactDetail `json:"editor,omitempty"`
+
+	// The effective period for a specimen definition determines when the content is applicable for usage
+	EffectivePeriod *common.Period `json:"effectivePeriod,omitempty"`
+
+	// An individual or organization responsible for officially endorsing the content for use in some setting
+	Endorser []ContactDetail `json:"endorser,omitempty"`
+
+	// Allows filtering of specimen definitions that are appropriate for use versus not
+	Experimental *bool `json:"experimental,omitempty"`
+
+	// Typically, this is used for identifiers that can go in an HL7 V3 II (instance identifier) data type
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// It may be possible for the specimen definition to be used in jurisdictions other than those for which it was originally designed or intended
+	Jurisdiction []common.CodeableConcept `json:"jurisdiction,omitempty"`
+
+	// If specified, this date follows the original approval date
+	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+
+	// The name is not expected to be globally unique
+	Name *string `json:"name,omitempty"`
+
+	// Usually an organization but may be an individual
+	Publisher *string `json:"publisher,omitempty"`
+
+	// This element does not describe the usage of the specimen definition
+	Purpose *string `json:"purpose,omitempty"`
+
+	// Each related artifact is either an attachment, or a reference to another resource, but not both
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
+
+	// An individual or organization primarily responsible for review of some aspect of the content
+	Reviewer []ContactDetail `json:"reviewer,omitempty"`
+
+	// Allows filtering of specimen definitions that are appropriate for use versus not
+	Status string `json:"status"`
+
+	// An explanatory or alternate title for the specimen definition giving additional information about its content
+	Subtitle *string `json:"subtitle,omitempty"`
+
+	// This name does not need to be machine-processing friendly and may contain punctuation, white-space, etc
+	Title *string `json:"title,omitempty"`
+
+	// Descriptive topics related to the content of the specimen definition
+	Topic []common.CodeableConcept `json:"topic,omitempty"`
+
+	// A high-level category for the specimen definition that distinguishes the kinds of systems that would be interested in the specimen definition
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred
+	URL *string `json:"url,omitempty"`
+
+	// A detailed description of how the specimen definition is used from a clinical perspective
+	Usage *string `json:"usage,omitempty"`
+
+	// When multiple useContexts are specified, there is no expectation that all or any of the contexts apply
+	UseContext []UsageContext `json:"useContext,omitempty"`
+
+	// There may be different specimen definition instances that have the same identifier but different versions
+	Version *string `json:"version,omitempty"`
+
+	// A kind of specimen with associated set of requirements
+	TypeTested []SpecimenDefinitionTypeTested `json:"typeTested,omitempty"`
+}
+
+// StructureDefinitionMapping represents a mapping from one set of concepts to one or more other concepts
+type StructureDefinitionMapping struct {
+	common.BackboneElement
+
+	// Comments about this mapping, including version notes, issues, scope limitations, and other important notes for usage
+	Comment *string `json:"comment,omitempty"`
+
+	// An Internal id that is used to identify this mapping within the mapping set
+	Identity string `json:"identity"`
+
+	// A name for the mapping set
+	Name *string `json:"name,omitempty"`
+
+	// An absolute URI that identifies the specification that this mapping is expressed to
+	URI *string `json:"uri,omitempty"`
+}
+
+// StructureDefinitionContext represents an expression that defines where an extension can be used in resources
+type StructureDefinitionContext struct {
+	common.BackboneElement
+
+	// An expression that defines where an extension can be used in resources
+	Expression string `json:"expression"`
+
+	// Defines how to interpret the context that is listed
+	Type string `json:"type"`
+}
+
+// StructureDefinitionSnapshot represents a snapshot view is expressed in a standalone form that can be used and interpreted without considering the base StructureDefinition
+type StructureDefinitionSnapshot struct {
+	common.BackboneElement
+
+	// Captures constraints on each element within the resource
+	Element []interface{} `json:"element"`
+}
+
+// StructureDefinitionDifferential represents a differential view is expressed relative to the base StructureDefinition - a statement of differences that it applies
+type StructureDefinitionDifferential struct {
+	common.BackboneElement
+
+	// Captures constraints on each element within the resource
+	Element []interface{} `json:"element"`
+}
+
+// StructureDefinition represents a definition of a FHIR structure
+type StructureDefinition struct {
+	DomainResource
+
+	// Resource Type Name (for serialization)
+	ResourceType string `json:"resourceType"` // Always "StructureDefinition"
+
+	// Abstract Resources cannot be instantiated - a concrete sub-type must be used
+	Abstract bool `json:"abstract"`
+
+	// If differential constraints are specified in this structure, they are applied to the base in a "differential" fashion
+	BaseDefinition *string `json:"baseDefinition,omitempty"`
+
+	// May be a web site, an email address, a telephone number, etc
+	Contact []ContactDetail `json:"contact,omitempty"`
+
+	// Identifies the types of resource or data type elements to which the extension can be applied
+	Context []StructureDefinitionContext `json:"context,omitempty"`
+
+	// A differential view is expressed relative to the base StructureDefinition
+	Differential *StructureDefinitionDifferential `json:"differential,omitempty"`
+
+	// The effective period for a structure definition determines when the content is applicable for usage
+	EffectivePeriod *common.Period `json:"effectivePeriod,omitempty"`
+
+	// Allows filtering of structure definitions that are appropriate for use versus not
+	Experimental *bool `json:"experimental,omitempty"`
+
+	// Typically, this is used for identifiers that can go in an HL7 V3 II (instance identifier) data type
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// It may be possible for the structure definition to be used in jurisdictions other than those for which it was originally designed or intended
+	Jurisdiction []common.CodeableConcept `json:"jurisdiction,omitempty"`
+
+	// If specified, this date follows the original approval date
+	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+
+	// A mapping from one set of concepts to one or more other concepts
+	Mapping []StructureDefinitionMapping `json:"mapping,omitempty"`
+
+	// The name is not expected to be globally unique
+	Name string `json:"name"`
+
+	// Usually an organization but may be an individual
+	Publisher *string `json:"publisher,omitempty"`
+
+	// This element does not describe the usage of the structure definition
+	Purpose *string `json:"purpose,omitempty"`
+
+	// An individual or organization primarily responsible for review of some aspect of the content
+	Reviewer []ContactDetail `json:"reviewer,omitempty"`
+
+	// A snapshot view is expressed in a standalone form that can be used and interpreted without considering the base StructureDefinition
+	Snapshot *StructureDefinitionSnapshot `json:"snapshot,omitempty"`
+
+	// Allows filtering of structure definitions that are appropriate for use versus not
+	Status string `json:"status"`
+
+	// The type this structure describes
+	Type string `json:"type"`
+
+	// Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred
+	URL string `json:"url"`
+
+	// A detailed description of how the structure definition is used from a clinical perspective
+	Usage *string `json:"usage,omitempty"`
+
+	// When multiple useContexts are specified, there is no expectation that all or any of the contexts apply
+	UseContext []UsageContext `json:"useContext,omitempty"`
+
+	// There may be different structure definition instances that have the same identifier but different versions
+	Version *string `json:"version,omitempty"`
+
+	// The version of the FHIR specification on which this StructureDefinition is based
+	FhirVersion string `json:"fhirVersion"`
+
+	// The kind of structure that this definition is describing
+	Kind string `json:"kind"`
+
+	// Whether this a 'primitive' type - has a value but no children
+	Primitive *bool `json:"primitive,omitempty"`
+
+	// Whether this is an extension or not
+	Extension []string `json:"extension,omitempty"`
+
+	// The name used to identify the constraint
+	Key *string `json:"key,omitempty"`
+
+	// Identifies the resource (or resources) that are being addressed by the event
+	Target []string `json:"target,omitempty"`
+}
+
 // NutritionIntakeStatus represents status of nutrition intake
 type NutritionIntakeStatus string
 
