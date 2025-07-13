@@ -167,6 +167,45 @@ const (
 	ContactPointUseMobile ContactPointUse = "mobile"
 )
 
+// HumanName represents a human name, with the ability to identify parts and usage
+type HumanName struct {
+	common.Element
+
+	// usual | official | temp | nickname | anonymous | old | maiden
+	Use *HumanNameUse `json:"use,omitempty"`
+
+	// Text representation of the full name
+	Text *string `json:"text,omitempty"`
+
+	// Family name (often called 'Surname')
+	Family *string `json:"family,omitempty"`
+
+	// Given names (not always 'first'). Includes middle names
+	Given []string `json:"given,omitempty"`
+
+	// Parts that come before the name
+	Prefix []string `json:"prefix,omitempty"`
+
+	// Parts that come after the name
+	Suffix []string `json:"suffix,omitempty"`
+
+	// Time period when name was/is in use
+	Period *common.Period `json:"period,omitempty"`
+}
+
+// HumanNameUse represents the use of a human name
+type HumanNameUse string
+
+const (
+	HumanNameUseUsual     HumanNameUse = "usual"
+	HumanNameUseOfficial  HumanNameUse = "official"
+	HumanNameUseTemp      HumanNameUse = "temp"
+	HumanNameUseNickname  HumanNameUse = "nickname"
+	HumanNameUseAnonymous HumanNameUse = "anonymous"
+	HumanNameUseOld       HumanNameUse = "old"
+	HumanNameUseMaiden    HumanNameUse = "maiden"
+)
+
 // Contributor represents a contributor to the content of a knowledge asset
 type Contributor struct {
 	common.Element

@@ -822,169 +822,92 @@ type Encounter struct {
 	// Resource Type Name (for serialization)
 	ResourceType string `json:"resourceType"` // Always "Encounter"
 
-	// planned | arrived | triaged | in-progress | onleave | finished | cancelled | entered-in-error | unknown
-	Status EncounterStatus `json:"status"`
-
-	// Identifier(s) by which this encounter is known
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// Classification of patient encounter
-	Class common.Coding `json:"class"`
-
-	// Specific type of encounter
-	Type []common.CodeableConcept `json:"type,omitempty"`
-
-	// Indicates the urgency of the encounter
-	Priority *common.CodeableConcept `json:"priority,omitempty"`
-
-	// The patient or group present at the encounter
-	Subject *common.Reference `json:"subject,omitempty"`
-
-	// Episode(s) of care that this encounter should be recorded against
-	EpisodeOfCare []common.Reference `json:"episodeOfCare,omitempty"`
-
-	// The ServiceRequest that initiated this encounter
-	BasedOn []common.Reference `json:"basedOn,omitempty"`
-
-	// List of participants involved in the encounter
-	Participant []EncounterParticipant `json:"participant,omitempty"`
+	// The billing system may choose to allocate billable items associated with the Encounter
+	Account []common.Reference `json:"account,omitempty"`
 
 	// The appointment that scheduled this encounter
 	Appointment []common.Reference `json:"appointment,omitempty"`
 
-	// The start and end time of the encounter
-	Period *common.Period `json:"period,omitempty"`
+	// The request this encounter satisfies (e.g. incoming referral or procedure request)
+	BasedOn []common.Reference `json:"basedOn,omitempty"`
 
-	// Quantity of time the encounter lasted
-	Length *Duration `json:"length,omitempty"`
+	// Concepts representing classification of patient encounter (required in R4)
+	Class common.Coding `json:"class"`
 
-	// Coded reason the encounter takes place
-	ReasonCode []common.CodeableConcept `json:"reasonCode,omitempty"`
-
-	// Reason the encounter takes place (reference)
-	ReasonReference []common.Reference `json:"reasonReference,omitempty"`
+	// The class history permits the tracking of the encounters transitions
+	ClassHistory []EncounterClassHistory `json:"classHistory,omitempty"`
 
 	// The list of diagnosis relevant to this encounter
 	Diagnosis []EncounterDiagnosis `json:"diagnosis,omitempty"`
 
-	// The set of accounts that may be used for billing for this Encounter
-	Account []common.Reference `json:"account,omitempty"`
+	// Where a specific encounter should be classified as a part of a specific episode(s) of care
+	EpisodeOfCare []common.Reference `json:"episodeOfCare,omitempty"`
 
-	// Details about the admission to a healthcare service
+	// An Encounter may cover more than just the inpatient stay
 	Hospitalization *EncounterHospitalization `json:"hospitalization,omitempty"`
 
-	// List of locations where the patient has been during this encounter
+	// Identifier(s) by which this encounter is known
+	Identifier []common.Identifier `json:"identifier,omitempty"`
+
+	// May differ from the time the Encounter.period lasted because of leave of absence
+	Length *Duration `json:"length,omitempty"`
+
+	// Virtual encounters can be recorded in the Encounter by specifying a location reference
 	Location []EncounterLocation `json:"location,omitempty"`
+
+	// The list of people responsible for providing the service
+	Participant []EncounterParticipant `json:"participant,omitempty"`
+
+	// This is also used for associating a child's encounter back to the mother's encounter
+	PartOf *common.Reference `json:"partOf,omitempty"`
+
+	// If not (yet) known, the end of the Period may be omitted
+	Period *common.Period `json:"period,omitempty"`
+
+	// Indicates the urgency of the encounter
+	Priority *common.CodeableConcept `json:"priority,omitempty"`
+
+	// For systems that need to know which was the primary diagnosis
+	ReasonCode []common.CodeableConcept `json:"reasonCode,omitempty"`
+
+	// For systems that need to know which was the primary diagnosis
+	ReasonReference []common.Reference `json:"reasonReference,omitempty"`
 
 	// The organization that is primarily responsible for this Encounter's services
 	ServiceProvider *common.Reference `json:"serviceProvider,omitempty"`
 
-	// Broad categorization of the service that is to be provided
+	// Broad categorization of the service that is to be provided (e.g. cardiology)
 	ServiceType *common.CodeableConcept `json:"serviceType,omitempty"`
 
-	// Another Encounter this encounter is part of
-	PartOf *common.Reference `json:"partOf,omitempty"`
+	// Note that internal business rules will determine the appropriate transitions
+	Status EncounterStatus `json:"status"`
 
-	// The status history permits the encounter resource to contain the status history
+	// The current status is always found in the current version of the resource
 	StatusHistory []EncounterStatusHistory `json:"statusHistory,omitempty"`
 
-	// The class history permits the tracking of the encounters transitions
-	ClassHistory []EncounterClassHistory `json:"classHistory,omitempty"`
+	// While the encounter is always about the patient, the patient might not actually be known
+	Subject *common.Reference `json:"subject,omitempty"`
+
+	// Since there are many ways to further classify encounters, this element is 0..*
+	Type []common.CodeableConcept `json:"type,omitempty"`
 }
 
-// EncounterStatus represents the current state of the encounter
+// EncounterStatus represents the status of an encounter
 type EncounterStatus string
 
 const (
-	EncounterStatusPlanned         EncounterStatus = "planned"
-	EncounterStatusArrived         EncounterStatus = "arrived"
-	EncounterStatusTriaged         EncounterStatus = "triaged"
-	EncounterStatusInProgress      EncounterStatus = "in-progress"
-	EncounterStatusOnLeave         EncounterStatus = "onleave"
-	EncounterStatusFinished        EncounterStatus = "finished"
-	EncounterStatusCancelled       EncounterStatus = "cancelled"
-	EncounterStatusEnteredInError  EncounterStatus = "entered-in-error"
-	EncounterStatusUnknown         EncounterStatus = "unknown"
+	EncounterStatusPlanned        EncounterStatus = "planned"
+	EncounterStatusArrived        EncounterStatus = "arrived"
+	EncounterStatusTriaged        EncounterStatus = "triaged"
+	EncounterStatusInProgress     EncounterStatus = "in-progress"
+	EncounterStatusOnLeave        EncounterStatus = "onleave"
+	EncounterStatusFinished       EncounterStatus = "finished"
+	EncounterStatusCancelled      EncounterStatus = "cancelled"
+	EncounterStatusEnteredInError EncounterStatus = "entered-in-error"
+	EncounterStatusUnknown        EncounterStatus = "unknown"
 )
 
-// EncounterParticipant represents the list of people responsible for providing the service
-type EncounterParticipant struct {
-	common.BackboneElement
-
-	// Role of participant in encounter
-	Type []common.CodeableConcept `json:"type,omitempty"`
-
-	// Period of time during the encounter that the participant participated
-	Period *common.Period `json:"period,omitempty"`
-
-	// Persons involved in the encounter other than the patient
-	Individual *common.Reference `json:"individual,omitempty"`
-}
-
-// EncounterDiagnosis represents the list of diagnosis relevant to this encounter
-type EncounterDiagnosis struct {
-	common.BackboneElement
-
-	// The diagnosis or procedure relevant to the encounter
-	Condition common.Reference `json:"condition"`
-
-	// Role that this diagnosis has within the encounter (e.g. admission, billing, discharge)
-	Use *common.CodeableConcept `json:"use,omitempty"`
-
-	// Ranking of the diagnosis (for each role type)
-	Rank *int `json:"rank,omitempty"`
-}
-
-// EncounterHospitalization represents details about the admission to a healthcare service
-type EncounterHospitalization struct {
-	common.BackboneElement
-
-	// Pre-admission identifier
-	PreAdmissionIdentifier *common.Identifier `json:"preAdmissionIdentifier,omitempty"`
-
-	// The location/organization from which the patient came before admission
-	Origin *common.Reference `json:"origin,omitempty"`
-
-	// From where patient was admitted (physician referral, transfer)
-	AdmitSource *common.CodeableConcept `json:"admitSource,omitempty"`
-
-	// The type of hospital re-admission that has occurred
-	ReAdmission *common.CodeableConcept `json:"reAdmission,omitempty"`
-
-	// Diet preferences reported by the patient
-	DietPreference []common.CodeableConcept `json:"dietPreference,omitempty"`
-
-	// Special courtesies (VIP, board member)
-	SpecialCourtesy []common.CodeableConcept `json:"specialCourtesy,omitempty"`
-
-	// Any special requests that have been made for this hospitalization encounter
-	SpecialArrangement []common.CodeableConcept `json:"specialArrangement,omitempty"`
-
-	// Location/organization to which the patient is discharged
-	Destination *common.Reference `json:"destination,omitempty"`
-
-	// Category or kind of location after discharge
-	DischargeDisposition *common.CodeableConcept `json:"dischargeDisposition,omitempty"`
-}
-
-// EncounterLocation represents list of locations where the patient has been during this encounter
-type EncounterLocation struct {
-	common.BackboneElement
-
-	// Location the encounter takes place
-	Location common.Reference `json:"location"`
-
-	// planned | active | reserved | completed
-	Status *EncounterLocationStatus `json:"status,omitempty"`
-
-	// The physical type of the location (usually the level in the location hierarchy)
-	PhysicalType *common.CodeableConcept `json:"physicalType,omitempty"`
-
-	// Time period during which the patient was present at the location
-	Period *common.Period `json:"period,omitempty"`
-}
-
-// EncounterLocationStatus represents the status of the location
+// EncounterLocationStatus represents the status of a location during an encounter
 type EncounterLocationStatus string
 
 const (
@@ -994,18 +917,18 @@ const (
 	EncounterLocationStatusCompleted EncounterLocationStatus = "completed"
 )
 
-// EncounterStatusHistory represents the status history permits the encounter resource to contain the status history
+// EncounterStatusHistory represents the status history of an encounter
 type EncounterStatusHistory struct {
 	common.BackboneElement
 
-	// The status the encounter was in during this period
-	Status EncounterStatus `json:"status"`
-
 	// The time that the episode was in the specified status
 	Period common.Period `json:"period"`
+
+	// planned | arrived | triaged | in-progress | onleave | finished | cancelled | entered-in-error | unknown
+	Status EncounterStatus `json:"status"`
 }
 
-// EncounterClassHistory represents the class history permits the tracking of the encounters transitions
+// EncounterClassHistory represents the class history permitting tracking of encounter transitions
 type EncounterClassHistory struct {
 	common.BackboneElement
 
@@ -1014,6 +937,83 @@ type EncounterClassHistory struct {
 
 	// The time that the episode was in the specified class
 	Period common.Period `json:"period"`
+}
+
+// EncounterParticipant represents people involved in the encounter
+type EncounterParticipant struct {
+	common.BackboneElement
+
+	// Persons involved in the encounter other than the patient
+	Individual *common.Reference `json:"individual,omitempty"`
+
+	// The period of time that the specified participant participated in the encounter
+	Period *common.Period `json:"period,omitempty"`
+
+	// The participant type indicates how an individual participates in an encounter
+	Type []common.CodeableConcept `json:"type,omitempty"`
+}
+
+// EncounterDiagnosis represents diagnoses relevant to this encounter
+type EncounterDiagnosis struct {
+	common.BackboneElement
+
+	// For systems that need to know which was the primary diagnosis
+	Condition common.Reference `json:"condition"`
+
+	// Ranking of the diagnosis (for each role type)
+	Rank *int `json:"rank,omitempty"`
+
+	// Role that this diagnosis has within the encounter (e.g. admission, billing, discharge)
+	Use *common.CodeableConcept `json:"use,omitempty"`
+}
+
+// EncounterHospitalization represents hospitalization details
+type EncounterHospitalization struct {
+	common.BackboneElement
+
+	// From where patient was admitted (physician referral, transfer)
+	AdmitSource *common.CodeableConcept `json:"admitSource,omitempty"`
+
+	// Location/organization to which the patient is discharged
+	Destination *common.Reference `json:"destination,omitempty"`
+
+	// For example, a patient may request both a dairy-free and nut-free diet preference
+	DietPreference []common.CodeableConcept `json:"dietPreference,omitempty"`
+
+	// Category or kind of location after discharge
+	DischargeDisposition *common.CodeableConcept `json:"dischargeDisposition,omitempty"`
+
+	// The location/organization from which the patient came before admission
+	Origin *common.Reference `json:"origin,omitempty"`
+
+	// Pre-admission identifier
+	PreAdmissionIdentifier *common.Identifier `json:"preAdmissionIdentifier,omitempty"`
+
+	// Whether this hospitalization is a readmission and why if known
+	ReAdmission *common.CodeableConcept `json:"reAdmission,omitempty"`
+
+	// Any special requests that have been made for this hospitalization encounter
+	SpecialArrangement []common.CodeableConcept `json:"specialArrangement,omitempty"`
+
+	// Special courtesies (VIP, board member)
+	SpecialCourtesy []common.CodeableConcept `json:"specialCourtesy,omitempty"`
+}
+
+// EncounterLocation represents locations where the patient has been during this encounter
+type EncounterLocation struct {
+	common.BackboneElement
+
+	// The location where the encounter takes place
+	Location common.Reference `json:"location"`
+
+	// Time period during which the patient was present at the location
+	Period *common.Period `json:"period,omitempty"`
+
+	// This information is de-normalized from the Location resource
+	PhysicalType *common.CodeableConcept `json:"physicalType,omitempty"`
+
+	// When the patient is no longer active at a location
+	Status *EncounterLocationStatus `json:"status,omitempty"`
 }
 
 // Condition represents a clinical condition, problem, diagnosis, or other event, situation, issue, or clinical concept
@@ -1051,19 +1051,19 @@ type Condition struct {
 	Encounter *common.Reference `json:"encounter,omitempty"`
 
 	// Estimated or actual date, date-time, or age when condition began
-	OnsetDateTime    *string         `json:"onsetDateTime,omitempty"`
-	OnsetAge         *Age            `json:"onsetAge,omitempty"`
-	OnsetPeriod      *common.Period  `json:"onsetPeriod,omitempty"`
-	OnsetRange       *Range          `json:"onsetRange,omitempty"`
-	OnsetString      *string         `json:"onsetString,omitempty"`
+	OnsetDateTime *string        `json:"onsetDateTime,omitempty"`
+	OnsetAge      *Age           `json:"onsetAge,omitempty"`
+	OnsetPeriod   *common.Period `json:"onsetPeriod,omitempty"`
+	OnsetRange    *Range         `json:"onsetRange,omitempty"`
+	OnsetString   *string        `json:"onsetString,omitempty"`
 
 	// When in resolution/remission
-	AbatementDateTime *string         `json:"abatementDateTime,omitempty"`
-	AbatementAge      *Age            `json:"abatementAge,omitempty"`
-	AbatementPeriod   *common.Period  `json:"abatementPeriod,omitempty"`
-	AbatementRange    *Range          `json:"abatementRange,omitempty"`
-	AbatementString   *string         `json:"abatementString,omitempty"`
-	AbatementBoolean  *bool           `json:"abatementBoolean,omitempty"`
+	AbatementDateTime *string        `json:"abatementDateTime,omitempty"`
+	AbatementAge      *Age           `json:"abatementAge,omitempty"`
+	AbatementPeriod   *common.Period `json:"abatementPeriod,omitempty"`
+	AbatementRange    *Range         `json:"abatementRange,omitempty"`
+	AbatementString   *string        `json:"abatementString,omitempty"`
+	AbatementBoolean  *bool          `json:"abatementBoolean,omitempty"`
 
 	// Date record was first recorded
 	RecordedDate *string `json:"recordedDate,omitempty"`
@@ -1200,14 +1200,14 @@ type Procedure struct {
 type ProcedureStatus string
 
 const (
-	ProcedureStatusPreparation     ProcedureStatus = "preparation"
-	ProcedureStatusInProgress      ProcedureStatus = "in-progress"
-	ProcedureStatusNotDone         ProcedureStatus = "not-done"
-	ProcedureStatusOnHold          ProcedureStatus = "on-hold"
-	ProcedureStatusStopped         ProcedureStatus = "stopped"
-	ProcedureStatusCompleted       ProcedureStatus = "completed"
-	ProcedureStatusEnteredInError  ProcedureStatus = "entered-in-error"
-	ProcedureStatusUnknown         ProcedureStatus = "unknown"
+	ProcedureStatusPreparation    ProcedureStatus = "preparation"
+	ProcedureStatusInProgress     ProcedureStatus = "in-progress"
+	ProcedureStatusNotDone        ProcedureStatus = "not-done"
+	ProcedureStatusOnHold         ProcedureStatus = "on-hold"
+	ProcedureStatusStopped        ProcedureStatus = "stopped"
+	ProcedureStatusCompleted      ProcedureStatus = "completed"
+	ProcedureStatusEnteredInError ProcedureStatus = "entered-in-error"
+	ProcedureStatusUnknown        ProcedureStatus = "unknown"
 )
 
 // ProcedurePerformer represents the people who performed the procedure
@@ -1406,16 +1406,16 @@ type DiagnosticReport struct {
 type DiagnosticReportStatus string
 
 const (
-	DiagnosticReportStatusRegistered      DiagnosticReportStatus = "registered"
-	DiagnosticReportStatusPartial         DiagnosticReportStatus = "partial"
-	DiagnosticReportStatusPreliminary     DiagnosticReportStatus = "preliminary"
-	DiagnosticReportStatusFinal           DiagnosticReportStatus = "final"
-	DiagnosticReportStatusAmended         DiagnosticReportStatus = "amended"
-	DiagnosticReportStatusCorrected       DiagnosticReportStatus = "corrected"
-	DiagnosticReportStatusAppended        DiagnosticReportStatus = "appended"
-	DiagnosticReportStatusCancelled       DiagnosticReportStatus = "cancelled"
-	DiagnosticReportStatusEnteredInError  DiagnosticReportStatus = "entered-in-error"
-	DiagnosticReportStatusUnknown         DiagnosticReportStatus = "unknown"
+	DiagnosticReportStatusRegistered     DiagnosticReportStatus = "registered"
+	DiagnosticReportStatusPartial        DiagnosticReportStatus = "partial"
+	DiagnosticReportStatusPreliminary    DiagnosticReportStatus = "preliminary"
+	DiagnosticReportStatusFinal          DiagnosticReportStatus = "final"
+	DiagnosticReportStatusAmended        DiagnosticReportStatus = "amended"
+	DiagnosticReportStatusCorrected      DiagnosticReportStatus = "corrected"
+	DiagnosticReportStatusAppended       DiagnosticReportStatus = "appended"
+	DiagnosticReportStatusCancelled      DiagnosticReportStatus = "cancelled"
+	DiagnosticReportStatusEnteredInError DiagnosticReportStatus = "entered-in-error"
+	DiagnosticReportStatusUnknown        DiagnosticReportStatus = "unknown"
 )
 
 // DiagnosticReportMedia represents key images associated with this report
@@ -1610,14 +1610,14 @@ const (
 type MedicationRequestIntent string
 
 const (
-	MedicationRequestIntentProposal       MedicationRequestIntent = "proposal"
-	MedicationRequestIntentPlan           MedicationRequestIntent = "plan"
-	MedicationRequestIntentOrder          MedicationRequestIntent = "order"
-	MedicationRequestIntentOriginalOrder  MedicationRequestIntent = "original-order"
-	MedicationRequestIntentReflexOrder    MedicationRequestIntent = "reflex-order"
-	MedicationRequestIntentFillerOrder    MedicationRequestIntent = "filler-order"
-	MedicationRequestIntentInstanceOrder  MedicationRequestIntent = "instance-order"
-	MedicationRequestIntentOption         MedicationRequestIntent = "option"
+	MedicationRequestIntentProposal      MedicationRequestIntent = "proposal"
+	MedicationRequestIntentPlan          MedicationRequestIntent = "plan"
+	MedicationRequestIntentOrder         MedicationRequestIntent = "order"
+	MedicationRequestIntentOriginalOrder MedicationRequestIntent = "original-order"
+	MedicationRequestIntentReflexOrder   MedicationRequestIntent = "reflex-order"
+	MedicationRequestIntentFillerOrder   MedicationRequestIntent = "filler-order"
+	MedicationRequestIntentInstanceOrder MedicationRequestIntent = "instance-order"
+	MedicationRequestIntentOption        MedicationRequestIntent = "option"
 )
 
 // MedicationRequestPriority represents the priority of the medication request
@@ -1672,8 +1672,8 @@ type MedicationRequestSubstitution struct {
 	common.BackboneElement
 
 	// Whether substitution is allowed or not
-	AllowedBoolean        *bool                     `json:"allowedBoolean,omitempty"`
-	AllowedCodeableConcept *common.CodeableConcept  `json:"allowedCodeableConcept,omitempty"`
+	AllowedBoolean         *bool                   `json:"allowedBoolean,omitempty"`
+	AllowedCodeableConcept *common.CodeableConcept `json:"allowedCodeableConcept,omitempty"`
 
 	// Why should (not) substitution be made
 	Reason *common.CodeableConcept `json:"reason,omitempty"`
@@ -1724,11 +1724,11 @@ type QuestionnaireResponse struct {
 type QuestionnaireResponseStatus string
 
 const (
-	QuestionnaireResponseStatusInProgress      QuestionnaireResponseStatus = "in-progress"
-	QuestionnaireResponseStatusCompleted       QuestionnaireResponseStatus = "completed"
-	QuestionnaireResponseStatusAmended         QuestionnaireResponseStatus = "amended"
-	QuestionnaireResponseStatusEnteredInError  QuestionnaireResponseStatus = "entered-in-error"
-	QuestionnaireResponseStatusStopped         QuestionnaireResponseStatus = "stopped"
+	QuestionnaireResponseStatusInProgress     QuestionnaireResponseStatus = "in-progress"
+	QuestionnaireResponseStatusCompleted      QuestionnaireResponseStatus = "completed"
+	QuestionnaireResponseStatusAmended        QuestionnaireResponseStatus = "amended"
+	QuestionnaireResponseStatusEnteredInError QuestionnaireResponseStatus = "entered-in-error"
+	QuestionnaireResponseStatusStopped        QuestionnaireResponseStatus = "stopped"
 )
 
 // QuestionnaireResponseItem represents groups and questions
@@ -1756,18 +1756,18 @@ type QuestionnaireResponseItemAnswer struct {
 	common.BackboneElement
 
 	// Single-valued answer to the question
-	ValueBoolean     *bool                   `json:"valueBoolean,omitempty"`
-	ValueDecimal     *float64                `json:"valueDecimal,omitempty"`
-	ValueInteger     *int                    `json:"valueInteger,omitempty"`
-	ValueDate        *string                 `json:"valueDate,omitempty"`
-	ValueDateTime    *string                 `json:"valueDateTime,omitempty"`
-	ValueTime        *string                 `json:"valueTime,omitempty"`
-	ValueString      *string                 `json:"valueString,omitempty"`
-	ValueUri         *string                 `json:"valueUri,omitempty"`
-	ValueAttachment  *Attachment             `json:"valueAttachment,omitempty"`
-	ValueCoding      *common.Coding          `json:"valueCoding,omitempty"`
-	ValueQuantity    *common.Quantity        `json:"valueQuantity,omitempty"`
-	ValueReference   *common.Reference       `json:"valueReference,omitempty"`
+	ValueBoolean    *bool             `json:"valueBoolean,omitempty"`
+	ValueDecimal    *float64          `json:"valueDecimal,omitempty"`
+	ValueInteger    *int              `json:"valueInteger,omitempty"`
+	ValueDate       *string           `json:"valueDate,omitempty"`
+	ValueDateTime   *string           `json:"valueDateTime,omitempty"`
+	ValueTime       *string           `json:"valueTime,omitempty"`
+	ValueString     *string           `json:"valueString,omitempty"`
+	ValueUri        *string           `json:"valueUri,omitempty"`
+	ValueAttachment *Attachment       `json:"valueAttachment,omitempty"`
+	ValueCoding     *common.Coding    `json:"valueCoding,omitempty"`
+	ValueQuantity   *common.Quantity  `json:"valueQuantity,omitempty"`
+	ValueReference  *common.Reference `json:"valueReference,omitempty"`
 
 	// Nested items inside this answer
 	Item []QuestionnaireResponseItem `json:"item,omitempty"`
@@ -1809,19 +1809,19 @@ type ResearchSubject struct {
 type ResearchSubjectStatus string
 
 const (
-	ResearchSubjectStatusCandidate          ResearchSubjectStatus = "candidate"
-	ResearchSubjectStatusEligible           ResearchSubjectStatus = "eligible"
-	ResearchSubjectStatusFollowUp           ResearchSubjectStatus = "follow-up"
-	ResearchSubjectStatusIneligible         ResearchSubjectStatus = "ineligible"
-	ResearchSubjectStatusNotRegistered      ResearchSubjectStatus = "not-registered"
-	ResearchSubjectStatusOffStudy           ResearchSubjectStatus = "off-study"
-	ResearchSubjectStatusOnStudy            ResearchSubjectStatus = "on-study"
+	ResearchSubjectStatusCandidate           ResearchSubjectStatus = "candidate"
+	ResearchSubjectStatusEligible            ResearchSubjectStatus = "eligible"
+	ResearchSubjectStatusFollowUp            ResearchSubjectStatus = "follow-up"
+	ResearchSubjectStatusIneligible          ResearchSubjectStatus = "ineligible"
+	ResearchSubjectStatusNotRegistered       ResearchSubjectStatus = "not-registered"
+	ResearchSubjectStatusOffStudy            ResearchSubjectStatus = "off-study"
+	ResearchSubjectStatusOnStudy             ResearchSubjectStatus = "on-study"
 	ResearchSubjectStatusOnStudyIntervention ResearchSubjectStatus = "on-study-intervention"
-	ResearchSubjectStatusOnStudyObservation ResearchSubjectStatus = "on-study-observation"
-	ResearchSubjectStatusPendingOnStudy     ResearchSubjectStatus = "pending-on-study"
-	ResearchSubjectStatusPotentialCandidate ResearchSubjectStatus = "potential-candidate"
-	ResearchSubjectStatusScreening          ResearchSubjectStatus = "screening"
-	ResearchSubjectStatusWithdrawn          ResearchSubjectStatus = "withdrawn"
+	ResearchSubjectStatusOnStudyObservation  ResearchSubjectStatus = "on-study-observation"
+	ResearchSubjectStatusPendingOnStudy      ResearchSubjectStatus = "pending-on-study"
+	ResearchSubjectStatusPotentialCandidate  ResearchSubjectStatus = "potential-candidate"
+	ResearchSubjectStatusScreening           ResearchSubjectStatus = "screening"
+	ResearchSubjectStatusWithdrawn           ResearchSubjectStatus = "withdrawn"
 )
 
 // Consent represents a record of a healthcare consumer's choices
@@ -1876,12 +1876,12 @@ type Consent struct {
 type ConsentStatus string
 
 const (
-	ConsentStatusDraft           ConsentStatus = "draft"
-	ConsentStatusProposed        ConsentStatus = "proposed"
-	ConsentStatusActive          ConsentStatus = "active"
-	ConsentStatusRejected        ConsentStatus = "rejected"
-	ConsentStatusInactive        ConsentStatus = "inactive"
-	ConsentStatusEnteredInError  ConsentStatus = "entered-in-error"
+	ConsentStatusDraft          ConsentStatus = "draft"
+	ConsentStatusProposed       ConsentStatus = "proposed"
+	ConsentStatusActive         ConsentStatus = "active"
+	ConsentStatusRejected       ConsentStatus = "rejected"
+	ConsentStatusInactive       ConsentStatus = "inactive"
+	ConsentStatusEnteredInError ConsentStatus = "entered-in-error"
 )
 
 // ConsentPolicy represents policies covered by this consent
@@ -2107,12 +2107,12 @@ type DeviceUdiCarrier struct {
 type UDIEntryType string
 
 const (
-	UDIEntryTypeBarcode UDIEntryType = "barcode"
-	UDIEntryTypeRFID    UDIEntryType = "rfid"
-	UDIEntryTypeManual  UDIEntryType = "manual"
-	UDIEntryTypeCard    UDIEntryType = "card"
+	UDIEntryTypeBarcode      UDIEntryType = "barcode"
+	UDIEntryTypeRFID         UDIEntryType = "rfid"
+	UDIEntryTypeManual       UDIEntryType = "manual"
+	UDIEntryTypeCard         UDIEntryType = "card"
 	UDIEntryTypeSelfReported UDIEntryType = "self-reported"
-	UDIEntryTypeUnknown UDIEntryType = "unknown"
+	UDIEntryTypeUnknown      UDIEntryType = "unknown"
 )
 
 // DeviceDeviceName represents name of device as given by manufacturer
@@ -2544,14 +2544,14 @@ type Communication struct {
 type CommunicationStatus string
 
 const (
-	CommunicationStatusPreparation     CommunicationStatus = "preparation"
-	CommunicationStatusInProgress      CommunicationStatus = "in-progress"
-	CommunicationStatusNotDone         CommunicationStatus = "not-done"
-	CommunicationStatusOnHold          CommunicationStatus = "on-hold"
-	CommunicationStatusStopped         CommunicationStatus = "stopped"
-	CommunicationStatusCompleted       CommunicationStatus = "completed"
-	CommunicationStatusEnteredInError  CommunicationStatus = "entered-in-error"
-	CommunicationStatusUnknown         CommunicationStatus = "unknown"
+	CommunicationStatusPreparation    CommunicationStatus = "preparation"
+	CommunicationStatusInProgress     CommunicationStatus = "in-progress"
+	CommunicationStatusNotDone        CommunicationStatus = "not-done"
+	CommunicationStatusOnHold         CommunicationStatus = "on-hold"
+	CommunicationStatusStopped        CommunicationStatus = "stopped"
+	CommunicationStatusCompleted      CommunicationStatus = "completed"
+	CommunicationStatusEnteredInError CommunicationStatus = "entered-in-error"
+	CommunicationStatusUnknown        CommunicationStatus = "unknown"
 )
 
 // CommunicationPriority represents the priority of the communication
@@ -2793,9 +2793,9 @@ type Immunization struct {
 type ImmunizationStatus string
 
 const (
-	ImmunizationStatusCompleted       ImmunizationStatus = "completed"
-	ImmunizationStatusEnteredInError  ImmunizationStatus = "entered-in-error"
-	ImmunizationStatusNotDone         ImmunizationStatus = "not-done"
+	ImmunizationStatusCompleted      ImmunizationStatus = "completed"
+	ImmunizationStatusEnteredInError ImmunizationStatus = "entered-in-error"
+	ImmunizationStatusNotDone        ImmunizationStatus = "not-done"
 )
 
 // ImmunizationPerformer represents who performed the immunization event
@@ -2943,13 +2943,13 @@ type CarePlan struct {
 type CarePlanStatus string
 
 const (
-	CarePlanStatusDraft         CarePlanStatus = "draft"
-	CarePlanStatusActive        CarePlanStatus = "active"
-	CarePlanStatusOnHold        CarePlanStatus = "on-hold"
-	CarePlanStatusRevoked       CarePlanStatus = "revoked"
-	CarePlanStatusCompleted     CarePlanStatus = "completed"
+	CarePlanStatusDraft          CarePlanStatus = "draft"
+	CarePlanStatusActive         CarePlanStatus = "active"
+	CarePlanStatusOnHold         CarePlanStatus = "on-hold"
+	CarePlanStatusRevoked        CarePlanStatus = "revoked"
+	CarePlanStatusCompleted      CarePlanStatus = "completed"
 	CarePlanStatusEnteredInError CarePlanStatus = "entered-in-error"
-	CarePlanStatusUnknown       CarePlanStatus = "unknown"
+	CarePlanStatusUnknown        CarePlanStatus = "unknown"
 )
 
 // CarePlanIntent represents the level of authority/intentionality
@@ -3017,9 +3017,9 @@ type CarePlanActivityDetail struct {
 	DoNotPerform *bool `json:"doNotPerform,omitempty"`
 
 	// When activity is to occur
-	ScheduledTiming  *Timing        `json:"scheduledTiming,omitempty"`
-	ScheduledPeriod  *common.Period `json:"scheduledPeriod,omitempty"`
-	ScheduledString  *string        `json:"scheduledString,omitempty"`
+	ScheduledTiming *Timing        `json:"scheduledTiming,omitempty"`
+	ScheduledPeriod *common.Period `json:"scheduledPeriod,omitempty"`
+	ScheduledString *string        `json:"scheduledString,omitempty"`
 
 	// Where it should happen
 	Location *common.Reference `json:"location,omitempty"`
@@ -3045,14 +3045,14 @@ type CarePlanActivityDetail struct {
 type CarePlanActivityKind string
 
 const (
-	CarePlanActivityKindAppointment       CarePlanActivityKind = "Appointment"
+	CarePlanActivityKindAppointment          CarePlanActivityKind = "Appointment"
 	CarePlanActivityKindCommunicationRequest CarePlanActivityKind = "CommunicationRequest"
-	CarePlanActivityKindDeviceRequest     CarePlanActivityKind = "DeviceRequest"
-	CarePlanActivityKindMedicationRequest CarePlanActivityKind = "MedicationRequest"
-	CarePlanActivityKindNutritionOrder    CarePlanActivityKind = "NutritionOrder"
-	CarePlanActivityKindTask              CarePlanActivityKind = "Task"
-	CarePlanActivityKindServiceRequest    CarePlanActivityKind = "ServiceRequest"
-	CarePlanActivityKindVisionPrescription CarePlanActivityKind = "VisionPrescription"
+	CarePlanActivityKindDeviceRequest        CarePlanActivityKind = "DeviceRequest"
+	CarePlanActivityKindMedicationRequest    CarePlanActivityKind = "MedicationRequest"
+	CarePlanActivityKindNutritionOrder       CarePlanActivityKind = "NutritionOrder"
+	CarePlanActivityKindTask                 CarePlanActivityKind = "Task"
+	CarePlanActivityKindServiceRequest       CarePlanActivityKind = "ServiceRequest"
+	CarePlanActivityKindVisionPrescription   CarePlanActivityKind = "VisionPrescription"
 )
 
 // CarePlanActivityStatus represents the current state of the activity
@@ -3196,3 +3196,9 @@ type SpecimenContainer struct {
 	AdditiveCodeableConcept *common.CodeableConcept `json:"additiveCodeableConcept,omitempty"`
 	AdditiveReference       *common.Reference       `json:"additiveReference,omitempty"`
 }
+
+// Helper functions for pointer creation
+func StringPtr(s string) *string    { return &s }
+func BoolPtr(b bool) *bool          { return &b }
+func IntPtr(i int) *int             { return &i }
+func Float64Ptr(f float64) *float64 { return &f }
