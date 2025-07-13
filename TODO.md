@@ -1,0 +1,767 @@
+# FHIR Go Implementation TODO
+
+This document tracks the migration status of all FHIR resources from the JavaScript TypeScript definitions to Go implementations.
+
+## Implementation Status Summary
+
+| FHIR Version | Total Resources | Go Implemented | Percentage |
+|--------------|-----------------|----------------|------------|
+| R5           | 162             | 22             | 13.6%      |
+| R4B          | 116             | 6              | 5.2%       |
+| R4           | 106             | 23             | 21.7%      |
+| R3           | 98              | 23             | 23.5%      |
+| R2           | 77              | 21             | 27.3%      |
+
+## R5 Resources (FHIR 5.0.0)
+
+### ✅ Implemented (22/162)
+- [x] Account
+- [x] ActivityDefinition
+- [x] ActorDefinition
+- [x] AdministrableProductDefinition
+- [x] AdverseEvent
+- [x] AllergyIntolerance
+- [x] Appointment
+- [x] AppointmentResponse
+- [x] Basic
+- [x] Bundle
+- [x] CapabilityStatement
+- [x] CarePlan
+- [x] CareTeam
+- [x] ChargeItem
+- [x] Condition
+- [x] DiagnosticReport
+- [x] Encounter
+- [x] Medication
+- [x] MedicationRequest
+- [x] Observation
+- [x] Organization
+- [x] Practitioner
+
+### 🔄 In Progress (1/162)
+- [ ] Patient
+
+### ❌ Not Implemented (139/162)
+- [ ] ArtifactAssessment
+- [ ] AuditEvent
+- [ ] Binary
+- [ ] BiologicallyDerivedProduct
+- [ ] BiologicallyDerivedProductDispense
+- [ ] BodyStructure
+- [ ] ChargeItemDefinition
+- [ ] Citation
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] ClinicalImpression
+- [ ] ClinicalUseDefinition
+- [ ] CodeSystem
+- [ ] Communication
+- [ ] CommunicationRequest
+- [ ] CompartmentDefinition
+- [ ] Composition
+- [ ] ConceptMap
+- [ ] ConditionDefinition
+- [ ] Consent
+- [ ] Contract
+- [ ] Coverage
+- [ ] CoverageEligibilityRequest
+- [ ] CoverageEligibilityResponse
+- [ ] DetectedIssue
+- [ ] Device
+- [ ] DeviceAssociation
+- [ ] DeviceDefinition
+- [ ] DeviceDispense
+- [ ] DeviceMetric
+- [ ] DeviceRequest
+- [ ] DeviceUsage
+- [ ] DocumentReference
+- [ ] EncounterHistory
+- [ ] Endpoint
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] EventDefinition
+- [ ] Evidence
+- [ ] EvidenceReport
+- [ ] EvidenceVariable
+- [ ] ExampleScenario
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] FormularyItem
+- [ ] GenomicStudy
+- [ ] Goal
+- [ ] GraphDefinition
+- [ ] Group
+- [ ] GuidanceResponse
+- [ ] HealthcareService
+- [ ] ImagingSelection
+- [ ] ImagingStudy
+- [ ] Immunization
+- [ ] ImmunizationEvaluation
+- [ ] ImmunizationRecommendation
+- [ ] ImplementationGuide
+- [ ] Ingredient
+- [ ] InsurancePlan
+- [ ] InventoryItem
+- [ ] InventoryReport
+- [ ] Invoice
+- [ ] Library
+- [ ] Linkage
+- [ ] List
+- [ ] Location
+- [ ] ManufacturedItemDefinition
+- [ ] Measure
+- [ ] MeasureReport
+- [ ] MedicationAdministration
+- [ ] MedicationDispense
+- [ ] MedicationKnowledge
+- [ ] MedicationStatement
+- [ ] MedicinalProductDefinition
+- [ ] MessageDefinition
+- [ ] MessageHeader
+- [ ] MolecularSequence
+- [ ] NamingSystem
+- [ ] NutritionIntake
+- [ ] NutritionOrder
+- [ ] NutritionProduct
+- [ ] ObservationDefinition
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] OrganizationAffiliation
+- [ ] PackagedProductDefinition
+- [ ] Parameters
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Permission
+- [ ] Person
+- [ ] PlanDefinition
+- [ ] PractitionerRole
+- [ ] Procedure
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] QuestionnaireResponse
+- [ ] RegulatedAuthorization
+- [ ] RelatedPerson
+- [ ] RequestOrchestration
+- [ ] Requirements
+- [ ] ResearchStudy
+- [ ] ResearchSubject
+- [ ] RiskAssessment
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] ServiceRequest
+- [ ] Slot
+- [ ] Specimen
+- [ ] SpecimenDefinition
+- [ ] StructureDefinition
+- [ ] StructureMap
+- [ ] Subscription
+- [ ] SubscriptionStatus
+- [ ] SubscriptionTopic
+- [ ] Substance
+- [ ] SubstanceDefinition
+- [ ] SubstanceNucleicAcid
+- [ ] SubstancePolymer
+- [ ] SubstanceProtein
+- [ ] SubstanceReferenceInformation
+- [ ] SubstanceSourceMaterial
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] Task
+- [ ] TerminologyCapabilities
+- [ ] TestPlan
+- [ ] TestReport
+- [ ] TestScript
+- [ ] Transport
+- [ ] ValueSet
+- [ ] VerificationResult
+- [ ] VisionPrescription
+
+## R4B Resources (FHIR 4.3.0)
+
+### ✅ Implemented (6/116)
+- [x] Condition
+- [x] Encounter
+- [x] Medication
+- [x] MedicationRequest
+- [x] Organization
+- [x] Practitioner
+
+### ❌ Not Implemented (110/116)
+- [ ] Account
+- [ ] ActivityDefinition
+- [ ] AdministrableProductDefinition
+- [ ] AdverseEvent
+- [ ] AllergyIntolerance
+- [ ] Appointment
+- [ ] AppointmentResponse
+- [ ] AuditEvent
+- [ ] Basic
+- [ ] Binary
+- [ ] BiologicallyDerivedProduct
+- [ ] BodyStructure
+- [ ] Bundle
+- [ ] CapabilityStatement
+- [ ] CarePlan
+- [ ] CareTeam
+- [ ] CatalogEntry
+- [ ] ChargeItem
+- [ ] ChargeItemDefinition
+- [ ] Citation
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] ClinicalImpression
+- [ ] ClinicalUseDefinition
+- [ ] CodeSystem
+- [ ] Communication
+- [ ] CommunicationRequest
+- [ ] CompartmentDefinition
+- [ ] Composition
+- [ ] ConceptMap
+- [ ] Consent
+- [ ] Contract
+- [ ] Coverage
+- [ ] CoverageEligibilityRequest
+- [ ] CoverageEligibilityResponse
+- [ ] DetectedIssue
+- [ ] Device
+- [ ] DeviceDefinition
+- [ ] DeviceMetric
+- [ ] DeviceRequest
+- [ ] DeviceUseStatement
+- [ ] DiagnosticReport
+- [ ] DocumentManifest
+- [ ] DocumentReference
+- [ ] Endpoint
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] EventDefinition
+- [ ] Evidence
+- [ ] EvidenceReport
+- [ ] EvidenceVariable
+- [ ] ExampleScenario
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] Goal
+- [ ] GraphDefinition
+- [ ] Group
+- [ ] GuidanceResponse
+- [ ] HealthcareService
+- [ ] ImagingStudy
+- [ ] Immunization
+- [ ] ImmunizationEvaluation
+- [ ] ImmunizationRecommendation
+- [ ] ImplementationGuide
+- [ ] Ingredient
+- [ ] InsurancePlan
+- [ ] Invoice
+- [ ] Library
+- [ ] Linkage
+- [ ] List
+- [ ] Location
+- [ ] ManufacturedItemDefinition
+- [ ] Measure
+- [ ] MeasureReport
+- [ ] Media
+- [ ] MedicationAdministration
+- [ ] MedicationDispense
+- [ ] MedicationKnowledge
+- [ ] MedicationStatement
+- [ ] MedicinalProductDefinition
+- [ ] MessageDefinition
+- [ ] MessageHeader
+- [ ] MolecularSequence
+- [ ] NamingSystem
+- [ ] NutritionOrder
+- [ ] NutritionProduct
+- [ ] Observation
+- [ ] ObservationDefinition
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] OrganizationAffiliation
+- [ ] PackagedProductDefinition
+- [ ] Parameters
+- [ ] Patient
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Person
+- [ ] PlanDefinition
+- [ ] PractitionerRole
+- [ ] Procedure
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] QuestionnaireResponse
+- [ ] RegulatedAuthorization
+- [ ] RelatedPerson
+- [ ] RequestGroup
+- [ ] ResearchDefinition
+- [ ] ResearchElementDefinition
+- [ ] ResearchStudy
+- [ ] ResearchSubject
+- [ ] RiskAssessment
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] ServiceRequest
+- [ ] Slot
+- [ ] Specimen
+- [ ] SpecimenDefinition
+- [ ] StructureDefinition
+- [ ] StructureMap
+- [ ] Subscription
+- [ ] SubscriptionStatus
+- [ ] SubscriptionTopic
+- [ ] Substance
+- [ ] SubstanceDefinition
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] Task
+- [ ] TerminologyCapabilities
+- [ ] TestReport
+- [ ] TestScript
+- [ ] ValueSet
+- [ ] VerificationResult
+- [ ] VisionPrescription
+
+## R4 Resources (FHIR 4.0.1)
+
+### ✅ Implemented (23/106)
+- [x] AllergyIntolerance
+- [x] Bundle
+- [x] CarePlan
+- [x] Communication
+- [x] Composition
+- [x] Condition
+- [x] Consent
+- [x] Device
+- [x] DiagnosticReport
+- [x] DocumentReference
+- [x] Encounter
+- [x] Immunization
+- [x] Location
+- [x] Medication
+- [x] MedicationRequest
+- [x] Observation
+- [x] Organization
+- [x] Patient
+- [x] Practitioner
+- [x] Procedure
+- [x] QuestionnaireResponse
+- [x] Specimen
+
+### ❌ Not Implemented (83/106)
+- [ ] Account
+- [ ] ActivityDefinition
+- [ ] AdverseEvent
+- [ ] Appointment
+- [ ] AppointmentResponse
+- [ ] AuditEvent
+- [ ] Basic
+- [ ] Binary
+- [ ] BiologicallyDerivedProduct
+- [ ] BodyStructure
+- [ ] CapabilityStatement
+- [ ] CareTeam
+- [ ] CatalogEntry
+- [ ] ChargeItem
+- [ ] ChargeItemDefinition
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] ClinicalImpression
+- [ ] CodeSystem
+- [ ] CommunicationRequest
+- [ ] CompartmentDefinition
+- [ ] ConceptMap
+- [ ] Contract
+- [ ] Coverage
+- [ ] CoverageEligibilityRequest
+- [ ] CoverageEligibilityResponse
+- [ ] DetectedIssue
+- [ ] DeviceDefinition
+- [ ] DeviceMetric
+- [ ] DeviceRequest
+- [ ] DeviceUseStatement
+- [ ] DocumentManifest
+- [ ] EffectEvidenceSynthesis
+- [ ] Endpoint
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] EventDefinition
+- [ ] Evidence
+- [ ] EvidenceVariable
+- [ ] ExampleScenario
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] Goal
+- [ ] GraphDefinition
+- [ ] Group
+- [ ] GuidanceResponse
+- [ ] HealthcareService
+- [ ] ImagingStudy
+- [ ] ImmunizationEvaluation
+- [ ] ImmunizationRecommendation
+- [ ] ImplementationGuide
+- [ ] InsurancePlan
+- [ ] Invoice
+- [ ] Library
+- [ ] Linkage
+- [ ] List
+- [ ] Measure
+- [ ] MeasureReport
+- [ ] Media
+- [ ] MedicationAdministration
+- [ ] MedicationDispense
+- [ ] MedicationKnowledge
+- [ ] MedicationStatement
+- [ ] MedicinalProduct
+- [ ] MedicinalProductAuthorization
+- [ ] MedicinalProductContraindication
+- [ ] MedicinalProductIndication
+- [ ] MedicinalProductIngredient
+- [ ] MedicinalProductInteraction
+- [ ] MedicinalProductManufactured
+- [ ] MedicinalProductPackaged
+- [ ] MedicinalProductPharmaceutical
+- [ ] MedicinalProductUndesirableEffect
+- [ ] MessageDefinition
+- [ ] MessageHeader
+- [ ] MolecularSequence
+- [ ] NamingSystem
+- [ ] NutritionOrder
+- [ ] ObservationDefinition
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] OrganizationAffiliation
+- [ ] Parameters
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Person
+- [ ] PlanDefinition
+- [ ] PractitionerRole
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] RelatedPerson
+- [ ] RequestGroup
+- [ ] ResearchDefinition
+- [ ] ResearchElementDefinition
+- [ ] ResearchStudy
+- [ ] RiskAssessment
+- [ ] RiskEvidenceSynthesis
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] ServiceRequest
+- [ ] Slot
+- [ ] SpecimenDefinition
+- [ ] StructureDefinition
+- [ ] StructureMap
+- [ ] Subscription
+- [ ] Substance
+- [ ] SubstanceNucleicAcid
+- [ ] SubstancePolymer
+- [ ] SubstanceProtein
+- [ ] SubstanceReferenceInformation
+- [ ] SubstanceSourceMaterial
+- [ ] SubstanceSpecification
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] Task
+- [ ] TerminologyCapabilities
+- [ ] TestReport
+- [ ] TestScript
+- [ ] ValueSet
+- [ ] VerificationResult
+- [ ] VisionPrescription
+
+## R3 Resources (FHIR 3.0.2)
+
+### ✅ Implemented (23/98)
+- [x] AllergyIntolerance
+- [x] Bundle
+- [x] CarePlan
+- [x] Communication
+- [x] Composition
+- [x] Condition
+- [x] Consent
+- [x] Device
+- [x] DiagnosticReport
+- [x] DocumentReference
+- [x] Encounter
+- [x] Immunization
+- [x] Location
+- [x] Medication
+- [x] MedicationRequest
+- [x] Observation
+- [x] Organization
+- [x] Patient
+- [x] Practitioner
+- [x] Procedure
+- [x] QuestionnaireResponse
+- [x] ResearchSubject
+- [x] Specimen
+
+### ❌ Not Implemented (75/98)
+- [ ] Account
+- [ ] ActivityDefinition
+- [ ] AdverseEvent
+- [ ] Appointment
+- [ ] AppointmentResponse
+- [ ] AuditEvent
+- [ ] Basic
+- [ ] Binary
+- [ ] BodySite
+- [ ] CapabilityStatement
+- [ ] CareTeam
+- [ ] ChargeItem
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] ClinicalImpression
+- [ ] CodeSystem
+- [ ] CommunicationRequest
+- [ ] CompartmentDefinition
+- [ ] ConceptMap
+- [ ] Contract
+- [ ] Coverage
+- [ ] DataElement
+- [ ] DetectedIssue
+- [ ] DeviceComponent
+- [ ] DeviceMetric
+- [ ] DeviceRequest
+- [ ] DeviceUseStatement
+- [ ] DocumentManifest
+- [ ] EligibilityRequest
+- [ ] EligibilityResponse
+- [ ] Endpoint
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] ExpansionProfile
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] Goal
+- [ ] GraphDefinition
+- [ ] Group
+- [ ] GuidanceResponse
+- [ ] HealthcareService
+- [ ] ImagingManifest
+- [ ] ImagingStudy
+- [ ] ImmunizationRecommendation
+- [ ] ImplementationGuide
+- [ ] Library
+- [ ] Linkage
+- [ ] List
+- [ ] Measure
+- [ ] MeasureReport
+- [ ] Media
+- [ ] MedicationAdministration
+- [ ] MedicationDispense
+- [ ] MedicationStatement
+- [ ] MessageDefinition
+- [ ] MessageHeader
+- [ ] NamingSystem
+- [ ] NutritionOrder
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] Parameters
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Person
+- [ ] PlanDefinition
+- [ ] PractitionerRole
+- [ ] ProcedureRequest
+- [ ] ProcessRequest
+- [ ] ProcessResponse
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] ReferralRequest
+- [ ] RelatedPerson
+- [ ] RequestGroup
+- [ ] ResearchStudy
+- [ ] RiskAssessment
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] Sequence
+- [ ] ServiceDefinition
+- [ ] Slot
+- [ ] StructureDefinition
+- [ ] StructureMap
+- [ ] Subscription
+- [ ] Substance
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] Task
+- [ ] TestReport
+- [ ] TestScript
+- [ ] ValueSet
+- [ ] VisionPrescription
+
+## R2 Resources (FHIR 1.0.2)
+
+### ✅ Implemented (21/77)
+- [x] AllergyIntolerance
+- [x] Bundle
+- [x] CarePlan
+- [x] Communication
+- [x] Composition
+- [x] Condition
+- [x] Device
+- [x] DiagnosticReport
+- [x] DocumentReference
+- [x] Encounter
+- [x] Immunization
+- [x] Location
+- [x] Medication
+- [x] MedicationOrder
+- [x] Observation
+- [x] Organization
+- [x] Patient
+- [x] Practitioner
+- [x] Procedure
+- [x] QuestionnaireResponse
+- [x] ResearchSubject
+- [x] Specimen
+
+### ❌ Not Implemented (56/77)
+- [ ] Account
+- [ ] Appointment
+- [ ] AppointmentResponse
+- [ ] AuditEvent
+- [ ] Basic
+- [ ] Binary
+- [ ] BodySite
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] ClinicalImpression
+- [ ] CommunicationRequest
+- [ ] ConceptMap
+- [ ] Conformance
+- [ ] Contract
+- [ ] Coverage
+- [ ] DataElement
+- [ ] DetectedIssue
+- [ ] DeviceComponent
+- [ ] DeviceMetric
+- [ ] DeviceUseRequest
+- [ ] DeviceUseStatement
+- [ ] DiagnosticOrder
+- [ ] DocumentManifest
+- [ ] EligibilityRequest
+- [ ] EligibilityResponse
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] Goal
+- [ ] Group
+- [ ] HealthcareService
+- [ ] ImagingObjectSelection
+- [ ] ImagingStudy
+- [ ] ImmunizationRecommendation
+- [ ] ImplementationGuide
+- [ ] List
+- [ ] Media
+- [ ] MedicationAdministration
+- [ ] MedicationDispense
+- [ ] MedicationStatement
+- [ ] MessageHeader
+- [ ] NamingSystem
+- [ ] NutritionOrder
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] Order
+- [ ] OrderResponse
+- [ ] Parameters
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Person
+- [ ] ProcedureRequest
+- [ ] ProcessRequest
+- [ ] ProcessResponse
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] ReferralRequest
+- [ ] RelatedPerson
+- [ ] RiskAssessment
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] Slot
+- [ ] StructureDefinition
+- [ ] Subscription
+- [ ] Substance
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] TestScript
+- [ ] ValueSet
+- [ ] VisionPrescription
+
+## Implementation Priority
+
+Based on usage patterns and clinical importance, the following resources are prioritized:
+
+### High Priority (Core Clinical Resources)
+1. **Patient** - Central to all healthcare workflows
+2. **Practitioner** - Healthcare providers
+3. **Organization** - Healthcare facilities
+4. **Location** - Physical locations
+5. **Encounter** - Clinical encounters
+6. **Condition** - Diagnoses and problems
+7. **Medication** - Medication information
+8. **MedicationRequest** - Prescriptions
+9. **Observation** - Clinical observations and lab results
+10. **DiagnosticReport** - Diagnostic test results
+11. **Procedure** - Clinical procedures
+12. **ServiceRequest** - Service orders
+13. **DocumentReference** - Clinical documents
+
+### Medium Priority (Administrative Resources)
+1. **Appointment** - Scheduling
+2. **AppointmentResponse** - Appointment responses
+3. **Schedule** - Provider schedules
+4. **Slot** - Available time slots
+5. **Flag** - Alerts and warnings
+6. **AllergyIntolerance** - Allergy information
+7. **FamilyMemberHistory** - Family history
+8. **CarePlan** - Care plans
+9. **CareTeam** - Care teams
+
+### Low Priority (Specialized Resources)
+1. **Bundle** - Resource collections
+2. **CapabilityStatement** - Server capabilities
+3. **ValueSet** - Code systems
+4. **CodeSystem** - Terminologies
+5. **StructureDefinition** - Profile definitions
+
+## Next Steps
+
+1. **Continue R5 Implementation**: Focus on completing the high-priority resources listed above (Patient is currently in progress)
+2. **Expand R4B Resources**: Add the remaining high-priority resources to match R4/R3/R2 coverage
+3. **Maintain R4/R3/R2 Support**: Keep existing implementations up to date with any changes
+4. **Add Missing Resources**: Focus on the remaining unimplemented resources across all versions
+
+## File Structure
+
+```
+pkg/
+├── common/           # Shared types and utilities
+├── fhir5/           # FHIR R5 resources
+├── fhir4b/          # FHIR R4B resources
+├── fhir4/           # FHIR R4 resources (future)
+├── fhir3/           # FHIR R3 resources (future)
+└── fhir2/           # FHIR R2 resources (future)
+```
+
+## Contributing
+
+When implementing new resources:
+1. Follow the existing patterns in the codebase
+2. Include all backbone elements and enums
+3. Use proper JSON field mapping
+4. Add comprehensive struct tags
+5. Include supporting data types in `pkg/common/types.go`
+6. Update this TODO.md file with completion status 

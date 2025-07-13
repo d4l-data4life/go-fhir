@@ -157,3 +157,38 @@ const (
 	QuantityComparatorGreater      QuantityComparator = ">"
 	QuantityComparatorGreaterEqual QuantityComparator = ">="
 )
+
+// SampledData represents a series of measurements taken by a device
+type SampledData struct {
+	Element
+
+	// The ConceptMap cannot define meanings for the codes 'E', 'U', or 'L'
+	CodeMap *string `json:"codeMap,omitempty"`
+
+	// The data may be missing if it is omitted for summarization purposes
+	Data *string `json:"data,omitempty"`
+
+	// If there is more than one dimension, the code for the type of data will define the meaning of the dimensions
+	Dimensions int `json:"dimensions"`
+
+	// A correction factor that is applied to the sampled data points before they are added to the origin
+	Factor *float64 `json:"factor,omitempty"`
+
+	// This is usually a whole number
+	Interval *int `json:"interval,omitempty"`
+
+	// The measurement unit in which the sample interval is expressed
+	IntervalUnit string `json:"intervalUnit"`
+
+	// The lower limit of detection of the measured points
+	LowerLimit *float64 `json:"lowerLimit,omitempty"`
+
+	// If offsets is present, the number of data points must be equal to the number of offsets multiplied by the dimensions
+	Offsets *string `json:"offsets,omitempty"`
+
+	// The base quantity that a measured value of zero represents
+	Origin Quantity `json:"origin"`
+
+	// The upper limit of detection of the measured points
+	UpperLimit *float64 `json:"upperLimit,omitempty"`
+}
