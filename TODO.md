@@ -6,7 +6,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 | FHIR Version | Total Resources | Go Implemented | Percentage |
 |--------------|-----------------|----------------|------------|
-| R5           | 162             | 102            | 63.0%      |
+| R5           | 162             | 82             | 50.6%      |
 | R4B          | 116             | 6              | 5.2%       |
 | R4           | 106             | 23             | 21.7%      |
 | R3           | 98              | 23             | 23.5%      |
@@ -14,7 +14,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (102/162)
+### ✅ Implemented (82/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -98,25 +98,8 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] PaymentReconciliation
 - [x] Permission
 - [x] Person
-- [x] PlanDefinition
-- [x] PractitionerRole
-- [x] Provenance
-- [x] Questionnaire
-- [x] QuestionnaireResponse
-- [x] RegulatedAuthorization
-- [x] RelatedPerson
-- [x] RequestOrchestration
-- [x] Requirements
-- [x] ResearchStudy
-- [x] RiskAssessment
-- [x] Schedule
-- [x] SearchParameter
-- [x] Slot
-- [x] Specimen
-- [x] SpecimenDefinition
-- [x] StructureDefinition
 
-### ❌ Not Implemented (60/162)
+### ❌ Not Implemented (80/162)
 - [ ] ArtifactAssessment
 - [ ] AuditEvent
 - [ ] Binary
