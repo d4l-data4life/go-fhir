@@ -849,7 +849,7 @@ type Bundle struct {
 	// An entry in a bundle resource - will either contain a resource or information about a resource
 	Entry []BundleEntry `json:"entry,omitempty"`
 
-	// Persistent identity generally only matters for batches of type Document, Message, and Collection
+	// Persistent identifier generally only matters for batches of type Document, Message, and Collection
 	Identifier *common.Identifier `json:"identifier,omitempty"`
 
 	// Issues must apply to the Bundle as a whole, not to individual entries
@@ -945,875 +945,9 @@ type CareTeam struct {
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 }
 
-// ChargeItemStatus represents the status of a charge item
-type ChargeItemStatus string
+// (Procedure-related types and struct removed - moved to procedure.go)
 
-const (
-	ChargeItemStatusPlanned        ChargeItemStatus = "planned"
-	ChargeItemStatusBillable       ChargeItemStatus = "billable"
-	ChargeItemStatusNotBillable    ChargeItemStatus = "not-billable"
-	ChargeItemStatusAborted        ChargeItemStatus = "aborted"
-	ChargeItemStatusBilled         ChargeItemStatus = "billed"
-	ChargeItemStatusEnteredInError ChargeItemStatus = "entered-in-error"
-	ChargeItemStatusUnknown        ChargeItemStatus = "unknown"
-)
-
-// MonetaryComponentType represents the type of a monetary component
-type MonetaryComponentType string
-
-const (
-	MonetaryComponentTypeBase          MonetaryComponentType = "base"
-	MonetaryComponentTypeSurcharge     MonetaryComponentType = "surcharge"
-	MonetaryComponentTypeDeduction     MonetaryComponentType = "deduction"
-	MonetaryComponentTypeDiscount      MonetaryComponentType = "discount"
-	MonetaryComponentTypeTax           MonetaryComponentType = "tax"
-	MonetaryComponentTypeInformational MonetaryComponentType = "informational"
-)
-
-// MonetaryComponent represents a monetary value component
-type MonetaryComponent struct {
-	DataType
-
-	// Explicit value amount to be used
-	Amount *Money `json:"amount,omitempty"`
-
-	// Codes may be used to differentiate between kinds of taxes, surcharges, discounts etc.
-	Code *common.CodeableConcept `json:"code,omitempty"`
-
-	// Factor used for calculating this component
-	Factor *float64 `json:"factor,omitempty"`
-
-	// base | surcharge | deduction | discount | tax | informational
-	Type MonetaryComponentType `json:"type"`
-}
-
-// ChargeItemPerformer represents who performed or participated in the charged service
-type ChargeItemPerformer struct {
-	common.BackboneElement
-
-	// The device, practitioner, etc. who performed or participated in the service
-	Actor common.Reference `json:"actor"`
-
-	// Describes the type of performance or participation(e.g. primary surgeon, anesthesiologist, etc.)
-	Function *common.CodeableConcept `json:"function,omitempty"`
-}
-
-// ChargeItem represents the provision of healthcare provider products for a certain patient
-type ChargeItem struct {
-	DomainResource
-
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "ChargeItem"
-
-	// Systems posting the ChargeItems might not always be able to determine, which accounts the Items need to be placed into
-	Account []common.Reference `json:"account,omitempty"`
-
-	// Only used if not implicit in code found in Condition.code
-	Bodysite []common.CodeableConcept `json:"bodysite,omitempty"`
-
-	// A code that identifies the charge, like a billing code
-	Code common.CodeableConcept `json:"code"`
-
-	// The costCenter could either be given as a reference to an Organization(Role) resource
-	CostCenter *common.Reference `json:"costCenter,omitempty"`
-
-	// References the source of pricing information, rules of application for the code this ChargeItem uses
-	DefinitionCanonical []string `json:"definitionCanonical,omitempty"`
-
-	// References the (external) source of pricing information, rules of application for the code this ChargeItem uses
-	DefinitionUri []string `json:"definitionUri,omitempty"`
-
-	// This ChargeItem may be recorded during planning, execution or after the actual encounter takes place
-	Encounter *common.Reference `json:"encounter,omitempty"`
-
-	// The actual date when the service associated with the charge has been rendered is captured in occurrence[x]
-	EnteredDate *string `json:"enteredDate,omitempty"`
-
-	// The enterer is also the person considered responsible for factor/price overrides if applicable
-	Enterer *common.Reference `json:"enterer,omitempty"`
-
-	// Identifiers assigned to this event performer or other systems
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// Comments made about the event by the performer, subject or other participants
-	Note []Annotation `json:"note,omitempty"`
-
-	// The list of types may be constrained as appropriate for the type of charge item
-	OccurrenceDateTime *string        `json:"occurrenceDateTime,omitempty"`
-	OccurrencePeriod   *common.Period `json:"occurrencePeriod,omitempty"`
-	OccurrenceTiming   *Timing        `json:"occurrenceTiming,omitempty"`
-
-	// If the list price or the rule-based factor associated with the code is overridden
-	OverrideReason *common.CodeableConcept `json:"overrideReason,omitempty"`
-
-	// ChargeItems can be grouped to larger ChargeItems covering the whole set
-	PartOf []common.Reference `json:"partOf,omitempty"`
-
-	// Indicates who or what performed or participated in the charged service
-	Performer []ChargeItemPerformer `json:"performer,omitempty"`
-
-	// Practitioners and Devices can be associated with multiple organizations
-	PerformingOrganization *common.Reference `json:"performingOrganization,omitempty"`
-
-	// Identifies the device, food, drug or other product being charged either by type code or reference to an instance
-	Product []CodeableReference `json:"product,omitempty"`
-
-	// In many cases this may just be a value, if the underlying units are implicit in the definition of the charge item code
-	Quantity *common.Quantity `json:"quantity,omitempty"`
-
-	// If the application of the charge item requires a reason to be given, it can be captured here
-	Reason []common.CodeableConcept `json:"reason,omitempty"`
-
-	// The rendered Service might not be associated with a Request
-	RequestingOrganization *common.Reference `json:"requestingOrganization,omitempty"`
-
-	// Indicated the rendered service that caused this charge
-	Service []CodeableReference `json:"service,omitempty"`
-
-	// Unknown does not represent "other" - one of the defined statuses must apply
-	Status ChargeItemStatus `json:"status"`
-
-	// The individual or set of individuals the action is being or was performed on
-	Subject common.Reference `json:"subject"`
-
-	// Further information supporting this charge
-	SupportingInformation []common.Reference `json:"supportingInformation,omitempty"`
-
-	// Often, the total price may be calculated and recorded on the Invoice
-	TotalPriceComponent *MonetaryComponent `json:"totalPriceComponent,omitempty"`
-
-	// This could be communicated in ChargeItemDefinition
-	UnitPriceComponent *MonetaryComponent `json:"unitPriceComponent,omitempty"`
-}
-
-// DiagnosticReportStatus represents the status of a diagnostic report
-type DiagnosticReportStatus string
-
-const (
-	DiagnosticReportStatusRegistered     DiagnosticReportStatus = "registered"
-	DiagnosticReportStatusPartial        DiagnosticReportStatus = "partial"
-	DiagnosticReportStatusPreliminary    DiagnosticReportStatus = "preliminary"
-	DiagnosticReportStatusModified       DiagnosticReportStatus = "modified"
-	DiagnosticReportStatusFinal          DiagnosticReportStatus = "final"
-	DiagnosticReportStatusAmended        DiagnosticReportStatus = "amended"
-	DiagnosticReportStatusCorrected      DiagnosticReportStatus = "corrected"
-	DiagnosticReportStatusAppended       DiagnosticReportStatus = "appended"
-	DiagnosticReportStatusCancelled      DiagnosticReportStatus = "cancelled"
-	DiagnosticReportStatusEnteredInError DiagnosticReportStatus = "entered-in-error"
-	DiagnosticReportStatusUnknown        DiagnosticReportStatus = "unknown"
-)
-
-// DiagnosticReportSupportingInfo represents supporting information used in the creation of the report
-type DiagnosticReportSupportingInfo struct {
-	common.BackboneElement
-
-	// The reference for the supporting information in the diagnostic report
-	Reference common.Reference `json:"reference"`
-
-	// The code value for the role of the supporting information in the diagnostic report
-	Type common.CodeableConcept `json:"type"`
-}
-
-// DiagnosticReportMedia represents key images or data associated with the report
-type DiagnosticReportMedia struct {
-	common.BackboneElement
-
-	// The comment should be displayed with the image or data
-	Comment *string `json:"comment,omitempty"`
-
-	// Reference to the image or data source
-	Link common.Reference `json:"link"`
-}
-
-// DiagnosticReport represents diagnostic test results and interpretation
-type DiagnosticReport struct {
-	DomainResource
-
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "DiagnosticReport"
-
-	// Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single test result resource
-	BasedOn []common.Reference `json:"basedOn,omitempty"`
-
-	// Multiple categories are allowed using various categorization schemes
-	Category []common.CodeableConcept `json:"category,omitempty"`
-
-	// A code or name that describes this diagnostic report
-	Code common.CodeableConcept `json:"code"`
-
-	// The Composition provides structure to the content of the DiagnosticReport
-	Composition *common.Reference `json:"composition,omitempty"`
-
-	// Concise and clinically contextualized summary conclusion (interpretation/impression) of the diagnostic report
-	Conclusion *string `json:"conclusion,omitempty"`
-
-	// One or more codes that represent the summary conclusion (interpretation/impression) of the diagnostic report
-	ConclusionCode []common.CodeableConcept `json:"conclusionCode,omitempty"`
-
-	// If the diagnostic procedure was performed on the patient, this is the time it was performed
-	EffectiveDateTime *string        `json:"effectiveDateTime,omitempty"`
-	EffectivePeriod   *common.Period `json:"effectivePeriod,omitempty"`
-
-	// This will typically be the encounter the event occurred within
-	Encounter *common.Reference `json:"encounter,omitempty"`
-
-	// Usually assigned by the Information System of the diagnostic service provider (filler id)
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// May be different from the update time of the resource itself, because that is the status of the record
-	Issued *string `json:"issued,omitempty"`
-
-	// A list of key images or data associated with this report
-	Media []DiagnosticReportMedia `json:"media,omitempty"`
-
-	// May include general statements about the diagnostic report, or statements about significant, unexpected or unreliable results values
-	Note []Annotation `json:"note,omitempty"`
-
-	// This is not necessarily the source of the atomic data items or the entity that interpreted the results
-	Performer []common.Reference `json:"performer,omitempty"`
-
-	// "application/pdf" is recommended as the most reliable and interoperable in this context
-	PresentedForm []Attachment `json:"presentedForm,omitempty"`
-
-	// Observations can contain observations
-	Result []common.Reference `json:"result,omitempty"`
-
-	// Might not be the same entity that takes responsibility for the clinical report
-	ResultsInterpreter []common.Reference `json:"resultsInterpreter,omitempty"`
-
-	// If the specimen is sufficiently specified with a code in the test result name, then this additional data may be redundant
-	Specimen []common.Reference `json:"specimen,omitempty"`
-
-	// The status of the diagnostic report
-	Status DiagnosticReportStatus `json:"status"`
-
-	// For laboratory-type studies like GenomeStudy, type resources will be used for tracking additional metadata
-	Study []common.Reference `json:"study,omitempty"`
-
-	// The subject of the report. Usually, but not always, this is a patient
-	Subject *common.Reference `json:"subject,omitempty"`
-
-	// This backbone element contains supporting information that was used in the creation of the report
-	SupportingInfo []DiagnosticReportSupportingInfo `json:"supportingInfo,omitempty"`
-}
-
-// ObservationStatus represents the status of an observation
-type ObservationStatus string
-
-const (
-	ObservationStatusRegistered     ObservationStatus = "registered"
-	ObservationStatusPreliminary    ObservationStatus = "preliminary"
-	ObservationStatusFinal          ObservationStatus = "final"
-	ObservationStatusAmended        ObservationStatus = "amended"
-	ObservationStatusCorrected      ObservationStatus = "corrected"
-	ObservationStatusCancelled      ObservationStatus = "cancelled"
-	ObservationStatusEnteredInError ObservationStatus = "entered-in-error"
-	ObservationStatusUnknown        ObservationStatus = "unknown"
-)
-
-// ObservationTriggeredByType represents the type of trigger for an observation
-type ObservationTriggeredByType string
-
-const (
-	ObservationTriggeredByTypeReflex ObservationTriggeredByType = "reflex"
-	ObservationTriggeredByTypeRepeat ObservationTriggeredByType = "repeat"
-	ObservationTriggeredByTypeReRun  ObservationTriggeredByType = "re-run"
-)
-
-// ObservationTriggeredBy represents observations that triggered this observation
-type ObservationTriggeredBy struct {
-	common.BackboneElement
-
-	// Reference to the triggering observation
-	Observation common.Reference `json:"observation"`
-
-	// Provides the reason why this observation was performed as a result of the observation(s) referenced
-	Reason *string `json:"reason,omitempty"`
-
-	// The type of trigger
-	Type ObservationTriggeredByType `json:"type"`
-}
-
-// ObservationReferenceRange represents reference range for observation values
-type ObservationReferenceRange struct {
-	common.BackboneElement
-
-	// The age at which this reference range is applicable
-	Age *Range `json:"age,omitempty"`
-
-	// This SHOULD be populated if there is more than one range
-	AppliesTo []common.CodeableConcept `json:"appliesTo,omitempty"`
-
-	// The value of the high bound of the reference range
-	High *common.Quantity `json:"high,omitempty"`
-
-	// The value of the low bound of the reference range
-	Low *common.Quantity `json:"low,omitempty"`
-
-	// The value of the normal value of the reference range
-	NormalValue *common.CodeableConcept `json:"normalValue,omitempty"`
-
-	// Text based reference range in an observation
-	Text *string `json:"text,omitempty"`
-
-	// This SHOULD be populated if there is more than one range
-	Type *common.CodeableConcept `json:"type,omitempty"`
-}
-
-// ObservationComponent represents component observations
-type ObservationComponent struct {
-	common.BackboneElement
-
-	// Describes what was observed
-	Code common.CodeableConcept `json:"code"`
-
-	// For exceptional values in measurements
-	DataAbsentReason *common.CodeableConcept `json:"dataAbsentReason,omitempty"`
-
-	// Historically used for laboratory results (known as 'abnormal flag')
-	Interpretation []common.CodeableConcept `json:"interpretation,omitempty"`
-
-	// Reference ranges for the component
-	ReferenceRange []ObservationReferenceRange `json:"referenceRange,omitempty"`
-
-	// Component observation values - choice of types
-	ValueQuantity        *common.Quantity        `json:"valueQuantity,omitempty"`
-	ValueCodeableConcept *common.CodeableConcept `json:"valueCodeableConcept,omitempty"`
-	ValueString          *string                 `json:"valueString,omitempty"`
-	ValueBoolean         *bool                   `json:"valueBoolean,omitempty"`
-	ValueInteger         *int                    `json:"valueInteger,omitempty"`
-	ValueRange           *Range                  `json:"valueRange,omitempty"`
-	ValueRatio           *Ratio                  `json:"valueRatio,omitempty"`
-	ValueSampledData     *common.SampledData     `json:"valueSampledData,omitempty"`
-	ValueTime            *string                 `json:"valueTime,omitempty"`
-	ValueDateTime        *string                 `json:"valueDateTime,omitempty"`
-	ValuePeriod          *common.Period          `json:"valuePeriod,omitempty"`
-	ValueAttachment      *Attachment             `json:"valueAttachment,omitempty"`
-	ValueReference       *common.Reference       `json:"valueReference,omitempty"`
-}
-
-// Observation represents measurements and simple assertions made about a patient, device or other subject
-type Observation struct {
-	DomainResource
-
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "Observation"
-
-	// A plan, proposal or order that is fulfilled in whole or in part by this event
-	BasedOn []common.Reference `json:"basedOn,omitempty"`
-
-	// Only used if not implicit in code found in Observation.code
-	BodySite *common.CodeableConcept `json:"bodySite,omitempty"`
-
-	// Only used if not implicit in code found in Observation.code or bodySite is used
-	BodyStructure *common.Reference `json:"bodyStructure,omitempty"`
-
-	// In addition to the required category valueset, this element allows various categorization schemes
-	Category []common.CodeableConcept `json:"category,omitempty"`
-
-	// Describes what was observed
-	Code common.CodeableConcept `json:"code"`
-
-	// For a discussion on the ways Observations can be assembled in groups together
-	Component []ObservationComponent `json:"component,omitempty"`
-
-	// Null or exceptional values can be represented two ways in FHIR Observations
-	DataAbsentReason *common.CodeableConcept `json:"dataAbsentReason,omitempty"`
-
-	// All the reference choices that are listed in this element can represent clinical observations
-	DerivedFrom []common.Reference `json:"derivedFrom,omitempty"`
-
-	// Note that this is not meant to represent a device involved in the transmission of the result
-	Device *common.Reference `json:"device,omitempty"`
-
-	// At least a date should be present unless this observation is a historical report
-	EffectiveDateTime *string        `json:"effectiveDateTime,omitempty"`
-	EffectivePeriod   *common.Period `json:"effectivePeriod,omitempty"`
-	EffectiveTiming   *Timing        `json:"effectiveTiming,omitempty"`
-	EffectiveInstant  *string        `json:"effectiveInstant,omitempty"`
-
-	// This will typically be the encounter the event occurred within
-	Encounter *common.Reference `json:"encounter,omitempty"`
-
-	// Typically, an observation is made about the subject
-	Focus []common.Reference `json:"focus,omitempty"`
-
-	// When using this element, an observation will typically have either a value or a set of related resources
-	HasMember []common.Reference `json:"hasMember,omitempty"`
-
-	// A unique identifier assigned to this observation
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// ObservationDefinition can be referenced by its canonical url using instantiatesCanonical
-	InstantiatesCanonical *string `json:"instantiatesCanonical,omitempty"`
-
-	// ObservationDefinition can be referenced by its canonical url using instantiatesCanonical
-	InstantiatesReference *common.Reference `json:"instantiatesReference,omitempty"`
-
-	// Historically used for laboratory results (known as 'abnormal flag')
-	Interpretation []common.CodeableConcept `json:"interpretation,omitempty"`
-
-	// For Observations that don't require review and verification
-	Issued *string `json:"issued,omitempty"`
-
-	// Only used if not implicit in code for Observation.code
-	Method *common.CodeableConcept `json:"method,omitempty"`
-
-	// May include general statements about the observation
-	Note []Annotation `json:"note,omitempty"`
-
-	// To link an Observation to an Encounter use `encounter`
-	PartOf []common.Reference `json:"partOf,omitempty"`
-
-	// Who was responsible for asserting the observed value as "true"
-	Performer []common.Reference `json:"performer,omitempty"`
-
-	// Most observations only have one generic reference range
-	ReferenceRange []ObservationReferenceRange `json:"referenceRange,omitempty"`
-
-	// Should only be used if not implicit in code found in `Observation.code`
-	Specimen *common.Reference `json:"specimen,omitempty"`
-
-	// This element is labeled as a modifier because the status contains codes that mark the resource as not currently valid
-	Status ObservationStatus `json:"status"`
-
-	// One would expect this element to be a cardinality of 1..1
-	Subject *common.Reference `json:"subject,omitempty"`
-
-	// Identifies the observation(s) that triggered the performance of this observation
-	TriggeredBy []ObservationTriggeredBy `json:"triggeredBy,omitempty"`
-
-	// An observation may have a single value here, both a value and a set of related or component values, or only a set of related or component values
-	ValueQuantity        *common.Quantity        `json:"valueQuantity,omitempty"`
-	ValueCodeableConcept *common.CodeableConcept `json:"valueCodeableConcept,omitempty"`
-	ValueString          *string                 `json:"valueString,omitempty"`
-	ValueBoolean         *bool                   `json:"valueBoolean,omitempty"`
-	ValueInteger         *int                    `json:"valueInteger,omitempty"`
-	ValueRange           *Range                  `json:"valueRange,omitempty"`
-	ValueRatio           *Ratio                  `json:"valueRatio,omitempty"`
-	ValueSampledData     *common.SampledData     `json:"valueSampledData,omitempty"`
-	ValueTime            *string                 `json:"valueTime,omitempty"`
-	ValueDateTime        *string                 `json:"valueDateTime,omitempty"`
-	ValuePeriod          *common.Period          `json:"valuePeriod,omitempty"`
-	ValueAttachment      *Attachment             `json:"valueAttachment,omitempty"`
-	ValueReference       *common.Reference       `json:"valueReference,omitempty"`
-}
-
-// PatientGender represents the gender of a patient
-type PatientGender string
-
-const (
-	PatientGenderMale    PatientGender = "male"
-	PatientGenderFemale  PatientGender = "female"
-	PatientGenderOther   PatientGender = "other"
-	PatientGenderUnknown PatientGender = "unknown"
-)
-
-// PatientLinkType represents the type of link between patient resources
-type PatientLinkType string
-
-const (
-	PatientLinkTypeReplacedBy PatientLinkType = "replaced-by"
-	PatientLinkTypeReplaces   PatientLinkType = "replaces"
-	PatientLinkTypeRefer      PatientLinkType = "refer"
-	PatientLinkTypeSeeAlso    PatientLinkType = "seealso"
-)
-
-// PatientContact represents contact information for a patient
-type PatientContact struct {
-	common.BackboneElement
-
-	// The nature of the relationship between the patient and the contact person
-	Relationship []common.CodeableConcept `json:"relationship,omitempty"`
-
-	// A name associated with the contact person
-	Name *HumanName `json:"name,omitempty"`
-
-	// A contact detail for the person
-	Telecom []ContactPoint `json:"telecom,omitempty"`
-
-	// Address for the contact person
-	Address *Address `json:"address,omitempty"`
-
-	// Administrative Gender
-	Gender *PatientGender `json:"gender,omitempty"`
-
-	// Organization on behalf of which the contact is acting or for which the contact is working
-	Organization *common.Reference `json:"organization,omitempty"`
-
-	// The period during which this contact person or organization is valid to be contacted relating to this patient
-	Period *common.Period `json:"period,omitempty"`
-}
-
-// PatientCommunication represents patient communication preferences
-type PatientCommunication struct {
-	common.BackboneElement
-
-	// The language which can be used to communicate with the patient about his or her health
-	Language common.CodeableConcept `json:"language"`
-
-	// Indicates whether or not the patient prefers this language
-	Preferred *bool `json:"preferred,omitempty"`
-}
-
-// PatientLink represents a link to another patient resource
-type PatientLink struct {
-	common.BackboneElement
-
-	// Link to a Patient or RelatedPerson resource that concerns the same actual person
-	Other common.Reference `json:"other"`
-
-	// The type of link between this patient resource and another Patient resource
-	Type PatientLinkType `json:"type"`
-}
-
-// Patient represents demographics and other administrative information about an individual or animal receiving care
-type Patient struct {
-	DomainResource
-
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "Patient"
-
-	// Whether this patient record is in active use
-	Active *bool `json:"active,omitempty"`
-
-	// An address for the individual
-	Address []Address `json:"address,omitempty"`
-
-	// The date of birth for the individual
-	BirthDate *string `json:"birthDate,omitempty"`
-
-	// A language which may be used to communicate with the patient about his or her health
-	Communication []PatientCommunication `json:"communication,omitempty"`
-
-	// A contact party for the patient
-	Contact []PatientContact `json:"contact,omitempty"`
-
-	// Indicates if the individual is deceased or not
-	DeceasedBoolean  *bool   `json:"deceasedBoolean,omitempty"`
-	DeceasedDateTime *string `json:"deceasedDateTime,omitempty"`
-
-	// Administrative Gender
-	Gender *PatientGender `json:"gender,omitempty"`
-
-	// This may be the primary care provider
-	GeneralPractitioner []common.Reference `json:"generalPractitioner,omitempty"`
-
-	// An identifier for this patient
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// Link to a Patient or RelatedPerson resource that concerns the same actual individual
-	Link []PatientLink `json:"link,omitempty"`
-
-	// Organization that is the custodian of the patient record
-	ManagingOrganization *common.Reference `json:"managingOrganization,omitempty"`
-
-	// Marital (civil) status of a patient
-	MaritalStatus *common.CodeableConcept `json:"maritalStatus,omitempty"`
-
-	// Whether patient is part of a multiple birth
-	MultipleBirthBoolean *bool `json:"multipleBirthBoolean,omitempty"`
-	MultipleBirthInteger *int  `json:"multipleBirthInteger,omitempty"`
-
-	// A name associated with the individual
-	Name []HumanName `json:"name,omitempty"`
-
-	// Image of the patient
-	Photo []Attachment `json:"photo,omitempty"`
-
-	// A contact detail for the individual
-	Telecom []ContactPoint `json:"telecom,omitempty"`
-}
-
-// ProcedureStatus represents the status of a procedure
-type ProcedureStatus string
-
-const (
-	ProcedureStatusPreparation    ProcedureStatus = "preparation"
-	ProcedureStatusInProgress     ProcedureStatus = "in-progress"
-	ProcedureStatusNotDone        ProcedureStatus = "not-done"
-	ProcedureStatusOnHold         ProcedureStatus = "on-hold"
-	ProcedureStatusStopped        ProcedureStatus = "stopped"
-	ProcedureStatusCompleted      ProcedureStatus = "completed"
-	ProcedureStatusEnteredInError ProcedureStatus = "entered-in-error"
-	ProcedureStatusUnknown        ProcedureStatus = "unknown"
-)
-
-// ProcedurePerformer represents who performed the procedure
-type ProcedurePerformer struct {
-	common.BackboneElement
-
-	// Indicates who or what performed the procedure
-	Actor common.Reference `json:"actor"`
-
-	// Distinguishes the type of involvement of the performer in the procedure
-	Function *common.CodeableConcept `json:"function,omitempty"`
-
-	// Organization they were acting on behalf of when performing the action
-	OnBehalfOf *common.Reference `json:"onBehalfOf,omitempty"`
-
-	// Time period during which the performer performed the procedure
-	Period *common.Period `json:"period,omitempty"`
-}
-
-// ProcedureFocalDevice represents a device that was manipulated during the procedure
-type ProcedureFocalDevice struct {
-	common.BackboneElement
-
-	// The kind of change that happened to the device during the procedure
-	Action *common.CodeableConcept `json:"action,omitempty"`
-
-	// The device that was manipulated (changed) during the procedure
-	Manipulated common.Reference `json:"manipulated"`
-}
-
-// Procedure represents an action that is or was performed on or for a patient
-type Procedure struct {
-	DomainResource
-
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "Procedure"
-
-	// A reference to a resource that contains details of the request for this procedure
-	BasedOn []common.Reference `json:"basedOn,omitempty"`
-
-	// Specific anatomical location where the procedure was performed
-	BodySite []common.CodeableConcept `json:"bodySite,omitempty"`
-
-	// A code that classifies the procedure for searching, sorting and display purposes
-	Category []common.CodeableConcept `json:"category,omitempty"`
-
-	// The specific procedure that is performed
-	Code *common.CodeableConcept `json:"code,omitempty"`
-
-	// Complications that occurred during the procedure
-	Complication []CodeableReference `json:"complication,omitempty"`
-
-	// The encounter during which the procedure was performed
-	Encounter *common.Reference `json:"encounter,omitempty"`
-
-	// A device that is implanted, removed or otherwise manipulated during the procedure
-	FocalDevice []ProcedureFocalDevice `json:"focalDevice,omitempty"`
-
-	// Who is the target of the procedure when it is not the subject of record only
-	Focus *common.Reference `json:"focus,omitempty"`
-
-	// If the procedure required specific follow up
-	FollowUp []common.CodeableConcept `json:"followUp,omitempty"`
-
-	// Business identifier for this procedure
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// The URL pointing to a FHIR-defined protocol, guideline, order set or other definition
-	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
-
-	// The URL pointing to an externally maintained protocol, guideline, order set
-	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
-
-	// Where the procedure happened
-	Location *common.Reference `json:"location,omitempty"`
-
-	// Any other notes and comments about the procedure
-	Note []Annotation `json:"note,omitempty"`
-
-	// When the procedure occurred
-	OccurrenceDateTime *string        `json:"occurrenceDateTime,omitempty"`
-	OccurrenceAge      *Age           `json:"occurrenceAge,omitempty"`
-	OccurrencePeriod   *common.Period `json:"occurrencePeriod,omitempty"`
-	OccurrenceRange    *Range         `json:"occurrenceRange,omitempty"`
-	OccurrenceString   *string        `json:"occurrenceString,omitempty"`
-	OccurrenceTiming   *Timing        `json:"occurrenceTiming,omitempty"`
-
-	// The outcome of the procedure
-	Outcome *common.CodeableConcept `json:"outcome,omitempty"`
-
-	// Part of referenced resource
-	PartOf []common.Reference `json:"partOf,omitempty"`
-
-	// Who performed the procedure and how they were involved
-	Performer []ProcedurePerformer `json:"performer,omitempty"`
-
-	// The reason why the procedure was performed
-	Reason []CodeableReference `json:"reason,omitempty"`
-
-	// The date the occurrence of the procedure was first captured in the record
-	Recorded *string `json:"recorded,omitempty"`
-
-	// Individual who recorded the record and takes responsibility for its content
-	Recorder *common.Reference `json:"recorder,omitempty"`
-
-	// There could potentially be multiple reports
-	Report []common.Reference `json:"report,omitempty"`
-
-	// Indicates if this record was captured as a secondary 'reported' record
-	ReportedBoolean   *bool             `json:"reportedBoolean,omitempty"`
-	ReportedReference *common.Reference `json:"reportedReference,omitempty"`
-
-	// The status of the procedure
-	Status ProcedureStatus `json:"status"`
-
-	// Captures the reason for the current state of the procedure
-	StatusReason *common.CodeableConcept `json:"statusReason,omitempty"`
-
-	// On whom or on what the procedure was performed
-	Subject common.Reference `json:"subject"`
-
-	// Other resources from the patient record that may be relevant to the procedure
-	SupportingInfo []common.Reference `json:"supportingInfo,omitempty"`
-
-	// For devices actually implanted or removed, use Procedure.focalDevice.manipulated
-	Used []CodeableReference `json:"used,omitempty"`
-}
-
-// ServiceRequestStatus represents the status of a service request
-type ServiceRequestStatus string
-
-const (
-	ServiceRequestStatusDraft          ServiceRequestStatus = "draft"
-	ServiceRequestStatusActive         ServiceRequestStatus = "active"
-	ServiceRequestStatusOnHold         ServiceRequestStatus = "on-hold"
-	ServiceRequestStatusRevoked        ServiceRequestStatus = "revoked"
-	ServiceRequestStatusCompleted      ServiceRequestStatus = "completed"
-	ServiceRequestStatusEnteredInError ServiceRequestStatus = "entered-in-error"
-	ServiceRequestStatusUnknown        ServiceRequestStatus = "unknown"
-)
-
-// ServiceRequestPriority represents the priority of a service request
-type ServiceRequestPriority string
-
-const (
-	ServiceRequestPriorityRoutine ServiceRequestPriority = "routine"
-	ServiceRequestPriorityUrgent  ServiceRequestPriority = "urgent"
-	ServiceRequestPriorityASAP    ServiceRequestPriority = "asap"
-	ServiceRequestPriorityStat    ServiceRequestPriority = "stat"
-)
-
-// ServiceRequestIntent represents the intent of a service request
-type ServiceRequestIntent string
-
-const (
-	ServiceRequestIntentProposal      ServiceRequestIntent = "proposal"
-	ServiceRequestIntentPlan          ServiceRequestIntent = "plan"
-	ServiceRequestIntentDirective     ServiceRequestIntent = "directive"
-	ServiceRequestIntentOrder         ServiceRequestIntent = "order"
-	ServiceRequestIntentOriginalOrder ServiceRequestIntent = "original-order"
-	ServiceRequestIntentReflexOrder   ServiceRequestIntent = "reflex-order"
-	ServiceRequestIntentFillerOrder   ServiceRequestIntent = "filler-order"
-	ServiceRequestIntentInstanceOrder ServiceRequestIntent = "instance-order"
-	ServiceRequestIntentOption        ServiceRequestIntent = "option"
-)
-
-// ServiceRequest represents a record of a request for service such as diagnostic investigations, treatments, or operations
-type ServiceRequest struct {
-	DomainResource
-
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "ServiceRequest"
-
-	// If a CodeableConcept is present, it indicates the pre-condition for performing the service
-	AsNeededBoolean         *bool                   `json:"asNeededBoolean,omitempty"`
-	AsNeededCodeableConcept *common.CodeableConcept `json:"asNeededCodeableConcept,omitempty"`
-
-	// When the request transitioned to being actionable
-	AuthoredOn *string `json:"authoredOn,omitempty"`
-
-	// Plan/proposal/order fulfilled by this request
-	BasedOn []common.Reference `json:"basedOn,omitempty"`
-
-	// Anatomical location where the procedure should be performed
-	BodySite []common.CodeableConcept `json:"bodySite,omitempty"`
-
-	// Anatomic location where the procedure should be performed (R5 feature)
-	BodyStructure *common.Reference `json:"bodyStructure,omitempty"`
-
-	// A code that classifies the procedure for searching, sorting and display purposes
-	Category []common.CodeableConcept `json:"category,omitempty"`
-
-	// What is being requested/ordered
-	Code *common.CodeableConcept `json:"code,omitempty"`
-
-	// If do not perform is not specified, the request is a positive request
-	DoNotPerform *bool `json:"doNotPerform,omitempty"`
-
-	// An encounter that provides additional context in which this request is made
-	Encounter *common.Reference `json:"encounter,omitempty"`
-
-	// Business identifier for this service request
-	Identifier []common.Identifier `json:"identifier,omitempty"`
-
-	// The URL pointing to a FHIR-defined protocol, guideline, order set or other definition
-	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
-
-	// The URL pointing to an externally maintained protocol, guideline, order set
-	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
-
-	// Additional clinical information
-	Instructions []Instruction `json:"instructions,omitempty"`
-
-	// Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations
-	Insurance []common.Reference `json:"insurance,omitempty"`
-
-	// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent ServiceRequestIntent `json:"intent"`
-
-	// Where procedure is going to be done
-	Location []common.Reference `json:"location,omitempty"`
-
-	// Any other notes and comments about the service request
-	Note []Annotation `json:"note,omitempty"`
-
-	// When service should occur
-	OccurrenceDateTime *string        `json:"occurrenceDateTime,omitempty"`
-	OccurrencePeriod   *common.Period `json:"occurrencePeriod,omitempty"`
-	OccurrenceTiming   *Timing        `json:"occurrenceTiming,omitempty"`
-
-	// What order this request fulfills
-	OrderDetail []CodeableReference `json:"orderDetail,omitempty"`
-
-	// The desired performer for doing the requested service
-	Performer []common.Reference `json:"performer,omitempty"`
-
-	// Performer role
-	PerformerType *common.CodeableConcept `json:"performerType,omitempty"`
-
-	// Indicates how quickly the ServiceRequest should be addressed
-	Priority *ServiceRequestPriority `json:"priority,omitempty"`
-
-	// An amount of service being requested which can be a quantity, ratio, or range
-	QuantityQuantity *common.Quantity `json:"quantityQuantity,omitempty"`
-	QuantityRatio    *Ratio           `json:"quantityRatio,omitempty"`
-	QuantityRange    *Range           `json:"quantityRange,omitempty"`
-
-	// Explanation/Justification for procedure or service
-	Reason []CodeableReference `json:"reason,omitempty"`
-
-	// Key events in the history of the request
-	RelevantHistory []common.Reference `json:"relevantHistory,omitempty"`
-
-	// What request replaces
-	Replaces []common.Reference `json:"replaces,omitempty"`
-
-	// Who/what is requesting service
-	Requester *common.Reference `json:"requester,omitempty"`
-
-	// Composite Request ID
-	Requisition *common.Identifier `json:"requisition,omitempty"`
-
-	// Procedure Samples
-	Specimen []common.Reference `json:"specimen,omitempty"`
-
-	// The status of the order
-	Status ServiceRequestStatus `json:"status"`
-
-	// Explanation for current status
-	StatusReason *common.CodeableConcept `json:"statusReason,omitempty"`
-
-	// Individual or Entity the service is ordered for
-	Subject common.Reference `json:"subject"`
-
-	// Additional clinical information
-	SupportingInfo []CodeableReference `json:"supportingInfo,omitempty"`
-}
+// (ServiceRequest-related types and struct removed - moved to servicerequest.go)
 
 // Instruction represents instruction details for the service request
 type Instruction struct {
@@ -6823,7 +5957,7 @@ type Measure struct {
 	Rationale *string `json:"rationale,omitempty"`
 
 	// Additional documentation, citations, etc.
-	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
 
 	// Who reviewed the content
 	Reviewer []ContactDetail `json:"reviewer,omitempty"`
@@ -6862,7 +5996,7 @@ type Measure struct {
 	Usage *string `json:"usage,omitempty"`
 
 	// The context that the content is intended to support
-	UseContext []UsageContext `json:"useContext,omitempty"`
+	UseContext []interface{} `json:"useContext,omitempty"`
 
 	// Business version of the measure
 	Version *string `json:"version,omitempty"`
@@ -8220,7 +7354,7 @@ type NamingSystem struct {
 	Purpose *string `json:"purpose,omitempty"`
 
 	// Additional documentation, citations, etc.
-	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
+	RelatedArtifact []interface{} `json:"relatedArtifact,omitempty"`
 
 	// Organization that is responsible for issuing identifiers or codes
 	Responsible *string `json:"responsible,omitempty"`
@@ -8250,7 +7384,7 @@ type NamingSystem struct {
 	Usage *string `json:"usage,omitempty"`
 
 	// The context that the content is intended to support
-	UseContext []UsageContext `json:"useContext,omitempty"`
+	UseContext []interface{} `json:"useContext,omitempty"`
 }
 
 // PlanDefinitionStatus represents status of plan definition
@@ -10931,19 +10065,19 @@ type Permission struct {
 	// The period in which the permission is active
 	Justification *PermissionJustification `json:"justification,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// The person or entity that is the custodian of the permission
 	ManagingEntity *common.Reference `json:"managingEntity,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// A note that describes or explains the permission
 	Note []Annotation `json:"note,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// The status of the permission
 	Status PermissionStatus `json:"status"`
 
-	// The person or entity that is being allowed or denied access
+	// The subject of the permission
 	Subject []PermissionSubject `json:"subject,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// The period of time during which the permission is granted
 	ValidityPeriod *common.Period `json:"validityPeriod,omitempty"`
 }
 
@@ -10963,7 +10097,7 @@ type PermissionJustification struct {
 	// The regulatory grounds for the permission
 	Basis []common.CodeableConcept `json:"basis,omitempty"`
 
-	// Justification for the permission
+	// Evidence for the permission
 	Evidence []common.Reference `json:"evidence,omitempty"`
 }
 
@@ -10971,10 +10105,10 @@ type PermissionJustification struct {
 type PermissionSubject struct {
 	common.BackboneElement
 
-	// The person or entity that is being allowed or denied access
+	// Characteristics of the subject
 	Characteristic []PermissionSubjectCharacteristic `json:"characteristic,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// References to the subject
 	Reference []common.Reference `json:"reference,omitempty"`
 }
 
@@ -10982,16 +10116,16 @@ type PermissionSubject struct {
 type PermissionSubjectCharacteristic struct {
 	common.BackboneElement
 
-	// The person or entity that is being allowed or denied access
+	// Whether the characteristic is excluded or included
 	Exclude *bool `json:"exclude,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// The period during which the characteristic is valid
 	Period *common.Period `json:"period,omitempty"`
 
-	// The person or entity that is being allowed or denied access
+	// The type of characteristic
 	Type common.CodeableConcept `json:"type"`
 
-	// The person or entity that is being allowed or denied access
+	// The value of the characteristic
 	ValueCodeableConcept *common.CodeableConcept `json:"valueCodeableConcept,omitempty"`
 	ValueReference       *common.Reference       `json:"valueReference,omitempty"`
 	ValueBoolean         *bool                   `json:"valueBoolean,omitempty"`
