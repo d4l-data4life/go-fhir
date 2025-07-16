@@ -260,3 +260,165 @@ const (
 	HumanNameUseOld       HumanNameUse = "old"
 	HumanNameUseMaiden    HumanNameUse = "maiden"
 )
+
+// FHIR R5 RelatedArtifact
+// https://hl7.org/fhir/relatedartifact.html
+type RelatedArtifact struct {
+	DataType
+
+	Type              string            `json:"type"`
+	Label             *string           `json:"label,omitempty"`
+	Display           *string           `json:"display,omitempty"`
+	Citation          *string           `json:"citation,omitempty"`
+	URL               *string           `json:"url,omitempty"`
+	Document          *Attachment       `json:"document,omitempty"`
+	Resource          *string           `json:"resource,omitempty"`
+	ResourceReference *common.Reference `json:"resourceReference,omitempty"`
+}
+
+// FHIR R5 TriggerDefinition
+// https://hl7.org/fhir/triggerdefinition.html
+type TriggerDefinition struct {
+	DataType
+
+	Type            string            `json:"type"`
+	Name            *string           `json:"name,omitempty"`
+	TimingTiming    *Timing           `json:"timingTiming,omitempty"`
+	TimingReference *common.Reference `json:"timingReference,omitempty"`
+	TimingDate      *string           `json:"timingDate,omitempty"`
+	TimingDateTime  *string           `json:"timingDateTime,omitempty"`
+	Data            []DataRequirement `json:"data,omitempty"`
+	Condition       *Expression       `json:"condition,omitempty"`
+}
+
+// FHIR R5 Expression
+// https://hl7.org/fhir/expression.html
+type Expression struct {
+	DataType
+
+	Description *string `json:"description,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	Language    string  `json:"language"`
+	Expression  *string `json:"expression,omitempty"`
+	Reference   *string `json:"reference,omitempty"`
+}
+
+// FHIR R5 DataRequirement
+// https://hl7.org/fhir/datarequirement.html
+type DataRequirement struct {
+	DataType
+
+	Type                   string                      `json:"type"`
+	Profile                []string                    `json:"profile,omitempty"`
+	SubjectCodeableConcept *common.CodeableConcept     `json:"subjectCodeableConcept,omitempty"`
+	SubjectReference       *common.Reference           `json:"subjectReference,omitempty"`
+	MustSupport            []string                    `json:"mustSupport,omitempty"`
+	CodeFilter             []DataRequirementCodeFilter `json:"codeFilter,omitempty"`
+	DateFilter             []DataRequirementDateFilter `json:"dateFilter,omitempty"`
+	Limit                  *int                        `json:"limit,omitempty"`
+	Sort                   []DataRequirementSort       `json:"sort,omitempty"`
+}
+
+type DataRequirementCodeFilter struct {
+	Path        string                   `json:"path"`
+	SearchParam *string                  `json:"searchParam,omitempty"`
+	ValueSet    *string                  `json:"valueSet,omitempty"`
+	Code        []common.CodeableConcept `json:"code,omitempty"`
+}
+
+type DataRequirementDateFilter struct {
+	Path          string         `json:"path"`
+	SearchParam   *string        `json:"searchParam,omitempty"`
+	ValueDateTime *string        `json:"valueDateTime,omitempty"`
+	ValuePeriod   *common.Period `json:"valuePeriod,omitempty"`
+	ValueDuration *Duration      `json:"valueDuration,omitempty"`
+}
+
+type DataRequirementSort struct {
+	Path      string `json:"path"`
+	Direction string `json:"direction"`
+}
+
+// ContactDetail represents contact information
+type ContactDetail struct {
+	DataType
+
+	// Name of the contact
+	Name *string `json:"name,omitempty"`
+
+	// Contact details
+	Telecom []ContactPoint `json:"telecom,omitempty"`
+}
+
+// ContactPoint represents details for contacting
+type ContactPoint struct {
+	DataType
+
+	// phone | fax | email | pager | url | sms | other
+	System *ContactPointSystem `json:"system,omitempty"`
+
+	// The actual contact point details
+	Value *string `json:"value,omitempty"`
+
+	// home | work | temp | old | mobile - purpose of this contact point
+	Use *ContactPointUse `json:"use,omitempty"`
+
+	// Specify preferred order of use (1 = highest)
+	Rank *int `json:"rank,omitempty"`
+
+	// Time period when the contact point was/is in use
+	Period *common.Period `json:"period,omitempty"`
+}
+
+// ContactPointSystem represents the contact point system
+type ContactPointSystem string
+
+const (
+	ContactPointSystemPhone ContactPointSystem = "phone"
+	ContactPointSystemFax   ContactPointSystem = "fax"
+	ContactPointSystemEmail ContactPointSystem = "email"
+	ContactPointSystemPager ContactPointSystem = "pager"
+	ContactPointSystemURL   ContactPointSystem = "url"
+	ContactPointSystemSMS   ContactPointSystem = "sms"
+	ContactPointSystemOther ContactPointSystem = "other"
+)
+
+// ContactPointUse represents the use of a contact point
+type ContactPointUse string
+
+const (
+	ContactPointUseHome   ContactPointUse = "home"
+	ContactPointUseWork   ContactPointUse = "work"
+	ContactPointUseTemp   ContactPointUse = "temp"
+	ContactPointUseOld    ContactPointUse = "old"
+	ContactPointUseMobile ContactPointUse = "mobile"
+)
+
+// CodeableReference represents a reference that may be typed
+type CodeableReference struct {
+	DataType
+
+	// Type of reference
+	Concept *common.CodeableConcept `json:"concept,omitempty"`
+
+	// Reference to another resource
+	Reference *common.Reference `json:"reference,omitempty"`
+}
+
+// VirtualServiceDetail represents virtual service contact details
+type VirtualServiceDetail struct {
+	DataType
+
+	// Contact details for virtual service
+	ContactDetail *ContactDetail `json:"contactDetail,omitempty"`
+
+	// Virtual service type
+	VirtualService *common.CodeableConcept `json:"virtualService,omitempty"`
+}
+
+// RelatedPersonCommunication represents a language communication preference for a related person
+type RelatedPersonCommunication struct {
+	common.BackboneElement
+	Language  common.CodeableConcept `json:"language"`
+	Preferred *bool                  `json:"preferred,omitempty"`
+}

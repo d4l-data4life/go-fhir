@@ -5,6 +5,52 @@ import (
 	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
+// AuditEventOutcome represents the outcome of an audit event
+type AuditEventOutcome struct {
+	common.BackboneElement
+
+	// The outcome code
+	Code common.Coding `json:"code"`
+
+	// A human readable description of the error issue
+	Detail []common.CodeableConcept `json:"detail,omitempty"`
+}
+
+// AuditEventAgent represents an agent involved in an audit event
+type AuditEventAgent struct {
+	common.BackboneElement
+
+	// Use AuditEvent.agent.authorization when you know that is specific to the agent
+	Authorization []common.CodeableConcept `json:"authorization,omitempty"`
+
+	// Where the agent location is known, the agent location when the event occurred
+	Location *common.Reference `json:"location,omitempty"`
+
+	// When remote network endpoint is known, another agent representing the remote agent
+	NetworkReference *common.Reference `json:"networkReference,omitempty"`
+
+	// When remote network endpoint is known, another agent representing the remote agent
+	NetworkUri *string `json:"networkUri,omitempty"`
+
+	// When remote network endpoint is known, another agent representing the remote agent
+	NetworkString *string `json:"networkString,omitempty"`
+
+	// For example: Where an OAuth token authorizes, the unique identifier from the OAuth token
+	Policy []string `json:"policy,omitempty"`
+
+	// There can only be one initiator. If the initiator is not clear, then do not choose any one agent as the initiator
+	Requestor *bool `json:"requestor,omitempty"`
+
+	// For example: Chief-of-Radiology, Nurse, Physician, Medical-Student, etc.
+	Role []common.CodeableConcept `json:"role,omitempty"`
+
+	// For example: assembler, author, prescriber, signer, investigator, etc.
+	Type *common.CodeableConcept `json:"type,omitempty"`
+
+	// Where a User ID is available it will go into who.identifier
+	Who common.Reference `json:"who"`
+}
+
 // AuditEventSource represents the source of an audit event
 type AuditEventSource struct {
 	common.BackboneElement
@@ -19,85 +65,51 @@ type AuditEventSource struct {
 	Type []common.CodeableConcept `json:"type,omitempty"`
 }
 
-// AuditEventEntityDetail represents tagged value pairs for conveying additional information about the entity
+// AuditEventEntity represents an entity involved in an audit event
+type AuditEventEntity struct {
+	common.BackboneElement
+
+	// A usecase where one AuditEvent.agent.participant is a human user and the other is a process on behalf of that human user
+	Agent []AuditEventAgent `json:"agent,omitempty"`
+
+	// Tagged value pairs for conveying additional information about the entity
+	Detail []AuditEventEntityDetail `json:"detail,omitempty"`
+
+	// The meaning and processing of the data element/entity
+	Description *string `json:"description,omitempty"`
+
+	// The type of the object that was involved in the audit event
+	Lifecycle *common.Coding `json:"lifecycle,omitempty"`
+
+	// A name of the entity in the audit event
+	Name *string `json:"name,omitempty"`
+
+	// Text that describes the entity in more detail
+	Query *string `json:"query,omitempty"`
+
+	// The security labels on the entity
+	SecurityLabel []common.Coding `json:"securityLabel,omitempty"`
+
+	// The type of the object that was involved in the audit event
+	Type *common.Coding `json:"type,omitempty"`
+
+	// What the entity is
+	What common.Reference `json:"what"`
+}
+
+// AuditEventEntityDetail represents details about an entity in an audit event
 type AuditEventEntityDetail struct {
 	common.BackboneElement
 
 	// The type of extra detail provided in the value
 	Type string `json:"type"`
 
-	// The value can be string when known to be a string, else base64 encoding should be used
-	ValueString *string `json:"valueString,omitempty"`
-
-	// The value can be base64 encoded for binary content
+	// The value of the extra detail
+	ValueString       *string `json:"valueString,omitempty"`
 	ValueBase64Binary *string `json:"valueBase64Binary,omitempty"`
 }
 
-// AuditEventEntity represents an entity involved in the audit event
-type AuditEventEntity struct {
-	common.BackboneElement
-
-	// A usecase where one AuditEvent.entity.agent is used where the Entity that was used in the creation/updating of a target resource
-	Agent []AuditEventAgent `json:"agent,omitempty"`
-
-	// Tagged value pairs for conveying additional information about the entity
-	Detail []AuditEventEntityDetail `json:"detail,omitempty"`
-
-	// The meaning and secondary-encoding of the content of base64 encoded blob
-	Query *string `json:"query,omitempty"`
-
-	// Text that describes the entity in more detail
-	Description *string `json:"description,omitempty"`
-
-	// This can be used to provide an audit trail for data, over time, as it passes through the system
-	Lifecycle *common.Coding `json:"lifecycle,omitempty"`
-
-	// This field may be used in a query/report to identify audit events for a specific person
-	Name *string `json:"name,omitempty"`
-
-	// Code representing the role the entity played in the event being audited
-	Role *common.Coding `json:"role,omitempty"`
-
-	// Copied from entity meta security tags
-	SecurityLabel []common.Coding `json:"securityLabel,omitempty"`
-
-	// This value is distinct from the user's role or any user relationship to the entity
-	Type *common.Coding `json:"type,omitempty"`
-
-	// Identifies a specific instance of the entity. The reference should be version specific
-	What *common.Reference `json:"what,omitempty"`
-}
-
-// AuditEventAgent represents an agent involved in the audit event
-type AuditEventAgent struct {
-	common.BackboneElement
-
-	// Alternative agent Identifier. For a human, this should be a user identifier text string from authentication system
-	AltId *string `json:"altId,omitempty"`
-
-	// Where the event occurred
-	Location *common.Reference `json:"location,omitempty"`
-
-	// Type of media involved. Used when the event is about exporting/importing onto media
-	Media *common.Coding `json:"media,omitempty"`
-
-	// Human-meaningful name for the agent
-	Name *string `json:"name,omitempty"`
-
-	// Logical network location for application activity, if the activity has a network location
-	Network interface{} `json:"network,omitempty"`
-
-	// For example: Where an OAuth token authorizes, the unique identifier from the OAuth token is placed into the policy element
-	Policy []string `json:"policy,omitempty"`
-
-	// Use AuditEvent.agent.purposeOfUse when you know that is specific to the agent
-	PurposeOfUse []common.CodeableConcept `json:"purposeOfUse,omitempty"`
-
-	// There can only be one initiator. If the initiator is not clear, then do not choose any one agent as the initiator
-	Requestor bool `json:"requestor"`
-}
-
-// AuditEvent represents a record of an event relevant for purposes such as operations, privacy, security, maintenance, and performance analysis.
+// AuditEvent represents an audit event
 type AuditEvent struct {
 	DomainResource
 
@@ -128,24 +140,38 @@ type AuditEvent struct {
 	// Required unless the values for event identification, agent identification, and audit source identification are sufficient
 	Entity []AuditEventEntity `json:"entity,omitempty"`
 
-	// The time or period can be a little arbitrary; where possible, the time should correspond to human assessment of the activity time
+	// The time or period can be a little arbitrary
 	OccurredPeriod *common.Period `json:"occurredPeriod,omitempty"`
 
-	// The time or period can be a little arbitrary; where possible, the time should correspond to human assessment of the activity time
+	// The time or period can be a little arbitrary
 	OccurredDateTime *string `json:"occurredDateTime,omitempty"`
 
 	// In some cases a "success" may be partial
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *AuditEventOutcome `json:"outcome,omitempty"`
 
-	// The patient element is available to enable deterministic tracking of activities that involve the patient as the subject
+	// The patient element is available to enable deterministic tracking of activities
 	Patient *common.Reference `json:"patient,omitempty"`
 
 	// In a distributed system, some sort of common time base is a good implementation tactic
 	Recorded string `json:"recorded"`
 
 	// ATNA will map this to the SYSLOG PRI element
-	Severity *string `json:"severity,omitempty"`
+	Severity *AuditEventSeverity `json:"severity,omitempty"`
 
 	// Events are reported by the actor that detected them
 	Source AuditEventSource `json:"source"`
 }
+
+// AuditEventSeverity represents the severity of an audit event
+type AuditEventSeverity string
+
+const (
+	AuditEventSeverityEmergency     AuditEventSeverity = "emergency"
+	AuditEventSeverityAlert         AuditEventSeverity = "alert"
+	AuditEventSeverityCritical      AuditEventSeverity = "critical"
+	AuditEventSeverityError         AuditEventSeverity = "error"
+	AuditEventSeverityWarning       AuditEventSeverity = "warning"
+	AuditEventSeverityNotice        AuditEventSeverity = "notice"
+	AuditEventSeverityInformational AuditEventSeverity = "informational"
+	AuditEventSeverityDebug         AuditEventSeverity = "debug"
+)

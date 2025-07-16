@@ -15,49 +15,6 @@ const (
 	EventDefinitionStatusUnknown EventDefinitionStatus = "unknown"
 )
 
-// TriggerDefinitionType represents the type of triggering event
-type TriggerDefinitionType string
-
-const (
-	TriggerDefinitionTypeNamedEvent      TriggerDefinitionType = "named-event"
-	TriggerDefinitionTypePeriodic        TriggerDefinitionType = "periodic"
-	TriggerDefinitionTypeDataChanged     TriggerDefinitionType = "data-changed"
-	TriggerDefinitionTypeDataAdded       TriggerDefinitionType = "data-added"
-	TriggerDefinitionTypeDataModified    TriggerDefinitionType = "data-modified"
-	TriggerDefinitionTypeDataRemoved     TriggerDefinitionType = "data-removed"
-	TriggerDefinitionTypeDataAccessed    TriggerDefinitionType = "data-accessed"
-	TriggerDefinitionTypeDataAccessEnded TriggerDefinitionType = "data-access-ended"
-)
-
-// TriggerDefinition represents a description of a triggering event
-type TriggerDefinition struct {
-	common.Element
-
-	// A code that identifies the event
-	Code *common.CodeableConcept `json:"code,omitempty"`
-
-	// Additional semantics for the trigger (optional for data type triggers)
-	Condition *Expression `json:"condition,omitempty"`
-
-	// This element shall be present for any data type trigger (simplified for now)
-	Data []interface{} `json:"data,omitempty"`
-
-	// An event name can be provided for all event types, but is required for named events
-	Name *string `json:"name,omitempty"`
-
-	// A reference to a SubscriptionTopic resource that defines the event
-	SubscriptionTopic *string `json:"subscriptionTopic,omitempty"`
-
-	// The timing of the event (if this is a periodic trigger) - choice type
-	TimingTiming    *Timing           `json:"timingTiming,omitempty"`
-	TimingReference *common.Reference `json:"timingReference,omitempty"`
-	TimingDate      *string           `json:"timingDate,omitempty"`
-	TimingDateTime  *string           `json:"timingDateTime,omitempty"`
-
-	// The type of triggering event
-	Type TriggerDefinitionType `json:"type"`
-}
-
 // EventDefinition provides a reusable description of when a particular event can occur
 type EventDefinition struct {
 	DomainResource

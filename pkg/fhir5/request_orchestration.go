@@ -5,55 +5,136 @@ import (
 	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
-// RequestOrchestration represents a set of related requests that can be used to capture and track the state of a request
+// RequestOrchestration represents a set of related requests (FHIR R5)
 type RequestOrchestration struct {
 	DomainResource
 
-	// Resource Type Name (for serialization)
-	ResourceType string `json:"resourceType"` // Always "RequestOrchestration"
+	ResourceType          string                        `json:"resourceType"` // Always "RequestOrchestration"
+	Identifier            []common.Identifier           `json:"identifier,omitempty"`
+	InstantiatesCanonical []string                      `json:"instantiatesCanonical,omitempty"`
+	InstantiatesUri       []string                      `json:"instantiatesUri,omitempty"`
+	BasedOn               []common.Reference            `json:"basedOn,omitempty"`
+	Replaces              []common.Reference            `json:"replaces,omitempty"`
+	GroupIdentifier       *common.Identifier            `json:"groupIdentifier,omitempty"`
+	Status                RequestOrchestrationStatus    `json:"status"`
+	Intent                RequestOrchestrationIntent    `json:"intent"`
+	Priority              *RequestOrchestrationPriority `json:"priority,omitempty"`
+	Subject               *common.Reference             `json:"subject,omitempty"`
+	Encounter             *common.Reference             `json:"encounter,omitempty"`
+	AuthoredOn            *string                       `json:"authoredOn,omitempty"`
+	Author                *common.Reference             `json:"author,omitempty"`
+	Reason                []CodeableReference           `json:"reason,omitempty"`
+	Note                  []Annotation                  `json:"note,omitempty"`
+	Action                []RequestOrchestrationAction  `json:"action,omitempty"`
+}
 
-	// The actions, if any, produced by the evaluation of the artifact
-	Action []interface{} `json:"action,omitempty"`
+type RequestOrchestrationStatus string
 
-	// The author of the request orchestration
-	Author *common.Reference `json:"author,omitempty"`
+const (
+	RequestOrchestrationStatusDraft          RequestOrchestrationStatus = "draft"
+	RequestOrchestrationStatusActive         RequestOrchestrationStatus = "active"
+	RequestOrchestrationStatusOnHold         RequestOrchestrationStatus = "on-hold"
+	RequestOrchestrationStatusRevoked        RequestOrchestrationStatus = "revoked"
+	RequestOrchestrationStatusCompleted      RequestOrchestrationStatus = "completed"
+	RequestOrchestrationStatusEnteredInError RequestOrchestrationStatus = "entered-in-error"
+	RequestOrchestrationStatusUnknown        RequestOrchestrationStatus = "unknown"
+)
 
-	// A plan or request that is fulfilled in whole or in part by this request orchestration
-	BasedOn []common.Reference `json:"basedOn,omitempty"`
+type RequestOrchestrationIntent string
 
-	// The date when this request orchestration was created
-	Created *string `json:"created,omitempty"`
+const (
+	RequestOrchestrationIntentProposal      RequestOrchestrationIntent = "proposal"
+	RequestOrchestrationIntentPlan          RequestOrchestrationIntent = "plan"
+	RequestOrchestrationIntentOrder         RequestOrchestrationIntent = "order"
+	RequestOrchestrationIntentOriginalOrder RequestOrchestrationIntent = "original-order"
+	RequestOrchestrationIntentReflexOrder   RequestOrchestrationIntent = "reflex-order"
+	RequestOrchestrationIntentFillerOrder   RequestOrchestrationIntent = "filler-order"
+	RequestOrchestrationIntentInstanceOrder RequestOrchestrationIntent = "instance-order"
+	RequestOrchestrationIntentOption        RequestOrchestrationIntent = "option"
+)
 
-	// A group of related requests that can be used to capture and track the state of a request
-	GroupIdentifier *common.Identifier `json:"groupIdentifier,omitempty"`
+type RequestOrchestrationPriority string
 
-	// Business identifier for the request orchestration
-	Identifier []common.Identifier `json:"identifier,omitempty"`
+const (
+	RequestOrchestrationPriorityRoutine RequestOrchestrationPriority = "routine"
+	RequestOrchestrationPriorityUrgent  RequestOrchestrationPriority = "urgent"
+	RequestOrchestrationPriorityASAP    RequestOrchestrationPriority = "asap"
+	RequestOrchestrationPriorityStat    RequestOrchestrationPriority = "stat"
+)
 
-	// A reference to a formal or informal definition of the request orchestration
-	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+type RequestOrchestrationAction struct {
+	common.BackboneElement
+	Prefix                 *string                                   `json:"prefix,omitempty"`
+	Title                  *string                                   `json:"title,omitempty"`
+	Description            *string                                   `json:"description,omitempty"`
+	TextEquivalent         *string                                   `json:"textEquivalent,omitempty"`
+	Priority               *RequestOrchestrationPriority             `json:"priority,omitempty"`
+	Code                   []common.CodeableConcept                  `json:"code,omitempty"`
+	Reason                 []common.CodeableConcept                  `json:"reason,omitempty"`
+	Documentation          []RelatedArtifact                         `json:"documentation,omitempty"`
+	Goal                   []common.Reference                        `json:"goal,omitempty"`
+	SubjectCodeableConcept *common.CodeableConcept                   `json:"subjectCodeableConcept,omitempty"`
+	SubjectReference       *common.Reference                         `json:"subjectReference,omitempty"`
+	Trigger                []TriggerDefinition                       `json:"trigger,omitempty"`
+	Condition              []RequestOrchestrationActionCondition     `json:"condition,omitempty"`
+	Input                  []RequestOrchestrationActionInput         `json:"input,omitempty"`
+	Output                 []RequestOrchestrationActionOutput        `json:"output,omitempty"`
+	RelatedAction          []RequestOrchestrationActionRelatedAction `json:"relatedAction,omitempty"`
+	TimingDateTime         *string                                   `json:"timingDateTime,omitempty"`
+	TimingAge              *Age                                      `json:"timingAge,omitempty"`
+	TimingPeriod           *common.Period                            `json:"timingPeriod,omitempty"`
+	TimingDuration         *Duration                                 `json:"timingDuration,omitempty"`
+	TimingRange            *Range                                    `json:"timingRange,omitempty"`
+	TimingTiming           *Timing                                   `json:"timingTiming,omitempty"`
+	Participant            []RequestOrchestrationActionParticipant   `json:"participant,omitempty"`
+	Type                   *common.CodeableConcept                   `json:"type,omitempty"`
+	GroupingBehavior       *string                                   `json:"groupingBehavior,omitempty"`
+	SelectionBehavior      *string                                   `json:"selectionBehavior,omitempty"`
+	RequiredBehavior       *string                                   `json:"requiredBehavior,omitempty"`
+	PrecheckBehavior       *string                                   `json:"precheckBehavior,omitempty"`
+	CardinalityBehavior    *string                                   `json:"cardinalityBehavior,omitempty"`
+	Resource               *common.Reference                         `json:"resource,omitempty"`
+	DefinitionCanonical    *string                                   `json:"definitionCanonical,omitempty"`
+	DefinitionUri          *string                                   `json:"definitionUri,omitempty"`
+	Transform              *string                                   `json:"transform,omitempty"`
+	DynamicValue           []RequestOrchestrationActionDynamicValue  `json:"dynamicValue,omitempty"`
+	Action                 []RequestOrchestrationAction              `json:"action,omitempty"`
+}
 
-	// A reference to a formal or informal definition of the request orchestration
-	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+type RequestOrchestrationActionCondition struct {
+	common.BackboneElement
+	Kind       string      `json:"kind"`
+	Expression *Expression `json:"expression,omitempty"`
+}
 
-	// The intended performer of the request orchestration
-	Intent string `json:"intent"`
+type RequestOrchestrationActionInput struct {
+	common.BackboneElement
+	Title       *string          `json:"title,omitempty"`
+	Requirement *DataRequirement `json:"requirement,omitempty"`
+}
 
-	// A description of the request orchestration
-	Note []Annotation `json:"note,omitempty"`
+type RequestOrchestrationActionOutput struct {
+	common.BackboneElement
+	Title       *string          `json:"title,omitempty"`
+	Requirement *DataRequirement `json:"requirement,omitempty"`
+}
 
-	// The priority of the request orchestration
-	Priority *string `json:"priority,omitempty"`
+type RequestOrchestrationActionRelatedAction struct {
+	common.BackboneElement
+	TargetId       string    `json:"targetId"`
+	Relationship   string    `json:"relationship"`
+	OffsetDuration *Duration `json:"offsetDuration,omitempty"`
+	OffsetRange    *Range    `json:"offsetRange,omitempty"`
+}
 
-	// A reference to a formal or informal definition of the request orchestration
-	Replaces []common.Reference `json:"replaces,omitempty"`
+type RequestOrchestrationActionParticipant struct {
+	common.BackboneElement
+	Type string                  `json:"type"`
+	Role *common.CodeableConcept `json:"role,omitempty"`
+}
 
-	// The current state of the request orchestration
-	Status string `json:"status"`
-
-	// The subject of the request orchestration
-	Subject *common.Reference `json:"subject,omitempty"`
-
-	// A human-readable narrative that contains a summary of the request orchestration
-	Text *Narrative `json:"text,omitempty"`
+type RequestOrchestrationActionDynamicValue struct {
+	common.BackboneElement
+	Path       string      `json:"path"`
+	Expression *Expression `json:"expression,omitempty"`
 }

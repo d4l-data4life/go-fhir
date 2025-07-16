@@ -6,7 +6,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 | FHIR Version | Total Resources | Go Implemented | Percentage |
 |--------------|-----------------|----------------|------------|
-| R5           | 162             | 82             | 50.6%      |
+| R5           | 162             | 104            | 64.2%      |
 | R4B          | 116             | 6              | 5.2%       |
 | R4           | 106             | 23             | 21.7%      |
 | R3           | 98              | 23             | 23.5%      |
@@ -14,7 +14,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (82/162)
+### ✅ Implemented (104/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -23,13 +23,42 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] AllergyIntolerance
 - [x] Appointment
 - [x] AppointmentResponse
+- [x] ArtifactAssessment
+- [x] AuditEvent
 - [x] Basic
+- [x] Binary
+- [x] BiologicallyDerivedProduct
+- [x] BiologicallyDerivedProductDispense
+- [x] BodyStructure
 - [x] Bundle
 - [x] CapabilityStatement
 - [x] CarePlan
 - [x] CareTeam
 - [x] ChargeItem
+- [x] ChargeItemDefinition
+- [x] Citation
+- [x] ClinicalImpression
+- [x] ClinicalUseDefinition
+- [x] CodeSystem
+- [x] Communication
+- [x] CommunicationRequest
+- [x] CompartmentDefinition
+- [x] Composition
+- [x] ConceptMap
 - [x] Condition
+- [x] ConditionDefinition
+- [x] Consent
+- [x] Contract
+- [x] Coverage
+- [x] CoverageEligibilityRequest
+- [x] CoverageEligibilityResponse
+- [x] DetectedIssue
+- [x] Device
+- [x] DeviceAssociation
+- [x] DeviceDefinition
+- [x] DeviceDispense
+- [x] DeviceMetric
+- [x] DeviceRequest
 - [x] DiagnosticReport
 - [x] DocumentReference
 - [x] Encounter
@@ -99,43 +128,13 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] Permission
 - [x] Person
 
-### ❌ Not Implemented (80/162)
-- [ ] ArtifactAssessment
-- [ ] AuditEvent
-- [ ] Binary
-- [ ] BiologicallyDerivedProduct
-- [ ] BiologicallyDerivedProductDispense
-- [ ] BodyStructure
-- [ ] ChargeItemDefinition
-- [ ] Citation
+### ❌ Not Implemented (58/162)
 - [ ] Claim
 - [ ] ClaimResponse
-- [ ] ClinicalImpression
-- [ ] ClinicalUseDefinition
-- [ ] CodeSystem
-- [ ] Communication
-- [ ] CommunicationRequest
-- [ ] CompartmentDefinition
-- [ ] Composition
-- [ ] ConceptMap
-- [ ] ConditionDefinition
-- [ ] Consent
-- [ ] Contract
-- [ ] Coverage
-- [ ] CoverageEligibilityRequest
-- [ ] CoverageEligibilityResponse
-- [ ] DetectedIssue
-- [ ] Device
-- [ ] DeviceAssociation
-- [ ] DeviceDefinition
-- [ ] DeviceDispense
-- [ ] DeviceMetric
-- [ ] DeviceRequest
 - [ ] DeviceUsage
 - [x] NutritionIntake
 - [x] NutritionOrder
 - [x] NutritionProduct
-
 - [ ] PlanDefinition
 - [ ] PractitionerRole
 - [ ] Provenance

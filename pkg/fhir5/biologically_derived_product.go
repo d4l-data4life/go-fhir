@@ -5,80 +5,101 @@ import (
 	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
-// BiologicallyDerivedProductCollection represents collection details for BiologicallyDerivedProduct
+// BiologicallyDerivedProductCollection represents how this product was collected
 type BiologicallyDerivedProductCollection struct {
 	common.BackboneElement
-
-	// Healthcare professional who is performing the collection
-	Collector *common.Reference `json:"collector,omitempty"`
-
-	// The patient or entity, such as a hospital or vendor in the case of a processed/manipulated/manufactured product, providing the product
-	Source *common.Reference `json:"source,omitempty"`
 
 	// Time of product collection
 	CollectedDateTime *string `json:"collectedDateTime,omitempty"`
 
 	// Time of product collection
 	CollectedPeriod *common.Period `json:"collectedPeriod,omitempty"`
+
+	// Healthcare professional who is performing the collection
+	Collector *common.Reference `json:"collector,omitempty"`
+
+	// The patient or entity providing the product
+	Source *common.Reference `json:"source,omitempty"`
 }
 
-// BiologicallyDerivedProductProperty represents property for BiologicallyDerivedProduct
+// BiologicallyDerivedProductProperty represents property information for a biologically derived product
 type BiologicallyDerivedProductProperty struct {
 	common.BackboneElement
 
-	// Code that specifies the property being defined
+	// The element is identified by name and system URI in the type
 	Type common.CodeableConcept `json:"type"`
 
-	// Property values
-	Value interface{} `json:"value,omitempty"`
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueBoolean *bool `json:"valueBoolean,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueInteger *int `json:"valueInteger,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueCodeableConcept *common.CodeableConcept `json:"valueCodeableConcept,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValuePeriod *common.Period `json:"valuePeriod,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueQuantity *common.Quantity `json:"valueQuantity,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueRange *Range `json:"valueRange,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueRatio *Ratio `json:"valueRatio,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueString *string `json:"valueString,omitempty"`
+
+	// The value should be provided as a boolean, integer, CodeableConcept, period, quantity, range, ratio, or attachment
+	ValueAttachment *Attachment `json:"valueAttachment,omitempty"`
 }
 
-// BiologicallyDerivedProduct represents a material substance originating from a biological entity intended to be transplanted or infused into another (possibly the same) biological entity
+// BiologicallyDerivedProduct represents a biologically derived product
 type BiologicallyDerivedProduct struct {
 	DomainResource
 
 	// Resource Type Name (for serialization)
 	ResourceType string `json:"resourceType"` // Always "BiologicallyDerivedProduct"
 
+	// Necessary to support mandatory requirements for traceability from donor/source to recipient
+	BiologicalSourceEvent *common.Identifier `json:"biologicalSourceEvent,omitempty"`
+
 	// How this product was collected
 	Collection *BiologicallyDerivedProductCollection `json:"collection,omitempty"`
 
-	// Any manipulation of product post-collection that is intended to alter the product
-	Manipulation interface{} `json:"manipulation,omitempty"`
+	// A unique identifier for an aliquot of a product
+	Division *string `json:"division,omitempty"`
 
-	// Any processing of the product during collection that does not change the fundamental nature of the product
-	Processing []interface{} `json:"processing,omitempty"`
+	// Date, and where relevant time, of expiration
+	ExpirationDate *string `json:"expirationDate,omitempty"`
 
-	// Product storage
-	Storage []interface{} `json:"storage,omitempty"`
-
-	// Whether this product is currently available
-	Availability *string `json:"availability,omitempty"`
-
-	// Product category
-	Category []common.CodeableConcept `json:"category,omitempty"`
-
-	// What this biologically derived product is
-	Code *common.CodeableConcept `json:"code,omitempty"`
-
-	// Description of the product
-	Description *string `json:"description,omitempty"`
-
-	// External ids for this item
+	// This identifier should uniquely identify the product instance in the business domain
 	Identifier []common.Identifier `json:"identifier,omitempty"`
 
-	// The parent biologically derived product
+	// For products that have multiple collections
 	Parent []common.Reference `json:"parent,omitempty"`
 
-	// Procedure request
+	// Processing facilities responsible for the labeling and distribution
+	ProcessingFacility []common.Reference `json:"processingFacility,omitempty"`
+
+	// Broad category of this product
+	ProductCategory *common.Coding `json:"productCategory,omitempty"`
+
+	// A codified value that systematically supports characterization and classification
+	ProductCode *common.CodeableConcept `json:"productCode,omitempty"`
+
+	// Whether the product is currently available
+	ProductStatus *common.Coding `json:"productStatus,omitempty"`
+
+	// Property can be used to provide information on a wide range of additional information
+	Property []BiologicallyDerivedProductProperty `json:"property,omitempty"`
+
+	// Request to obtain and/or infuse this biologically derived product
 	Request []common.Reference `json:"request,omitempty"`
 
-	// available | unavailable | entered-in-error
-	Status *string `json:"status,omitempty"`
-
-	// The subject of the product
-	Subject *common.Reference `json:"subject,omitempty"`
-
-	// Property can be used to provide information on a wide range of additional information specific to a particular biologicallyDerivedProduct
-	Property []BiologicallyDerivedProductProperty `json:"property,omitempty"`
+	// May be extracted from information held in the Product Description Code
+	StorageTempRequirements *Range `json:"storageTempRequirements,omitempty"`
 }

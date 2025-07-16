@@ -5,60 +5,83 @@ import (
 	"github.com/go-fhir/go-fhir/pkg/common"
 )
 
-// BiologicallyDerivedProductDispensePerformer represents performer for BiologicallyDerivedProductDispense
+// BiologicallyDerivedProductDispensePerformer represents who or what performed an action
 type BiologicallyDerivedProductDispensePerformer struct {
 	common.BackboneElement
 
-	// The actor performing the dispense
-	Actor *common.Reference `json:"actor,omitempty"`
+	// Identifies the person responsible for the action
+	Actor common.Reference `json:"actor"`
 
-	// The function of the actor in the dispense
+	// Identifies the function of the performer during the dispense
 	Function *common.CodeableConcept `json:"function,omitempty"`
 }
 
-// BiologicallyDerivedProductDispense represents a dispense event for a biologically derived product
+// BiologicallyDerivedProductDispense represents a biologically derived product dispense
 type BiologicallyDerivedProductDispense struct {
 	DomainResource
 
 	// Resource Type Name (for serialization)
 	ResourceType string `json:"resourceType"` // Always "BiologicallyDerivedProductDispense"
 
-	// The biologically derived product that is dispensed
-	Product *common.Reference `json:"product,omitempty"`
+	// The order or request that the dispense is fulfilling
+	BasedOn []common.Reference `json:"basedOn,omitempty"`
 
-	// The patient to whom the product is dispensed
-	Subject *common.Reference `json:"subject,omitempty"`
+	// Link to a resource identifying the physical location that the product was dispatched to
+	Destination *common.Reference `json:"destination,omitempty"`
 
-	// The encounter or episode of care that establishes the context for this dispense
-	Encounter *common.Reference `json:"encounter,omitempty"`
+	// Unique instance identifiers assigned to a biologically derived product dispense
+	Identifier []common.Identifier `json:"identifier,omitempty"`
 
-	// The amount dispensed
-	Quantity *common.Quantity `json:"quantity,omitempty"`
-
-	// When the product was dispensed
-	DispensedDateTime *string `json:"dispensedDateTime,omitempty"`
-
-	// When the product was dispensed
-	DispensedPeriod *common.Period `json:"dispensedPeriod,omitempty"`
-
-	// The individual responsible for dispensing the product
-	Performer []BiologicallyDerivedProductDispensePerformer `json:"performer,omitempty"`
-
-	// The location where the dispense occurred
+	// The physical location where the dispense was performed
 	Location *common.Reference `json:"location,omitempty"`
 
-	// Whether the dispense was or was not performed
-	NotDone *bool `json:"notDone,omitempty"`
-
-	// Why a dispense was not performed
-	NotDoneReason *common.CodeableConcept `json:"notDoneReason,omitempty"`
+	// Indicates the type of matching associated with the dispense
+	MatchStatus *common.CodeableConcept `json:"matchStatus,omitempty"`
 
 	// Additional notes
 	Note []Annotation `json:"note,omitempty"`
 
-	// How the product should be used
+	// Indicates the relationship between the donor of the biologically derived product and the intended recipient
+	OriginRelationshipType *common.CodeableConcept `json:"originRelationshipType,omitempty"`
+
+	// A larger event of which this particular event is a component
+	PartOf []common.Reference `json:"partOf,omitempty"`
+
+	// A link to a resource representing the patient that the product is dispensed for
+	Patient common.Reference `json:"patient"`
+
+	// Indicates who or what performed an action
+	Performer []BiologicallyDerivedProductDispensePerformer `json:"performer,omitempty"`
+
+	// When the product was selected/ matched
+	PreparedDate *string `json:"preparedDate,omitempty"`
+
+	// A link to a resource identifying the biologically derived product that is being dispensed
+	Product common.Reference `json:"product"`
+
+	// The amount of product in the dispense
+	Quantity *common.Quantity `json:"quantity,omitempty"`
+
+	// A code specifying the state of the dispense event
+	Status BiologicallyDerivedProductDispenseStatus `json:"status"`
+
+	// Specific instructions for use
 	UsageInstruction *string `json:"usageInstruction,omitempty"`
 
-	// prepared | dispensed | in-transit | delivered
-	Status *string `json:"status,omitempty"`
+	// When the product was dispatched for clinical use
+	WhenHandedOver *string `json:"whenHandedOver,omitempty"`
 }
+
+// BiologicallyDerivedProductDispenseStatus represents the status of a biologically derived product dispense
+type BiologicallyDerivedProductDispenseStatus string
+
+const (
+	BiologicallyDerivedProductDispenseStatusPreparation    BiologicallyDerivedProductDispenseStatus = "preparation"
+	BiologicallyDerivedProductDispenseStatusInProgress     BiologicallyDerivedProductDispenseStatus = "in-progress"
+	BiologicallyDerivedProductDispenseStatusAllocated      BiologicallyDerivedProductDispenseStatus = "allocated"
+	BiologicallyDerivedProductDispenseStatusIssued         BiologicallyDerivedProductDispenseStatus = "issued"
+	BiologicallyDerivedProductDispenseStatusUnfulfilled    BiologicallyDerivedProductDispenseStatus = "unfulfilled"
+	BiologicallyDerivedProductDispenseStatusReturned       BiologicallyDerivedProductDispenseStatus = "returned"
+	BiologicallyDerivedProductDispenseStatusEnteredInError BiologicallyDerivedProductDispenseStatus = "entered-in-error"
+	BiologicallyDerivedProductDispenseStatusUnknown        BiologicallyDerivedProductDispenseStatus = "unknown"
+)
