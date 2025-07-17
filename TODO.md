@@ -8,7 +8,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 |--------------|-----------------|----------------|------------|
 | R5           | 162             | 160            | 98.8%      |
 | R4B          | 116             | 6              | 5.2%       |
-| R4           | 106             | 43             | 40.6%      |
+| R4           | 106             | 106            | 100%       |
 | R3           | 98              | 23             | 23.5%      |
 | R2           | 77              | 21             | 27.3%      |
 
