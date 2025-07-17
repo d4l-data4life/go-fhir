@@ -280,7 +280,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R4 Resources (FHIR 4.0.1)
 
-### ✅ Implemented (43/106)
+### ✅ Implemented (106/106)
 - [x] Account
 - [x] ActivityDefinition
 - [x] AdverseEvent
@@ -323,111 +323,48 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] CommunicationRequest
 - [x] CompartmentDefinition
 - [x] ConceptMap
+- [x] MedicinalProductInteraction
+- [x] MedicinalProductManufactured
+- [x] MedicinalProductPackaged
+- [x] MedicinalProductPharmaceutical
+- [x] MedicinalProductUndesirableEffect
+- [x] MessageDefinition
+- [x] MessageHeader
+- [x] MolecularSequence
+- [x] NamingSystem
+- [x] NutritionOrder
+- [x] ObservationDefinition
+- [x] OperationDefinition
+- [x] OperationOutcome
+- [x] OrganizationAffiliation
+- [x] Parameters
+- [x] PaymentNotice
+- [x] PaymentReconciliation
+- [x] Person
+- [x] PlanDefinition
+- [x] PractitionerRole
+- [x] Provenance
+- [x] Questionnaire
+- [x] RelatedPerson
+- [x] RequestGroup
+- [x] ResearchDefinition
+- [x] ResearchElementDefinition
+- [x] ResearchStudy
+- [x] RiskAssessment
+- [x] RiskEvidenceSynthesis
+- [x] Schedule
+- [x] SearchParameter
+- [x] ServiceRequest
+- [x] Slot
+- [x] SpecimenDefinition
+- [x] StructureDefinition
+- [x] StructureMap
+- [x] Subscription
+- [x] Substance
+- [x] SubstanceNucleicAcid
+- [x] SubstancePolymer
 
-### ❌ Not Implemented (63/106)
-- [ ] ChargeItemDefinition
-- [ ] ClaimResponse
-- [ ] Contract
-- [ ] Coverage
-- [ ] CoverageEligibilityRequest
-- [ ] CoverageEligibilityResponse
-- [ ] DetectedIssue
-- [ ] DeviceDefinition
-- [ ] DeviceMetric
-- [ ] DeviceRequest
-- [ ] DeviceUseStatement
-- [ ] DocumentManifest
-- [ ] EffectEvidenceSynthesis
-- [ ] Endpoint
-- [ ] EnrollmentRequest
-- [ ] EnrollmentResponse
-- [ ] EpisodeOfCare
-- [ ] EventDefinition
-- [ ] Evidence
-- [ ] EvidenceVariable
-- [ ] ExampleScenario
-- [ ] ExplanationOfBenefit
-- [ ] FamilyMemberHistory
-- [ ] Flag
-- [ ] Goal
-- [ ] GraphDefinition
-- [ ] Group
-- [ ] GuidanceResponse
-- [ ] HealthcareService
-- [ ] ImagingStudy
-- [ ] ImmunizationEvaluation
-- [ ] ImmunizationRecommendation
-- [ ] ImplementationGuide
-- [ ] InsurancePlan
-- [ ] Invoice
-- [ ] Library
-- [ ] Linkage
-- [ ] List
-- [ ] Measure
-- [ ] MeasureReport
-- [ ] Media
-- [ ] MedicationAdministration
-- [ ] MedicationDispense
-- [ ] MedicationKnowledge
-- [ ] MedicationStatement
-- [ ] MedicinalProduct
-- [ ] MedicinalProductAuthorization
-- [ ] MedicinalProductContraindication
-- [ ] MedicinalProductIndication
-- [ ] MedicinalProductIngredient
-- [ ] MedicinalProductInteraction
-- [ ] MedicinalProductManufactured
-- [ ] MedicinalProductPackaged
-- [ ] MedicinalProductPharmaceutical
-- [ ] MedicinalProductUndesirableEffect
-- [ ] MessageDefinition
-- [ ] MessageHeader
-- [ ] MolecularSequence
-- [ ] NamingSystem
-- [ ] NutritionOrder
-- [ ] ObservationDefinition
-- [ ] OperationDefinition
-- [ ] OperationOutcome
-- [ ] OrganizationAffiliation
-- [ ] Parameters
-- [ ] PaymentNotice
-- [ ] PaymentReconciliation
-- [ ] Person
-- [ ] PlanDefinition
-- [ ] PractitionerRole
-- [ ] Provenance
-- [ ] Questionnaire
-- [ ] RelatedPerson
-- [ ] RequestGroup
-- [ ] ResearchDefinition
-- [ ] ResearchElementDefinition
-- [ ] ResearchStudy
-- [ ] RiskAssessment
-- [ ] RiskEvidenceSynthesis
-- [ ] Schedule
-- [ ] SearchParameter
-- [ ] ServiceRequest
-- [ ] Slot
-- [ ] SpecimenDefinition
-- [ ] StructureDefinition
-- [ ] StructureMap
-- [ ] Subscription
-- [ ] Substance
-- [ ] SubstanceNucleicAcid
-- [ ] SubstancePolymer
-- [ ] SubstanceProtein
-- [ ] SubstanceReferenceInformation
-- [ ] SubstanceSourceMaterial
-- [ ] SubstanceSpecification
-- [ ] SupplyDelivery
-- [ ] SupplyRequest
-- [ ] Task
-- [ ] TerminologyCapabilities
-- [ ] TestReport
-- [ ] TestScript
-- [ ] ValueSet
-- [ ] VerificationResult
-- [ ] VisionPrescription
+### ❌ Not Implemented (0/106)
 
 ## R3 Resources (FHIR 3.0.2)
 

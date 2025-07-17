@@ -921,3 +921,168 @@ type Meta struct {
 
 // Age represents a duration of time during which an organism (or a process) has existed
 type Age Quantity
+
+// ElementDefinition represents the formal definition of an element in a resource or data type
+type ElementDefinition struct {
+	BackboneElement
+
+	// The path of the element (see the ElementDefinition.path property)
+	Path string `json:"path"`
+
+	// How many times this element is permitted to appear in the instance
+	Min *int `json:"min,omitempty"`
+
+	// The maximum number of times this element is permitted to appear in the instance
+	Max *string `json:"max,omitempty"`
+
+	// The data type or resource that the value of this element is permitted to be
+	Type []ElementDefinitionType `json:"type,omitempty"`
+
+	// A concise description of what this element means (used for alternate purpose, etc.)
+	Short *string `json:"short,omitempty"`
+
+	// Provides a complete explanation of the meaning of the data element for human readability
+	Definition *string `json:"definition,omitempty"`
+
+	// Explanatory notes and implementation guidance about the data element
+	Comment *string `json:"comment,omitempty"`
+
+	// The name of this element definition slice, when slicing is working
+	SliceName *string `json:"sliceName,omitempty"`
+
+	// Whether this element definition is constraining a slicer
+	SliceIsConstraining *bool `json:"sliceIsConstraining,omitempty"`
+
+	// A sample value for this element demonstrating the type of information that would typically be captured
+	Example []ElementDefinitionExample `json:"example,omitempty"`
+
+	// Formal constraints such as co-occurrence and other constraints that can be computationally evaluated
+	Constraint []ElementDefinitionConstraint `json:"constraint,omitempty"`
+
+	// Binds to a value set if this element is coded (code, Coding, CodeableConcept, Quantity), or the data types (string, uri)
+	Binding *ElementDefinitionBinding `json:"binding,omitempty"`
+
+	// Identifies a concept from an external specification that roughly corresponds to this element
+	Mapping []ElementDefinitionMapping `json:"mapping,omitempty"`
+}
+
+// ElementDefinitionType represents the data type or resource that the value of this element is permitted to be
+type ElementDefinitionType struct {
+	Element
+
+	// URL of the type
+	Code string `json:"code"`
+
+	// Profile (StructureDefinition) to apply to this element
+	Profile []string `json:"profile,omitempty"`
+
+	// Profile (StructureDefinition) to apply to the target resource (for a reference)
+	TargetProfile []string `json:"targetProfile,omitempty"`
+
+	// If the type is a reference to another resource, how the resource is or can be aggregated
+	Aggregation []ElementDefinitionTypeAggregation `json:"aggregation,omitempty"`
+
+	// Whether this reference needs to be version specific or version independent, or whether either can be used
+	Versioning *ElementDefinitionTypeVersioning `json:"versioning,omitempty"`
+}
+
+// ElementDefinitionTypeAggregation represents if the type is a reference to another resource, how the resource is or can be aggregated
+type ElementDefinitionTypeAggregation string
+
+const (
+	ElementDefinitionTypeAggregationContained  ElementDefinitionTypeAggregation = "contained"
+	ElementDefinitionTypeAggregationReferenced ElementDefinitionTypeAggregation = "referenced"
+	ElementDefinitionTypeAggregationBundled    ElementDefinitionTypeAggregation = "bundled"
+)
+
+// ElementDefinitionTypeVersioning represents whether this reference needs to be version specific or version independent
+type ElementDefinitionTypeVersioning string
+
+const (
+	ElementDefinitionTypeVersioningEither      ElementDefinitionTypeVersioning = "either"
+	ElementDefinitionTypeVersioningIndependent ElementDefinitionTypeVersioning = "independent"
+	ElementDefinitionTypeVersioningSpecific    ElementDefinitionTypeVersioning = "specific"
+)
+
+// ElementDefinitionExample represents a sample value for this element demonstrating the type of information that would typically be captured
+type ElementDefinitionExample struct {
+	Element
+
+	// Describes the purpose of this example
+	Label string `json:"label"`
+
+	// The actual value for the element (must be one of the allowed types)
+	Value interface{} `json:"value"`
+}
+
+// ElementDefinitionConstraint represents formal constraints such as co-occurrence and other constraints that can be computationally evaluated
+type ElementDefinitionConstraint struct {
+	Element
+
+	// Allows identification of which elements have their cardinalities impacted by the constraint
+	Key string `json:"key"`
+
+	// Description of why this constraint is necessary or appropriate
+	Requirements *string `json:"requirements,omitempty"`
+
+	// Identifies the impact constraint violation has on the conformance of the instance
+	Severity ElementDefinitionConstraintSeverity `json:"severity"`
+
+	// Text that can be used to describe the constraint in messages identifying that the constraint has been violated
+	Human string `json:"human"`
+
+	// A FHIRPath expression of constraint that can be executed to see if this constraint is met
+	Expression *string `json:"expression,omitempty"`
+
+	// An XPath expression of constraint that can be executed to see if this constraint is met
+	Xpath *string `json:"xpath,omitempty"`
+}
+
+// ElementDefinitionConstraintSeverity represents identifies the impact constraint violation has on the conformance of the instance
+type ElementDefinitionConstraintSeverity string
+
+const (
+	ElementDefinitionConstraintSeverityError   ElementDefinitionConstraintSeverity = "error"
+	ElementDefinitionConstraintSeverityWarning ElementDefinitionConstraintSeverity = "warning"
+)
+
+// ElementDefinitionBinding represents binds to a value set if this element is coded
+type ElementDefinitionBinding struct {
+	Element
+
+	// Indicates the degree of conformance expectations associated with this binding
+	Strength ElementDefinitionBindingStrength `json:"strength"`
+
+	// Describes the intended use of this binding
+	Description *string `json:"description,omitempty"`
+
+	// Refers to the value set that identifies the set of codes the binding refers to
+	ValueSet *string `json:"valueSet,omitempty"`
+}
+
+// ElementDefinitionBindingStrength represents indicates the degree of conformance expectations associated with this binding
+type ElementDefinitionBindingStrength string
+
+const (
+	ElementDefinitionBindingStrengthRequired   ElementDefinitionBindingStrength = "required"
+	ElementDefinitionBindingStrengthExtensible ElementDefinitionBindingStrength = "extensible"
+	ElementDefinitionBindingStrengthPreferred  ElementDefinitionBindingStrength = "preferred"
+	ElementDefinitionBindingStrengthExample    ElementDefinitionBindingStrength = "example"
+)
+
+// ElementDefinitionMapping represents identifies a concept from an external specification that roughly corresponds to this element
+type ElementDefinitionMapping struct {
+	Element
+
+	// An internal reference to the definition of a mapping
+	Identity string `json:"identity"`
+
+	// Identifies the computable language in which mapping.map is expressed
+	Language *string `json:"language,omitempty"`
+
+	// Expresses what part of the target specification corresponds to this element
+	Map string `json:"map"`
+
+	// Comments that provide information about the mapping or its use
+	Comment *string `json:"comment,omitempty"`
+}
