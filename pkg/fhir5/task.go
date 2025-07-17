@@ -59,7 +59,7 @@ type TaskInput struct {
 	ValueUrl                 *string                     `json:"valueUrl,omitempty"`
 	ValueUuid                *string                     `json:"valueUuid,omitempty"`
 	ValueAddress             *Address                    `json:"valueAddress,omitempty"`
-	ValueAge                 *Age                        `json:"valueAge,omitempty"`
+	ValueAge                 *common.Age                 `json:"valueAge,omitempty"`
 	ValueAnnotation          *Annotation                 `json:"valueAnnotation,omitempty"`
 	ValueAttachment          *Attachment                 `json:"valueAttachment,omitempty"`
 	ValueCodeableConcept     *common.CodeableConcept     `json:"valueCodeableConcept,omitempty"`
@@ -120,7 +120,7 @@ type TaskOutput struct {
 	ValueUrl                 *string                     `json:"valueUrl,omitempty"`
 	ValueUuid                *string                     `json:"valueUuid,omitempty"`
 	ValueAddress             *Address                    `json:"valueAddress,omitempty"`
-	ValueAge                 *Age                        `json:"valueAge,omitempty"`
+	ValueAge                 *common.Age                 `json:"valueAge,omitempty"`
 	ValueAnnotation          *Annotation                 `json:"valueAnnotation,omitempty"`
 	ValueAttachment          *Attachment                 `json:"valueAttachment,omitempty"`
 	ValueCodeableConcept     *common.CodeableConcept     `json:"valueCodeableConcept,omitempty"`

@@ -111,7 +111,7 @@ type AllergyIntolerance struct {
 
 	// Age is generally used when the patient reports an age at which the AllergyIntolerance was noted
 	OnsetDateTime *string        `json:"onsetDateTime,omitempty"`
-	OnsetAge      *Age           `json:"onsetAge,omitempty"`
+	OnsetAge      *common.Age    `json:"onsetAge,omitempty"`
 	OnsetPeriod   *common.Period `json:"onsetPeriod,omitempty"`
 	OnsetRange    *Range         `json:"onsetRange,omitempty"`
 	OnsetString   *string        `json:"onsetString,omitempty"`

@@ -40,7 +40,7 @@ type FamilyMemberHistoryCondition struct {
 	Note []Annotation `json:"note,omitempty"`
 
 	// Either the age of onset, range of approximate age or descriptive string can be recorded
-	OnsetAge    *Age           `json:"onsetAge,omitempty"`
+	OnsetAge    *common.Age    `json:"onsetAge,omitempty"`
 	OnsetRange  *Range         `json:"onsetRange,omitempty"`
 	OnsetPeriod *common.Period `json:"onsetPeriod,omitempty"`
 	OnsetString *string        `json:"onsetString,omitempty"`
@@ -66,7 +66,7 @@ type FamilyMemberHistoryProcedure struct {
 	Outcome *common.CodeableConcept `json:"outcome,omitempty"`
 
 	// Estimated or actual date, date-time, period, or age when the procedure was performed
-	PerformedAge    *Age           `json:"performedAge,omitempty"`
+	PerformedAge    *common.Age    `json:"performedAge,omitempty"`
 	PerformedRange  *Range         `json:"performedRange,omitempty"`
 	PerformedPeriod *common.Period `json:"performedPeriod,omitempty"`
 	PerformedString *string        `json:"performedString,omitempty"`
@@ -80,9 +80,9 @@ type FamilyMemberHistory struct {
 	ResourceType string `json:"resourceType"` // Always "FamilyMemberHistory"
 
 	// Use estimatedAge to indicate whether the age is actual or not
-	AgeAge    *Age    `json:"ageAge,omitempty"`
-	AgeRange  *Range  `json:"ageRange,omitempty"`
-	AgeString *string `json:"ageString,omitempty"`
+	AgeAge    *common.Age `json:"ageAge,omitempty"`
+	AgeRange  *Range      `json:"ageRange,omitempty"`
+	AgeString *string     `json:"ageString,omitempty"`
 
 	// The actual or approximate date of birth of the relative
 	BornPeriod *common.Period `json:"bornPeriod,omitempty"`
@@ -99,11 +99,11 @@ type FamilyMemberHistory struct {
 	Date *string `json:"date,omitempty"`
 
 	// Deceased flag or the actual or approximate age of the relative at the time of death
-	DeceasedBoolean *bool   `json:"deceasedBoolean,omitempty"`
-	DeceasedAge     *Age    `json:"deceasedAge,omitempty"`
-	DeceasedRange   *Range  `json:"deceasedRange,omitempty"`
-	DeceasedDate    *string `json:"deceasedDate,omitempty"`
-	DeceasedString  *string `json:"deceasedString,omitempty"`
+	DeceasedBoolean *bool       `json:"deceasedBoolean,omitempty"`
+	DeceasedAge     *common.Age `json:"deceasedAge,omitempty"`
+	DeceasedRange   *Range      `json:"deceasedRange,omitempty"`
+	DeceasedDate    *string     `json:"deceasedDate,omitempty"`
+	DeceasedString  *string     `json:"deceasedString,omitempty"`
 
 	// This element is labeled as a modifier because the fact that age is estimated can/should change the results
 	EstimatedAge *bool `json:"estimatedAge,omitempty"`

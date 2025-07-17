@@ -8,7 +8,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 |--------------|-----------------|----------------|------------|
 | R5           | 162             | 160            | 98.8%      |
 | R4B          | 116             | 6              | 5.2%       |
-| R4           | 106             | 23             | 21.7%      |
+| R4           | 106             | 43             | 40.6%      |
 | R3           | 98              | 23             | 23.5%      |
 | R2           | 77              | 21             | 27.3%      |
 
@@ -280,8 +280,18 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R4 Resources (FHIR 4.0.1)
 
-### ✅ Implemented (23/106)
+### ✅ Implemented (43/106)
+- [x] Account
+- [x] ActivityDefinition
+- [x] AdverseEvent
 - [x] AllergyIntolerance
+- [x] Appointment
+- [x] AppointmentResponse
+- [x] AuditEvent
+- [x] Basic
+- [x] Binary
+- [x] BiologicallyDerivedProduct
+- [x] BodyStructure
 - [x] Bundle
 - [x] CarePlan
 - [x] Communication
@@ -303,30 +313,20 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] Procedure
 - [x] QuestionnaireResponse
 - [x] Specimen
+- [x] CapabilityStatement
+- [x] CareTeam
+- [x] CatalogEntry
+- [x] ChargeItem
+- [x] Claim
+- [x] ClinicalImpression
+- [x] CodeSystem
+- [x] CommunicationRequest
+- [x] CompartmentDefinition
+- [x] ConceptMap
 
-### ❌ Not Implemented (83/106)
-- [ ] Account
-- [ ] ActivityDefinition
-- [ ] AdverseEvent
-- [ ] Appointment
-- [ ] AppointmentResponse
-- [ ] AuditEvent
-- [ ] Basic
-- [ ] Binary
-- [ ] BiologicallyDerivedProduct
-- [ ] BodyStructure
-- [ ] CapabilityStatement
-- [ ] CareTeam
-- [ ] CatalogEntry
-- [ ] ChargeItem
+### ❌ Not Implemented (63/106)
 - [ ] ChargeItemDefinition
-- [ ] Claim
 - [ ] ClaimResponse
-- [ ] ClinicalImpression
-- [ ] CodeSystem
-- [ ] CommunicationRequest
-- [ ] CompartmentDefinition
-- [ ] ConceptMap
 - [ ] Contract
 - [ ] Coverage
 - [ ] CoverageEligibilityRequest

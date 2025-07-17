@@ -85,7 +85,7 @@ type PlanDefinitionAction struct {
 	Output                 []PlanDefinitionActionOutput        `json:"output,omitempty"`
 	RelatedAction          []PlanDefinitionActionRelatedAction `json:"relatedAction,omitempty"`
 	TimingDateTime         *string                             `json:"timingDateTime,omitempty"`
-	TimingAge              *Age                                `json:"timingAge,omitempty"`
+	TimingAge              *common.Age                         `json:"timingAge,omitempty"`
 	TimingPeriod           *common.Period                      `json:"timingPeriod,omitempty"`
 	TimingDuration         *Duration                           `json:"timingDuration,omitempty"`
 	TimingRange            *Range                              `json:"timingRange,omitempty"`

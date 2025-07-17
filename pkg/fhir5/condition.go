@@ -39,7 +39,7 @@ type Condition struct {
 
 	// The date or estimated date that the condition resolved or went into remission
 	AbatementDateTime *string        `json:"abatementDateTime,omitempty"`
-	AbatementAge      *Age           `json:"abatementAge,omitempty"`
+	AbatementAge      *common.Age    `json:"abatementAge,omitempty"`
 	AbatementPeriod   *common.Period `json:"abatementPeriod,omitempty"`
 	AbatementRange    *Range         `json:"abatementRange,omitempty"`
 	AbatementString   *string        `json:"abatementString,omitempty"`
@@ -70,7 +70,7 @@ type Condition struct {
 
 	// Estimated or actual date or date-time the condition began
 	OnsetDateTime *string        `json:"onsetDateTime,omitempty"`
-	OnsetAge      *Age           `json:"onsetAge,omitempty"`
+	OnsetAge      *common.Age    `json:"onsetAge,omitempty"`
 	OnsetPeriod   *common.Period `json:"onsetPeriod,omitempty"`
 	OnsetRange    *Range         `json:"onsetRange,omitempty"`
 	OnsetString   *string        `json:"onsetString,omitempty"`

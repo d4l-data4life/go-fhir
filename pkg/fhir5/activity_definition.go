@@ -168,10 +168,10 @@ type ActivityDefinition struct {
 	Subtitle *string `json:"subtitle,omitempty"`
 
 	// The intent of the timing element is to provide timing when the action should be performed
-	TimingTiming   *Timing   `json:"timingTiming,omitempty"`
-	TimingAge      *Age      `json:"timingAge,omitempty"`
-	TimingRange    *Range    `json:"timingRange,omitempty"`
-	TimingDuration *Duration `json:"timingDuration,omitempty"`
+	TimingTiming   *Timing     `json:"timingTiming,omitempty"`
+	TimingAge      *common.Age `json:"timingAge,omitempty"`
+	TimingRange    *Range      `json:"timingRange,omitempty"`
+	TimingDuration *Duration   `json:"timingDuration,omitempty"`
 
 	// Name for this activity definition (human friendly)
 	Title *string `json:"title,omitempty"`

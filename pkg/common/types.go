@@ -918,3 +918,6 @@ type Meta struct {
 	// Tags applied to this resource
 	Tag []Coding `json:"tag,omitempty"`
 }
+
+// Age represents a duration of time during which an organism (or a process) has existed
+type Age Quantity

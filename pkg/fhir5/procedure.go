@@ -98,7 +98,7 @@ type Procedure struct {
 
 	// When the procedure occurred
 	OccurrenceDateTime *string        `json:"occurrenceDateTime,omitempty"`
-	OccurrenceAge      *Age           `json:"occurrenceAge,omitempty"`
+	OccurrenceAge      *common.Age    `json:"occurrenceAge,omitempty"`
 	OccurrencePeriod   *common.Period `json:"occurrencePeriod,omitempty"`
 	OccurrenceRange    *Range         `json:"occurrenceRange,omitempty"`
 	OccurrenceString   *string        `json:"occurrenceString,omitempty"`

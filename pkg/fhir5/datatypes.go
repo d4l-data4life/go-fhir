@@ -68,11 +68,6 @@ const (
 	AddressUseBilling AddressUse = "billing"
 )
 
-// Age represents a duration of time during which an organism (or a process) has existed
-type Age struct {
-	common.Quantity
-}
-
 // Annotation represents a text note which also contains information about who made the statement and when
 type Annotation struct {
 	DataType

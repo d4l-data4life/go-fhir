@@ -89,7 +89,7 @@ type TransportInput struct {
 	ValueAddress *common.Address `json:"valueAddress,omitempty"`
 
 	// The value of the input parameter as a basic type
-	ValueAge *Age `json:"valueAge,omitempty"`
+	ValueAge *common.Age `json:"valueAge,omitempty"`
 
 	// The value of the input parameter as a basic type
 	ValueAnnotation *common.Annotation `json:"valueAnnotation,omitempty"`
@@ -253,7 +253,7 @@ type TransportOutput struct {
 	ValueAddress *common.Address `json:"valueAddress,omitempty"`
 
 	// The value of the output parameter as a basic type
-	ValueAge *Age `json:"valueAge,omitempty"`
+	ValueAge *common.Age `json:"valueAge,omitempty"`
 
 	// The value of the output parameter as a basic type
 	ValueAnnotation *common.Annotation `json:"valueAnnotation,omitempty"`

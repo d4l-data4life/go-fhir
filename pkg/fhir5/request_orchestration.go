@@ -81,7 +81,7 @@ type RequestOrchestrationAction struct {
 	Output                 []RequestOrchestrationActionOutput        `json:"output,omitempty"`
 	RelatedAction          []RequestOrchestrationActionRelatedAction `json:"relatedAction,omitempty"`
 	TimingDateTime         *string                                   `json:"timingDateTime,omitempty"`
-	TimingAge              *Age                                      `json:"timingAge,omitempty"`
+	TimingAge              *common.Age                               `json:"timingAge,omitempty"`
 	TimingPeriod           *common.Period                            `json:"timingPeriod,omitempty"`
 	TimingDuration         *Duration                                 `json:"timingDuration,omitempty"`
 	TimingRange            *Range                                    `json:"timingRange,omitempty"`
