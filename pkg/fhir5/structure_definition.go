@@ -2,7 +2,7 @@
 package fhir5
 
 import (
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // StructureDefinitionMapping represents a mapping from one set of concepts to one or more other concepts

@@ -2,7 +2,7 @@
 package fhir4b
 
 import (
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // EncounterStatus represents the status of an encounter

@@ -2,7 +2,7 @@
 package fhir5
 
 import (
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // PlanDefinition represents a definition of a plan for a set of actions (FHIR R5)

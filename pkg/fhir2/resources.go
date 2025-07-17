@@ -4,7 +4,7 @@ package fhir2
 import (
 	"time"
 
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // Helper functions for creating pointers to basic types
@@ -240,7 +240,7 @@ const (
 type PatientLinkType string
 
 const (
-	PatientLinkTypeReplace  PatientLinkType = "replace"  // R2 uses "replace" instead of "replaced-by"
+	PatientLinkTypeReplace  PatientLinkType = "replace" // R2 uses "replace" instead of "replaced-by"
 	PatientLinkTypeReplaces PatientLinkType = "replaces"
 	PatientLinkTypeRefer    PatientLinkType = "refer"
 	PatientLinkTypeSeeAlso  PatientLinkType = "seealso"
@@ -642,14 +642,14 @@ type EncounterStatusHistory struct {
 type EncounterClass string
 
 const (
-	EncounterClassInpatient   EncounterClass = "inpatient"
-	EncounterClassOutpatient  EncounterClass = "outpatient"
-	EncounterClassAmbulatory  EncounterClass = "ambulatory"
-	EncounterClassEmergency   EncounterClass = "emergency"
-	EncounterClassHome        EncounterClass = "home"
-	EncounterClassField       EncounterClass = "field"
-	EncounterClassDaytime     EncounterClass = "daytime"
-	EncounterClassVirtual     EncounterClass = "virtual"
+	EncounterClassInpatient  EncounterClass = "inpatient"
+	EncounterClassOutpatient EncounterClass = "outpatient"
+	EncounterClassAmbulatory EncounterClass = "ambulatory"
+	EncounterClassEmergency  EncounterClass = "emergency"
+	EncounterClassHome       EncounterClass = "home"
+	EncounterClassField      EncounterClass = "field"
+	EncounterClassDaytime    EncounterClass = "daytime"
+	EncounterClassVirtual    EncounterClass = "virtual"
 )
 
 type EncounterStatus string
@@ -677,12 +677,12 @@ type Condition struct {
 	DomainResource
 
 	// Estimated or actual date or date-time the condition was resolved
-	AbatementDateTime *string        `json:"abatementDateTime,omitempty"` // R2 uses string
+	AbatementDateTime *string          `json:"abatementDateTime,omitempty"` // R2 uses string
 	AbatementQuantity *common.Quantity `json:"abatementQuantity,omitempty"` // R2 uses Quantity, not Age
-	AbatementBoolean  *bool          `json:"abatementBoolean,omitempty"`
-	AbatementPeriod   *common.Period `json:"abatementPeriod,omitempty"`
-	AbatementRange    *Range         `json:"abatementRange,omitempty"`
-	AbatementString   *string        `json:"abatementString,omitempty"`
+	AbatementBoolean  *bool            `json:"abatementBoolean,omitempty"`
+	AbatementPeriod   *common.Period   `json:"abatementPeriod,omitempty"`
+	AbatementRange    *Range           `json:"abatementRange,omitempty"`
+	AbatementString   *string          `json:"abatementString,omitempty"`
 
 	// Person who asserts this condition
 	Asserter *common.Reference `json:"asserter,omitempty"`
@@ -757,10 +757,10 @@ type ConditionStage struct {
 type ConditionClinicalStatus string
 
 const (
-	ConditionClinicalStatusActive     ConditionClinicalStatus = "active"
-	ConditionClinicalStatusRelapse    ConditionClinicalStatus = "relapse"
-	ConditionClinicalStatusRemission  ConditionClinicalStatus = "remission"
-	ConditionClinicalStatusResolved   ConditionClinicalStatus = "resolved"
+	ConditionClinicalStatusActive    ConditionClinicalStatus = "active"
+	ConditionClinicalStatusRelapse   ConditionClinicalStatus = "relapse"
+	ConditionClinicalStatusRemission ConditionClinicalStatus = "remission"
+	ConditionClinicalStatusResolved  ConditionClinicalStatus = "resolved"
 )
 
 type ConditionVerificationStatus string
@@ -1136,12 +1136,12 @@ const (
 type ObservationRelatedType string
 
 const (
-	ObservationRelatedTypeHasMember     ObservationRelatedType = "has-member"
-	ObservationRelatedTypeDerivedFrom   ObservationRelatedType = "derived-from"
-	ObservationRelatedTypeSequelTo      ObservationRelatedType = "sequel-to"
-	ObservationRelatedTypeReplaces      ObservationRelatedType = "replaces"
-	ObservationRelatedTypeQualifiedBy   ObservationRelatedType = "qualified-by"
-	ObservationRelatedTypeInterferedBy  ObservationRelatedType = "interfered-by"
+	ObservationRelatedTypeHasMember    ObservationRelatedType = "has-member"
+	ObservationRelatedTypeDerivedFrom  ObservationRelatedType = "derived-from"
+	ObservationRelatedTypeSequelTo     ObservationRelatedType = "sequel-to"
+	ObservationRelatedTypeReplaces     ObservationRelatedType = "replaces"
+	ObservationRelatedTypeQualifiedBy  ObservationRelatedType = "qualified-by"
+	ObservationRelatedTypeInterferedBy ObservationRelatedType = "interfered-by"
 )
 
 // Medication represents a medication for an R2 context
@@ -1307,12 +1307,12 @@ type MedicationOrderSubstitution struct {
 type MedicationOrderStatus string
 
 const (
-	MedicationOrderStatusActive          MedicationOrderStatus = "active"
-	MedicationOrderStatusOnHold          MedicationOrderStatus = "on-hold"
-	MedicationOrderStatusCompleted       MedicationOrderStatus = "completed"
-	MedicationOrderStatusEnteredInError  MedicationOrderStatus = "entered-in-error"
-	MedicationOrderStatusStopped         MedicationOrderStatus = "stopped"
-	MedicationOrderStatusDraft           MedicationOrderStatus = "draft"
+	MedicationOrderStatusActive         MedicationOrderStatus = "active"
+	MedicationOrderStatusOnHold         MedicationOrderStatus = "on-hold"
+	MedicationOrderStatusCompleted      MedicationOrderStatus = "completed"
+	MedicationOrderStatusEnteredInError MedicationOrderStatus = "entered-in-error"
+	MedicationOrderStatusStopped        MedicationOrderStatus = "stopped"
+	MedicationOrderStatusDraft          MedicationOrderStatus = "draft"
 )
 
 type MedicationOrderPriority string
@@ -1401,19 +1401,19 @@ type QuestionnaireResponseGroupQuestionAnswer struct {
 	Group []QuestionnaireResponseGroup `json:"group,omitempty"`
 
 	// Single-valued answer to the question
-	ValueBoolean     *bool                       `json:"valueBoolean,omitempty"`
-	ValueDecimal     *float64                    `json:"valueDecimal,omitempty"`
-	ValueInteger     *int                        `json:"valueInteger,omitempty"`
-	ValueDate        *string                     `json:"valueDate,omitempty"`
-	ValueDateTime    *string                     `json:"valueDateTime,omitempty"` // R2 uses string
-	ValueInstant     *string                     `json:"valueInstant,omitempty"`  // R2 has instant type
-	ValueTime        *string                     `json:"valueTime,omitempty"`
-	ValueString      *string                     `json:"valueString,omitempty"`
-	ValueUri         *string                     `json:"valueUri,omitempty"`
-	ValueAttachment  *Attachment                 `json:"valueAttachment,omitempty"`
-	ValueCoding      *common.Coding              `json:"valueCoding,omitempty"`
-	ValueQuantity    *common.Quantity            `json:"valueQuantity,omitempty"`
-	ValueReference   *common.Reference           `json:"valueReference,omitempty"`
+	ValueBoolean    *bool             `json:"valueBoolean,omitempty"`
+	ValueDecimal    *float64          `json:"valueDecimal,omitempty"`
+	ValueInteger    *int              `json:"valueInteger,omitempty"`
+	ValueDate       *string           `json:"valueDate,omitempty"`
+	ValueDateTime   *string           `json:"valueDateTime,omitempty"` // R2 uses string
+	ValueInstant    *string           `json:"valueInstant,omitempty"`  // R2 has instant type
+	ValueTime       *string           `json:"valueTime,omitempty"`
+	ValueString     *string           `json:"valueString,omitempty"`
+	ValueUri        *string           `json:"valueUri,omitempty"`
+	ValueAttachment *Attachment       `json:"valueAttachment,omitempty"`
+	ValueCoding     *common.Coding    `json:"valueCoding,omitempty"`
+	ValueQuantity   *common.Quantity  `json:"valueQuantity,omitempty"`
+	ValueReference  *common.Reference `json:"valueReference,omitempty"`
 }
 
 // QuestionnaireResponse-related enums (R2 version)
@@ -1598,10 +1598,10 @@ type CompositionSection struct {
 type CompositionStatus string
 
 const (
-	CompositionStatusPreliminary     CompositionStatus = "preliminary"
-	CompositionStatusFinal           CompositionStatus = "final"
-	CompositionStatusAmended         CompositionStatus = "amended"
-	CompositionStatusEnteredInError  CompositionStatus = "entered-in-error"
+	CompositionStatusPreliminary    CompositionStatus = "preliminary"
+	CompositionStatusFinal          CompositionStatus = "final"
+	CompositionStatusAmended        CompositionStatus = "amended"
+	CompositionStatusEnteredInError CompositionStatus = "entered-in-error"
 )
 
 type CompositionAttesterMode string
@@ -1723,8 +1723,8 @@ type DocumentReferenceContextRelated struct {
 type DocumentReferenceStatus string
 
 const (
-	DocumentReferenceStatusCurrent       DocumentReferenceStatus = "current"
-	DocumentReferenceStatusSuperseded    DocumentReferenceStatus = "superseded"
+	DocumentReferenceStatusCurrent        DocumentReferenceStatus = "current"
+	DocumentReferenceStatusSuperseded     DocumentReferenceStatus = "superseded"
 	DocumentReferenceStatusEnteredInError DocumentReferenceStatus = "entered-in-error"
 )
 
@@ -1798,7 +1798,7 @@ type DosageInstruction struct {
 	AdditionalInstructions *common.CodeableConcept `json:"additionalInstructions,omitempty"`
 
 	// Take "as needed" (for x)
-	AsNeededBoolean        *bool                    `json:"asNeededBoolean,omitempty"`
+	AsNeededBoolean         *bool                   `json:"asNeededBoolean,omitempty"`
 	AsNeededCodeableConcept *common.CodeableConcept `json:"asNeededCodeableConcept,omitempty"`
 
 	// Amount of medication per dose
@@ -1903,20 +1903,20 @@ const (
 type TimingRepeatWhen string
 
 const (
-	TimingRepeatWhenHS  TimingRepeatWhen = "HS"
+	TimingRepeatWhenHS   TimingRepeatWhen = "HS"
 	TimingRepeatWhenWAKE TimingRepeatWhen = "WAKE"
-	TimingRepeatWhenAC  TimingRepeatWhen = "AC"
-	TimingRepeatWhenACD TimingRepeatWhen = "ACD"
-	TimingRepeatWhenACM TimingRepeatWhen = "ACM"
-	TimingRepeatWhenACV TimingRepeatWhen = "ACV"
-	TimingRepeatWhenC   TimingRepeatWhen = "C"
-	TimingRepeatWhenCD  TimingRepeatWhen = "CD"
-	TimingRepeatWhenCM  TimingRepeatWhen = "CM"
-	TimingRepeatWhenCV  TimingRepeatWhen = "CV"
-	TimingRepeatWhenPC  TimingRepeatWhen = "PC"
-	TimingRepeatWhenPCD TimingRepeatWhen = "PCD"
-	TimingRepeatWhenPCM TimingRepeatWhen = "PCM"
-	TimingRepeatWhenPCV TimingRepeatWhen = "PCV"
+	TimingRepeatWhenAC   TimingRepeatWhen = "AC"
+	TimingRepeatWhenACD  TimingRepeatWhen = "ACD"
+	TimingRepeatWhenACM  TimingRepeatWhen = "ACM"
+	TimingRepeatWhenACV  TimingRepeatWhen = "ACV"
+	TimingRepeatWhenC    TimingRepeatWhen = "C"
+	TimingRepeatWhenCD   TimingRepeatWhen = "CD"
+	TimingRepeatWhenCM   TimingRepeatWhen = "CM"
+	TimingRepeatWhenCV   TimingRepeatWhen = "CV"
+	TimingRepeatWhenPC   TimingRepeatWhen = "PC"
+	TimingRepeatWhenPCD  TimingRepeatWhen = "PCD"
+	TimingRepeatWhenPCM  TimingRepeatWhen = "PCM"
+	TimingRepeatWhenPCV  TimingRepeatWhen = "PCV"
 )
 
 // SampledData represents a series of measurements taken by a device (R2 version)
@@ -2035,12 +2035,12 @@ type AllergyIntolerance struct {
 type AllergyIntoleranceStatus string
 
 const (
-	AllergyIntoleranceStatusActive       AllergyIntoleranceStatus = "active"
-	AllergyIntoleranceStatusUnconfirmed  AllergyIntoleranceStatus = "unconfirmed"
-	AllergyIntoleranceStatusConfirmed    AllergyIntoleranceStatus = "confirmed"
-	AllergyIntoleranceStatusInactive     AllergyIntoleranceStatus = "inactive"
-	AllergyIntoleranceStatusResolved     AllergyIntoleranceStatus = "resolved"
-	AllergyIntoleranceStatusRefuted      AllergyIntoleranceStatus = "refuted"
+	AllergyIntoleranceStatusActive         AllergyIntoleranceStatus = "active"
+	AllergyIntoleranceStatusUnconfirmed    AllergyIntoleranceStatus = "unconfirmed"
+	AllergyIntoleranceStatusConfirmed      AllergyIntoleranceStatus = "confirmed"
+	AllergyIntoleranceStatusInactive       AllergyIntoleranceStatus = "inactive"
+	AllergyIntoleranceStatusResolved       AllergyIntoleranceStatus = "resolved"
+	AllergyIntoleranceStatusRefuted        AllergyIntoleranceStatus = "refuted"
 	AllergyIntoleranceStatusEnteredInError AllergyIntoleranceStatus = "entered-in-error"
 )
 
@@ -2048,17 +2048,17 @@ const (
 type AllergyIntoleranceCriticality string
 
 const (
-	AllergyIntoleranceCriticalityLow      AllergyIntoleranceCriticality = "CRITL"
-	AllergyIntoleranceCriticalityHigh     AllergyIntoleranceCriticality = "CRITH"
-	AllergyIntoleranceCriticalityUnknown  AllergyIntoleranceCriticality = "CRITU"
+	AllergyIntoleranceCriticalityLow     AllergyIntoleranceCriticality = "CRITL"
+	AllergyIntoleranceCriticalityHigh    AllergyIntoleranceCriticality = "CRITH"
+	AllergyIntoleranceCriticalityUnknown AllergyIntoleranceCriticality = "CRITU"
 )
 
 // AllergyIntoleranceType represents the type (R2 includes adverse reaction)
 type AllergyIntoleranceType string
 
 const (
-	AllergyIntoleranceTypeAllergy        AllergyIntoleranceType = "allergy"
-	AllergyIntoleranceTypeIntolerance    AllergyIntoleranceType = "intolerance"
+	AllergyIntoleranceTypeAllergy         AllergyIntoleranceType = "allergy"
+	AllergyIntoleranceTypeIntolerance     AllergyIntoleranceType = "intolerance"
 	AllergyIntoleranceTypeAdverseReaction AllergyIntoleranceType = "adverse-reaction"
 )
 
@@ -2312,12 +2312,12 @@ type CarePlanGoal struct {
 type CarePlanGoalStatus string
 
 const (
-	CarePlanGoalStatusInProgress  CarePlanGoalStatus = "in-progress"
-	CarePlanGoalStatusAchieved    CarePlanGoalStatus = "achieved"
-	CarePlanGoalStatusSustaining  CarePlanGoalStatus = "sustaining"
-	CarePlanGoalStatusCancelled   CarePlanGoalStatus = "cancelled"
-	CarePlanGoalStatusAccepted    CarePlanGoalStatus = "accepted"
-	CarePlanGoalStatusRejected    CarePlanGoalStatus = "rejected"
+	CarePlanGoalStatusInProgress CarePlanGoalStatus = "in-progress"
+	CarePlanGoalStatusAchieved   CarePlanGoalStatus = "achieved"
+	CarePlanGoalStatusSustaining CarePlanGoalStatus = "sustaining"
+	CarePlanGoalStatusCancelled  CarePlanGoalStatus = "cancelled"
+	CarePlanGoalStatusAccepted   CarePlanGoalStatus = "accepted"
+	CarePlanGoalStatusRejected   CarePlanGoalStatus = "rejected"
 )
 
 // CarePlanActivity represents identifies a planned action to occur as part of the care plan (R2)
@@ -2353,12 +2353,12 @@ type CarePlanActivity struct {
 type CarePlanActivityStatus string
 
 const (
-	CarePlanActivityStatusNotStarted   CarePlanActivityStatus = "not-started"
-	CarePlanActivityStatusScheduled    CarePlanActivityStatus = "scheduled"
-	CarePlanActivityStatusInProgress   CarePlanActivityStatus = "in-progress"
-	CarePlanActivityStatusOnHold       CarePlanActivityStatus = "on-hold"
-	CarePlanActivityStatusCompleted    CarePlanActivityStatus = "completed"
-	CarePlanActivityStatusCancelled    CarePlanActivityStatus = "cancelled"
+	CarePlanActivityStatusNotStarted CarePlanActivityStatus = "not-started"
+	CarePlanActivityStatusScheduled  CarePlanActivityStatus = "scheduled"
+	CarePlanActivityStatusInProgress CarePlanActivityStatus = "in-progress"
+	CarePlanActivityStatusOnHold     CarePlanActivityStatus = "on-hold"
+	CarePlanActivityStatusCompleted  CarePlanActivityStatus = "completed"
+	CarePlanActivityStatusCancelled  CarePlanActivityStatus = "cancelled"
 )
 
 // CarePlanActivityDetail represents a simple summary of a planned activity (R2)
@@ -2390,9 +2390,9 @@ type CarePlanActivityDetail struct {
 	Prohibited bool `json:"prohibited"`
 
 	// When activity is to occur
-	ScheduledTiming  *Timing        `json:"scheduledTiming,omitempty"`
-	ScheduledPeriod  *common.Period `json:"scheduledPeriod,omitempty"`
-	ScheduledString  *string        `json:"scheduledString,omitempty"`
+	ScheduledTiming *Timing        `json:"scheduledTiming,omitempty"`
+	ScheduledPeriod *common.Period `json:"scheduledPeriod,omitempty"`
+	ScheduledString *string        `json:"scheduledString,omitempty"`
 
 	// Where it should happen
 	Location *common.Reference `json:"location,omitempty"`
@@ -2521,4 +2521,4 @@ type SpecimenContainer struct {
 
 	// Additive associated with container
 	Additive *common.Reference `json:"additive,omitempty"` // R2 uses single reference
-} 
+}

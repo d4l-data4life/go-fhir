@@ -1,7 +1,7 @@
 package fhir5
 
 import (
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // ImagingStudyStatus represents the status of an imaging study

@@ -4,7 +4,7 @@ package fhir5
 import (
 	"time"
 
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // DataType is the base type for all data types in FHIR R5 (note: this differs from R4 which used Element)

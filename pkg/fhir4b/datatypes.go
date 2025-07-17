@@ -4,7 +4,7 @@ package fhir4b
 import (
 	"time"
 
-	"github.com/go-fhir/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 // Address represents an address expressed using postal conventions

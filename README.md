@@ -44,7 +44,7 @@ go-fhir/
 ## Installation
 
 ```bash
-go get github.com/go-fhir/go-fhir
+go get github.com/d4l-data4life/go-fhir
 ```
 
 ## Usage
@@ -57,8 +57,8 @@ package main
 import (
     "encoding/json"
     "fmt"
-    "github.com/go-fhir/go-fhir/pkg/fhir4"
-    "github.com/go-fhir/go-fhir/pkg/common"
+    "github.com/d4l-data4life/go-fhir/pkg/fhir4"
+    "github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 func main() {
@@ -114,8 +114,8 @@ package main
 import (
     "encoding/json"
     "fmt"
-    "github.com/go-fhir/go-fhir/pkg/fhir4"
-    "github.com/go-fhir/go-fhir/pkg/common"
+    "github.com/d4l-data4life/go-fhir/pkg/fhir4"
+    "github.com/d4l-data4life/go-fhir/pkg/common"
 )
 
 func main() {
@@ -204,14 +204,14 @@ func stringPtr(s string) *string { return &s }
 
 ```go
 // Using FHIR R4
-import "github.com/go-fhir/go-fhir/pkg/fhir4"
+import "github.com/d4l-data4life/go-fhir/pkg/fhir4"
 
 patient4 := &fhir4.Patient{
     // R4 Patient structure
 }
 
 // Using FHIR R5  
-import "github.com/go-fhir/go-fhir/pkg/fhir5"
+import "github.com/d4l-data4life/go-fhir/pkg/fhir5"
 
 // Note: R5 uses DataType as base instead of Element
 address5 := &fhir5.Address{
@@ -219,7 +219,7 @@ address5 := &fhir5.Address{
 }
 
 // Using FHIR R2 (older version with fewer fields)
-import "github.com/go-fhir/go-fhir/pkg/fhir2"
+import "github.com/d4l-data4life/go-fhir/pkg/fhir2"
 
 address2 := &fhir2.Address{
     // R2 Address structure - no billing use option

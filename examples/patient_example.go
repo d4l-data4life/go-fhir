@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/go-fhir/go-fhir/pkg/common"
-	"github.com/go-fhir/go-fhir/pkg/fhir4"
+	"github.com/d4l-data4life/go-fhir/pkg/common"
+	"github.com/d4l-data4life/go-fhir/pkg/fhir4"
 )
 
 func main() {
