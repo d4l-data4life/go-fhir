@@ -48,7 +48,7 @@ type SupplyRequest struct {
 	Identifier []common.Identifier `json:"identifier,omitempty"`
 
 	// Note that there's a difference between a prescription - an instruction to take a medication, along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit instructions
-	Item common.CodeableReference `json:"item"`
+	Item CodeableReference `json:"item"`
 
 	// When the request should be fulfilled
 	OccurrenceDateTime *string        `json:"occurrenceDateTime,omitempty"`

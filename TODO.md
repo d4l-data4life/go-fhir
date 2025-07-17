@@ -6,7 +6,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 | FHIR Version | Total Resources | Go Implemented | Percentage |
 |--------------|-----------------|----------------|------------|
-| R5           | 162             | 134            | 82.7%      |
+| R5           | 162             | 160            | 98.8%      |
 | R4B          | 116             | 6              | 5.2%       |
 | R4           | 106             | 23             | 21.7%      |
 | R3           | 98              | 23             | 23.5%      |
@@ -14,7 +14,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (134/162)
+### ✅ Implemented (160/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -111,18 +111,20 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] SupplyDelivery
 - [x] SupplyRequest
 - [x] Task
+- [x] TerminologyCapabilities
+- [x] TestPlan
+- [x] TestReport
+- [x] TestScript
+- [x] Transport
+- [x] ValueSet
+- [x] VerificationResult
+- [x] VisionPrescription
 
-### 🚧 Not Implemented (28/162)
-- [ ] ResearchDefinition
-- [ ] ResearchElementDefinition
-- [ ] TerminologyCapabilities
-- [ ] TestPlan
-- [ ] TestReport
-- [ ] TestScript
-- [ ] Transport
-- [ ] ValueSet
-- [ ] VerificationResult
-- [ ] VisionPrescription
+### 🚧 Not Implemented (2/162) - Missing TypeScript Definitions
+- [ ] ResearchDefinition *(No TypeScript definition available in js/r5.d.ts)*
+- [ ] ResearchElementDefinition *(No TypeScript definition available in js/r5.d.ts)*
+
+**Note:** All FHIR R5 resources with available TypeScript definitions have been successfully migrated to Go. The remaining two resources cannot be implemented without their TypeScript interface definitions.
 
 ## R4B Resources (FHIR 4.3.0)
 

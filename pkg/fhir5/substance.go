@@ -31,7 +31,7 @@ type Substance struct {
 	Category []common.CodeableConcept `json:"category,omitempty"`
 
 	// This could be a reference to an externally defined code
-	Code common.CodeableReference `json:"code"`
+	Code CodeableReference `json:"code"`
 
 	// A description of the substance - its appearance, handling requirements, and other usage notes
 	Description *string `json:"description,omitempty"`
