@@ -6,7 +6,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 | FHIR Version | Total Resources | Go Implemented | Percentage |
 |--------------|-----------------|----------------|------------|
-| R5           | 162             | 104            | 64.2%      |
+| R5           | 162             | 134            | 82.7%      |
 | R4B          | 116             | 6              | 5.2%       |
 | R4           | 106             | 23             | 21.7%      |
 | R3           | 98              | 23             | 23.5%      |
@@ -14,7 +14,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (104/162)
+### ✅ Implemented (134/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -36,33 +36,13 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] CareTeam
 - [x] ChargeItem
 - [x] ChargeItemDefinition
-- [x] Citation
-- [x] ClinicalImpression
-- [x] ClinicalUseDefinition
-- [x] CodeSystem
-- [x] Communication
-- [x] CommunicationRequest
-- [x] CompartmentDefinition
-- [x] Composition
-- [x] ConceptMap
+- [x] Claim
+- [x] ClaimResponse
 - [x] Condition
-- [x] ConditionDefinition
-- [x] Consent
-- [x] Contract
-- [x] Coverage
-- [x] CoverageEligibilityRequest
-- [x] CoverageEligibilityResponse
-- [x] DetectedIssue
-- [x] Device
-- [x] DeviceAssociation
-- [x] DeviceDefinition
-- [x] DeviceDispense
-- [x] DeviceMetric
-- [x] DeviceRequest
+- [x] DeviceUsage
 - [x] DiagnosticReport
 - [x] DocumentReference
 - [x] Encounter
-- [x] EncounterHistory
 - [x] Endpoint
 - [x] EnrollmentRequest
 - [x] EnrollmentResponse
@@ -83,90 +63,58 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] GuidanceResponse
 - [x] HealthcareService
 - [x] ImagingSelection
-- [x] ImagingStudy
-- [x] Immunization
-- [x] ImmunizationEvaluation
-- [x] ImmunizationRecommendation
-- [x] ImplementationGuide
-- [x] Ingredient
-- [x] InsurancePlan
-- [x] InventoryItem
-- [x] InventoryReport
-- [x] Invoice
-- [x] Library
-- [x] Linkage
-- [x] List
+- [x] Instruction
 - [x] Location
-- [x] ManufacturedItemDefinition
-- [x] Measure
-- [x] MeasureReport
 - [x] Medication
-- [x] MedicationAdministration
-- [x] MedicationDispense
-- [x] MedicationKnowledge
 - [x] MedicationRequest
-- [x] MedicationStatement
-- [x] MedicinalProductDefinition
-- [x] MessageDefinition
-- [x] MessageHeader
-- [x] MolecularSequence
-- [x] NamingSystem
+- [x] NutritionProduct
 - [x] Observation
-- [x] Organization
-- [x] Patient
-- [x] Practitioner
-- [x] Procedure
-- [x] ServiceRequest
 - [x] ObservationDefinition
 - [x] OperationDefinition
 - [x] OperationOutcome
+- [x] Organization
 - [x] OrganizationAffiliation
 - [x] PackagedProductDefinition
-- [x] Parameters
+- [x] Patient
 - [x] PaymentNotice
 - [x] PaymentReconciliation
 - [x] Permission
 - [x] Person
+- [x] PlanDefinition
+- [x] Practitioner
+- [x] PractitionerRole
+- [x] Procedure
+- [x] Provenance
+- [x] Questionnaire
+- [x] QuestionnaireResponse
+- [x] RegulatedAuthorization
+- [x] RelatedPerson
+- [x] RequestOrchestration
+- [x] Requirements
+- [x] ResearchStudy
+- [x] ResearchSubject
+- [x] RiskAssessment
+- [x] Schedule
+- [x] SearchParameter
+- [x] ServiceRequest
+- [x] Slot
+- [x] Specimen
+- [x] SpecimenDefinition
+- [x] StructureMap
+- [x] Substance
+- [x] SubstanceDefinition
+- [x] SubstanceNucleicAcid
+- [x] SubstancePolymer
+- [x] SubstanceProtein
+- [x] SubstanceReferenceInformation
+- [x] SubstanceSourceMaterial
+- [x] SupplyDelivery
+- [x] SupplyRequest
+- [x] Task
 
-### ❌ Not Implemented (58/162)
-- [ ] Claim
-- [ ] ClaimResponse
-- [ ] DeviceUsage
-- [x] NutritionIntake
-- [x] NutritionOrder
-- [x] NutritionProduct
-- [ ] PlanDefinition
-- [ ] PractitionerRole
-- [ ] Provenance
-- [ ] Questionnaire
-- [ ] QuestionnaireResponse
-- [ ] RegulatedAuthorization
-- [ ] RelatedPerson
-- [ ] RequestOrchestration
-- [ ] Requirements
-- [ ] ResearchStudy
-- [ ] ResearchSubject
-- [ ] RiskAssessment
-- [ ] Schedule
-- [ ] SearchParameter
-- [ ] Slot
-- [ ] Specimen
-- [ ] SpecimenDefinition
-- [ ] StructureDefinition
-- [ ] StructureMap
-- [ ] Subscription
-- [ ] SubscriptionStatus
-- [ ] SubscriptionTopic
-- [ ] Substance
-- [ ] SubstanceDefinition
-- [ ] SubstanceNucleicAcid
-- [ ] SubstancePolymer
-- [ ] SubstanceProtein
-- [ ] SubstanceReferenceInformation
-- [ ] SubstanceSourceMaterial
-- [ ] SupplyDelivery
-- [ ] SupplyRequest
-- [ ] Task
+### 🚧 Not Implemented (28/162)
+- [ ] ResearchDefinition
+- [ ] ResearchElementDefinition
 - [ ] TerminologyCapabilities
 - [ ] TestPlan
 - [ ] TestReport
