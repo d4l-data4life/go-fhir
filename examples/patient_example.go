@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/d4l-data4life/go-fhir/pkg/common"
 	"github.com/d4l-data4life/go-fhir/pkg/fhir4"
@@ -90,7 +89,7 @@ func createPatientExample() *fhir4.Patient {
 				PostalCode: stringPtr("62701"),
 				Country:    stringPtr("US"),
 				Period: &common.Period{
-					Start: parseTimePtr("2020-01-01T00:00:00Z"),
+					Start: parseFHIRDateTimePtr("2020-01-01T00:00:00Z"),
 				},
 			},
 		},
@@ -156,12 +155,12 @@ func boolPtr(b bool) *bool {
 	return &b
 }
 
-func parseTimePtr(s string) *time.Time {
-	t, err := time.Parse(time.RFC3339, s)
+func parseFHIRDateTimePtr(s string) *common.FHIRDateTime {
+	fhirDateTime, err := common.ParseDateTime(s)
 	if err != nil {
 		return nil
 	}
-	return &t
+	return fhirDateTime
 }
 
 func identifierUsePtr(use common.IdentifierUse) *common.IdentifierUse {

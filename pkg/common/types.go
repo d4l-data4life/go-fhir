@@ -1,8 +1,6 @@
 // Package common contains base types and structures shared across FHIR versions
 package common
 
-import "time"
-
 // Element is the base definition for all elements contained inside a resource.
 // All elements, whether defined as a data type (like the ones in this specification)
 // or as part of a resource definition, have this base content.
@@ -90,10 +88,10 @@ type Period struct {
 	Element
 
 	// Start time with inclusive boundary
-	Start *time.Time `json:"start,omitempty"`
+	Start *FHIRDateTime `json:"start,omitempty"`
 
 	// End time with inclusive boundary, if not ongoing
-	End *time.Time `json:"end,omitempty"`
+	End *FHIRDateTime `json:"end,omitempty"`
 }
 
 // CodeableConcept represents a concept that may be defined by a formal reference
@@ -409,7 +407,7 @@ type Annotation struct {
 	Text string `json:"text"`
 
 	// Indicates when this particular annotation was made
-	Time *time.Time `json:"time,omitempty"`
+	Time *FHIRDateTime `json:"time,omitempty"`
 }
 
 // Attachment represents content in a base64format
@@ -438,7 +436,7 @@ type Attachment struct {
 	Title *string `json:"title,omitempty"`
 
 	// The date that the attachment was first created
-	Creation *time.Time `json:"creation,omitempty"`
+	Creation *FHIRDateTime `json:"creation,omitempty"`
 }
 
 // Count represents a measured amount
@@ -550,7 +548,7 @@ type Signature struct {
 	Type []Coding `json:"type,omitempty"`
 
 	// When the digital signature was signed
-	When *time.Time `json:"when,omitempty"`
+	When *FHIRDateTime `json:"when,omitempty"`
 
 	// A reference to an application-usable description of the identity that signed
 	Who *Reference `json:"who,omitempty"`
@@ -573,7 +571,7 @@ type Timing struct {
 	Element
 
 	// Identifies what events are expected to occur
-	Event []time.Time `json:"event,omitempty"`
+	Event []FHIRDateTime `json:"event,omitempty"`
 
 	// A set of rules that describe when the event should occur
 	Repeat *TimingRepeat `json:"repeat,omitempty"`
@@ -715,9 +713,9 @@ type DataRequirementDateFilter struct {
 	SearchParam *string `json:"searchParam,omitempty"`
 
 	// The value of the filter, as a Period, DateTime, or Duration value
-	ValueDateTime *time.Time `json:"valueDateTime,omitempty"`
-	ValuePeriod   *Period    `json:"valuePeriod,omitempty"`
-	ValueDuration *Duration  `json:"valueDuration,omitempty"`
+	ValueDateTime *FHIRDateTime `json:"valueDateTime,omitempty"`
+	ValuePeriod   *Period       `json:"valuePeriod,omitempty"`
+	ValueDuration *Duration     `json:"valueDuration,omitempty"`
 }
 
 // DataRequirementValueFilter represents a value filter for data requirements
@@ -827,10 +825,10 @@ type TriggerDefinition struct {
 	Name *string `json:"name,omitempty"`
 
 	// The timing of the event (if this is a periodic trigger)
-	TimingTiming    *Timing    `json:"timingTiming,omitempty"`
-	TimingReference *Reference `json:"timingReference,omitempty"`
-	TimingDate      *time.Time `json:"timingDate,omitempty"`
-	TimingDateTime  *time.Time `json:"timingDateTime,omitempty"`
+	TimingTiming    *Timing       `json:"timingTiming,omitempty"`
+	TimingReference *Reference    `json:"timingReference,omitempty"`
+	TimingDate      *FHIRDateTime `json:"timingDate,omitempty"`
+	TimingDateTime  *FHIRDateTime `json:"timingDateTime,omitempty"`
 
 	// The triggering data of the event (if this is a data trigger)
 	Data []DataRequirement `json:"data,omitempty"`
@@ -904,7 +902,7 @@ type Meta struct {
 	VersionID *string `json:"versionId,omitempty"`
 
 	// When the resource version last changed
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	LastUpdated *FHIRDateTime `json:"lastUpdated,omitempty"`
 
 	// Identifies where the resource comes from
 	Source *string `json:"source,omitempty"`

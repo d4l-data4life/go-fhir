@@ -14,7 +14,229 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R5 Resources (FHIR 5.0.0)
 
-### ✅ Implemented (160/162)
+### Tested (0/162)
+
+Resources with Go tests that serialize their examples in examples-fhir/fhir5 and deserialize the examples in examples-fhir/fhir5-json
+
+- [ ] Account
+- [ ] ActivityDefinition
+- [ ] ActorDefinition
+- [ ] AdministrableProductDefinition
+- [ ] AdverseEvent
+- [ ] AllergyIntolerance
+- [ ] Appointment
+- [ ] AppointmentResponse
+- [ ] ArtifactAssessment
+- [ ] AuditEvent
+- [ ] Basic
+- [ ] Binary
+- [ ] BiologicallyDerivedProduct
+- [ ] BiologicallyDerivedProductDispense
+- [ ] BodyStructure
+- [ ] Bundle
+- [ ] CapabilityStatement
+- [ ] CarePlan
+- [ ] CareTeam
+- [ ] ChargeItem
+- [ ] ChargeItemDefinition
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] Condition
+- [ ] DeviceUsage
+- [ ] DiagnosticReport
+- [ ] DocumentReference
+- [ ] Encounter
+- [ ] Endpoint
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] EventDefinition
+- [ ] Evidence
+- [ ] EvidenceReport
+- [ ] EvidenceVariable
+- [ ] ExampleScenario
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] FormularyItem
+- [ ] GenomicStudy
+- [ ] Goal
+- [ ] GraphDefinition
+- [ ] Group
+- [ ] GuidanceResponse
+- [ ] HealthcareService
+- [ ] ImagingSelection
+- [ ] Instruction
+- [ ] Location
+- [ ] Medication
+- [ ] MedicationRequest
+- [ ] NutritionProduct
+- [ ] Observation
+- [ ] ObservationDefinition
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] Organization
+- [ ] OrganizationAffiliation
+- [ ] PackagedProductDefinition
+- [ ] Patient
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Permission
+- [ ] Person
+- [ ] PlanDefinition
+- [ ] Practitioner
+- [ ] PractitionerRole
+- [ ] Procedure
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] QuestionnaireResponse
+- [ ] RegulatedAuthorization
+- [ ] RelatedPerson
+- [ ] RequestOrchestration
+- [ ] Requirements
+- [ ] ResearchStudy
+- [ ] ResearchSubject
+- [ ] RiskAssessment
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] ServiceRequest
+- [ ] Slot
+- [ ] Specimen
+- [ ] SpecimenDefinition
+- [ ] StructureMap
+- [ ] Substance
+- [ ] SubstanceDefinition
+- [ ] SubstanceNucleicAcid
+- [ ] SubstancePolymer
+- [ ] SubstanceProtein
+- [ ] SubstanceReferenceInformation
+- [ ] SubstanceSourceMaterial
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] Task
+- [ ] TerminologyCapabilities
+- [ ] TestPlan
+- [ ] TestReport
+- [ ] TestScript
+- [ ] Transport
+- [ ] ValueSet
+- [ ] VerificationResult
+- [ ] VisionPrescription
+
+
+### Refactored (0/162)
+
+Resources are refactored as subclasses of R4 resources.
+
+Take the next batch of 10 to-be-refactored R5 Resources in TODO.md, compare their R4 vs R5 Go implemenations and try to refactor the R5 as a subclass of the R4 class if possible
+
+- [ ] Account
+- [ ] ActivityDefinition
+- [ ] ActorDefinition
+- [ ] AdministrableProductDefinition
+- [ ] AdverseEvent
+- [ ] AllergyIntolerance
+- [ ] Appointment
+- [ ] AppointmentResponse
+- [ ] ArtifactAssessment
+- [ ] AuditEvent
+- [ ] Basic
+- [ ] Binary
+- [ ] BiologicallyDerivedProduct
+- [ ] BiologicallyDerivedProductDispense
+- [ ] BodyStructure
+- [ ] Bundle
+- [ ] CapabilityStatement
+- [ ] CarePlan
+- [ ] CareTeam
+- [ ] ChargeItem
+- [ ] ChargeItemDefinition
+- [ ] Claim
+- [ ] ClaimResponse
+- [ ] Condition
+- [ ] DeviceUsage
+- [ ] DiagnosticReport
+- [ ] DocumentReference
+- [ ] Encounter
+- [ ] Endpoint
+- [ ] EnrollmentRequest
+- [ ] EnrollmentResponse
+- [ ] EpisodeOfCare
+- [ ] EventDefinition
+- [ ] Evidence
+- [ ] EvidenceReport
+- [ ] EvidenceVariable
+- [ ] ExampleScenario
+- [ ] ExplanationOfBenefit
+- [ ] FamilyMemberHistory
+- [ ] Flag
+- [ ] FormularyItem
+- [ ] GenomicStudy
+- [ ] Goal
+- [ ] GraphDefinition
+- [ ] Group
+- [ ] GuidanceResponse
+- [ ] HealthcareService
+- [ ] ImagingSelection
+- [ ] Instruction
+- [ ] Location
+- [ ] Medication
+- [ ] MedicationRequest
+- [ ] NutritionProduct
+- [ ] Observation
+- [ ] ObservationDefinition
+- [ ] OperationDefinition
+- [ ] OperationOutcome
+- [ ] Organization
+- [ ] OrganizationAffiliation
+- [ ] PackagedProductDefinition
+- [ ] Patient
+- [ ] PaymentNotice
+- [ ] PaymentReconciliation
+- [ ] Permission
+- [ ] Person
+- [ ] PlanDefinition
+- [ ] Practitioner
+- [ ] PractitionerRole
+- [ ] Procedure
+- [ ] Provenance
+- [ ] Questionnaire
+- [ ] QuestionnaireResponse
+- [ ] RegulatedAuthorization
+- [ ] RelatedPerson
+- [ ] RequestOrchestration
+- [ ] Requirements
+- [ ] ResearchStudy
+- [ ] ResearchSubject
+- [ ] RiskAssessment
+- [ ] Schedule
+- [ ] SearchParameter
+- [ ] ServiceRequest
+- [ ] Slot
+- [ ] Specimen
+- [ ] SpecimenDefinition
+- [ ] StructureMap
+- [ ] Substance
+- [ ] SubstanceDefinition
+- [ ] SubstanceNucleicAcid
+- [ ] SubstancePolymer
+- [ ] SubstanceProtein
+- [ ] SubstanceReferenceInformation
+- [ ] SubstanceSourceMaterial
+- [ ] SupplyDelivery
+- [ ] SupplyRequest
+- [ ] Task
+- [ ] TerminologyCapabilities
+- [ ] TestPlan
+- [ ] TestReport
+- [ ] TestScript
+- [ ] Transport
+- [ ] ValueSet
+- [ ] VerificationResult
+- [ ] VisionPrescription
+
+
+### Implemented (160/162)
 - [x] Account
 - [x] ActivityDefinition
 - [x] ActorDefinition
@@ -91,6 +313,8 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] RelatedPerson
 - [x] RequestOrchestration
 - [x] Requirements
+- [ ] ResearchDefinition *(No TypeScript definition available in js/r5.d.ts)*
+- [ ] ResearchElementDefinition *(No TypeScript definition available in js/r5.d.ts)*
 - [x] ResearchStudy
 - [x] ResearchSubject
 - [x] RiskAssessment
@@ -119,10 +343,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] ValueSet
 - [x] VerificationResult
 - [x] VisionPrescription
-
-### 🚧 Not Implemented (2/162) - Missing TypeScript Definitions
-- [ ] ResearchDefinition *(No TypeScript definition available in js/r5.d.ts)*
-- [ ] ResearchElementDefinition *(No TypeScript definition available in js/r5.d.ts)*
 
 **Note:** All FHIR R5 resources with available TypeScript definitions have been successfully migrated to Go. The remaining two resources cannot be implemented without their TypeScript interface definitions.
 
@@ -280,7 +500,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ## R4 Resources (FHIR 4.0.1)
 
-### ✅ Implemented (106/106)
+### Implemented (106/106)
 - [x] Account
 - [x] ActivityDefinition
 - [x] AdverseEvent
@@ -363,8 +583,6 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 - [x] Substance
 - [x] SubstanceNucleicAcid
 - [x] SubstancePolymer
-
-### ❌ Not Implemented (0/106)
 
 ## R3 Resources (FHIR 3.0.2)
 
