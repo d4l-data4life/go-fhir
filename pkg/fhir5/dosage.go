@@ -9,26 +9,47 @@ import (
 type Dosage struct {
 	common.Element
 
-	// Free text dosage instructions
-	Text *string `json:"text,omitempty"`
+	// Information about administration or preparation of the medication
+	AdditionalInstruction []common.CodeableConcept `json:"additionalInstruction,omitempty"`
 
-	// Patient or consumer oriented instructions
-	PatientInstruction *string `json:"patientInstruction,omitempty"`
+	// Can express "as needed" without a reason by setting the Boolean = True
+	AsNeeded *bool `json:"asNeeded,omitempty"`
 
-	// Timing for the dosage
-	Timing *Timing `json:"timing,omitempty"`
+	// Can express "as needed" with a reason by including the CodeableConcept
+	AsNeededFor []common.CodeableConcept `json:"asNeededFor,omitempty"`
 
-	// Body site to administer to
-	Site *common.CodeableConcept `json:"site,omitempty"`
+	// Amount of medication per dose
+	DoseAndRate []DosageDoseAndRate `json:"doseAndRate,omitempty"`
 
-	// How drug should enter body
-	Route *common.CodeableConcept `json:"route,omitempty"`
+	// Upper limit on medication per administration
+	MaxDosePerAdministration *common.Quantity `json:"maxDosePerAdministration,omitempty"`
+
+	// Upper limit on medication per lifetime of the patient
+	MaxDosePerLifetime *common.Quantity `json:"maxDosePerLifetime,omitempty"`
+
+	// Upper limit on medication per unit of time
+	MaxDosePerPeriod []Ratio `json:"maxDosePerPeriod,omitempty"`
 
 	// Technique for administering medication
 	Method *common.CodeableConcept `json:"method,omitempty"`
 
-	// Amount of medication per dose
-	DoseAndRate []DosageDoseAndRate `json:"doseAndRate,omitempty"`
+	// Patient or consumer oriented instructions
+	PatientInstruction *string `json:"patientInstruction,omitempty"`
+
+	// How drug should enter body
+	Route *common.CodeableConcept `json:"route,omitempty"`
+
+	// Indicates the order in which the dosage instructions should be applied or interpreted
+	Sequence *int `json:"sequence,omitempty"`
+
+	// Body site to administer to
+	Site *common.CodeableConcept `json:"site,omitempty"`
+
+	// Free text dosage instructions
+	Text *string `json:"text,omitempty"`
+
+	// Timing for the dosage
+	Timing *Timing `json:"timing,omitempty"`
 }
 
 // DosageDoseAndRate represents dosage dose and rate information
@@ -50,16 +71,16 @@ type DosageDoseAndRate struct {
 
 // Timing represents when medication should be administered
 type Timing struct {
-	DataType
-
-	// When the event occurs
-	Event []*string `json:"event,omitempty"`
-
-	// When the event is to occur
-	Repeat *TimingRepeat `json:"repeat,omitempty"`
+	common.BackboneElement
 
 	// BID | TID | QID | AM | PM | QD | QOD | Q4H | Q6H +
 	Code *common.CodeableConcept `json:"code,omitempty"`
+
+	// Identifies specific times when the event occurs
+	Event []*string `json:"event,omitempty"`
+
+	// A set of rules that describe when the event is scheduled
+	Repeat *TimingRepeat `json:"repeat,omitempty"`
 }
 
 // TimingRepeat represents timing repeat information

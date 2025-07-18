@@ -24,14 +24,6 @@ const (
 	AllergyIntoleranceCriticalityUnableToAssess AllergyIntoleranceCriticality = "unable-to-assess"
 )
 
-// AllergyIntoleranceType represents the type of an allergy/intolerance
-type AllergyIntoleranceType string
-
-const (
-	AllergyIntoleranceTypeAllergy     AllergyIntoleranceType = "allergy"
-	AllergyIntoleranceTypeIntolerance AllergyIntoleranceType = "intolerance"
-)
-
 // AllergyIntoleranceReactionSeverity represents the severity of an allergy/intolerance reaction
 type AllergyIntoleranceReactionSeverity string
 
@@ -132,7 +124,7 @@ type AllergyIntolerance struct {
 	Recorder *common.Reference `json:"recorder,omitempty"`
 
 	// Allergic (typically immune-mediated) reactions have been traditionally regarded as an indicator
-	Type *AllergyIntoleranceType `json:"type,omitempty"`
+	Type *common.CodeableConcept `json:"type,omitempty"`
 
 	// The verification status to support the clinical status of the condition
 	VerificationStatus *common.CodeableConcept `json:"verificationStatus,omitempty"`

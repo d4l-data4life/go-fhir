@@ -19,12 +19,12 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 Resources with Go tests that serialize their examples in examples-fhir/fhir5 and deserialize the examples in examples-fhir/fhir5-json
 
 - [x] Account
-- [ ] ActivityDefinition
+- [x] ActivityDefinition
 - [ ] ActorDefinition
 - [ ] AdministrableProductDefinition
 - [ ] AdverseEvent
-- [ ] AllergyIntolerance
-- [ ] Appointment
+- [x] AllergyIntolerance
+- [x] Appointment
 - [ ] AppointmentResponse
 - [ ] ArtifactAssessment
 - [ ] AuditEvent
