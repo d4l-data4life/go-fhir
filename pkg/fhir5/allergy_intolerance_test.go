@@ -11,12 +11,12 @@ import (
 
 func TestAllergyIntolerance_Serialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/allergyintolerance-example.json",
-		"../../examples-fhir/fhir5/allergyintolerance-fishallergy.json",
-		"../../examples-fhir/fhir5/allergyintolerance-medication.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nka.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nkda.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nkla.json",
+		"testdata/fhir5-json/allergyintolerance-example.json",
+		"testdata/fhir5-json/allergyintolerance-fishallergy.json",
+		"testdata/fhir5-json/allergyintolerance-medication.json",
+		"testdata/fhir5-json/allergyintolerance-nka.json",
+		"testdata/fhir5-json/allergyintolerance-nkda.json",
+		"testdata/fhir5-json/allergyintolerance-nkla.json",
 	}
 
 	for _, file := range exampleFiles {
@@ -57,12 +57,12 @@ func TestAllergyIntolerance_Serialization(t *testing.T) {
 
 func TestAllergyIntolerance_Deserialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/allergyintolerance-example.json",
-		"../../examples-fhir/fhir5/allergyintolerance-fishallergy.json",
-		"../../examples-fhir/fhir5/allergyintolerance-medication.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nka.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nkda.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nkla.json",
+		"testdata/fhir5-json/allergyintolerance-example.json",
+		"testdata/fhir5-json/allergyintolerance-fishallergy.json",
+		"testdata/fhir5-json/allergyintolerance-medication.json",
+		"testdata/fhir5-json/allergyintolerance-nka.json",
+		"testdata/fhir5-json/allergyintolerance-nkda.json",
+		"testdata/fhir5-json/allergyintolerance-nkla.json",
 	}
 
 	for _, file := range exampleFiles {
@@ -96,12 +96,12 @@ func TestAllergyIntolerance_Deserialization(t *testing.T) {
 
 func TestAllergyIntolerance_RoundTripSerialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/allergyintolerance-example.json",
-		"../../examples-fhir/fhir5/allergyintolerance-fishallergy.json",
-		"../../examples-fhir/fhir5/allergyintolerance-medication.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nka.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nkda.json",
-		"../../examples-fhir/fhir5/allergyintolerance-nkla.json",
+		"testdata/fhir5-json/allergyintolerance-example.json",
+		"testdata/fhir5-json/allergyintolerance-fishallergy.json",
+		"testdata/fhir5-json/allergyintolerance-medication.json",
+		"testdata/fhir5-json/allergyintolerance-nka.json",
+		"testdata/fhir5-json/allergyintolerance-nkda.json",
+		"testdata/fhir5-json/allergyintolerance-nkla.json",
 	}
 
 	for _, file := range exampleFiles {

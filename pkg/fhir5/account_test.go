@@ -11,8 +11,8 @@ import (
 
 func TestAccount_Serialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/account-example.json",
-		"../../examples-fhir/fhir5/account-example-with-guarantor.json",
+		"testdata/fhir5-json/account-example.json",
+		"testdata/fhir5-json/account-example-with-guarantor.json",
 	}
 	for _, file := range exampleFiles {
 		data, err := os.ReadFile(file)
@@ -32,7 +32,7 @@ func TestAccount_Serialization(t *testing.T) {
 }
 
 func TestAccount_Deserialization(t *testing.T) {
-	jsonDir := "../../examples-fhir/fhir5-json"
+	jsonDir := "testdata/fhir5-json"
 	files := []string{
 		"account-example.json",
 		"account-example-with-guarantor.json",
@@ -52,8 +52,8 @@ func TestAccount_Deserialization(t *testing.T) {
 
 func TestAccount_RoundTripSerialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/account-example.json",
-		"../../examples-fhir/fhir5/account-example-with-guarantor.json",
+		"testdata/fhir5-json/account-example.json",
+		"testdata/fhir5-json/account-example-with-guarantor.json",
 	}
 	for _, file := range exampleFiles {
 		originalData, err := os.ReadFile(file)

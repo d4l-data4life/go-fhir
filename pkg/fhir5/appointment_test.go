@@ -11,9 +11,9 @@ import (
 
 func TestAppointment_Serialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/appointment-example.json",
-		"../../examples-fhir/fhir5/appointment-example-request.json",
-		"../../examples-fhir/fhir5/appointment-example2doctors.json",
+		"testdata/fhir5-json/appointment-example.json",
+		"testdata/fhir5-json/appointment-example-request.json",
+		"testdata/fhir5-json/appointment-example2doctors.json",
 	}
 
 	for _, file := range exampleFiles {
@@ -54,9 +54,9 @@ func TestAppointment_Serialization(t *testing.T) {
 
 func TestAppointment_Deserialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/appointment-example.json",
-		"../../examples-fhir/fhir5/appointment-example-request.json",
-		"../../examples-fhir/fhir5/appointment-example2doctors.json",
+		"testdata/fhir5-json/appointment-example.json",
+		"testdata/fhir5-json/appointment-example-request.json",
+		"testdata/fhir5-json/appointment-example2doctors.json",
 	}
 
 	for _, file := range exampleFiles {
@@ -90,9 +90,9 @@ func TestAppointment_Deserialization(t *testing.T) {
 
 func TestAppointment_RoundTripSerialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/appointment-example.json",
-		"../../examples-fhir/fhir5/appointment-example-request.json",
-		"../../examples-fhir/fhir5/appointment-example2doctors.json",
+		"testdata/fhir5-json/appointment-example.json",
+		"testdata/fhir5-json/appointment-example-request.json",
+		"testdata/fhir5-json/appointment-example2doctors.json",
 	}
 
 	for _, file := range exampleFiles {

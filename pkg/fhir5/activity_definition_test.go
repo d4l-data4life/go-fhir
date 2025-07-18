@@ -9,16 +9,16 @@ import (
 
 func TestActivityDefinition_Serialization(t *testing.T) {
 	exampleFiles := []string{
-		"../../examples-fhir/fhir5/activitydefinition-example.json",
-		"../../examples-fhir/fhir5/activitydefinition-example-alteplase-dosing.json",
-		"../../examples-fhir/fhir5/activitydefinition-predecessor-example.json",
-		"../../examples-fhir/fhir5/activitydefinition-medicationorder-example.json",
-		"../../examples-fhir/fhir5/activitydefinition-servicerequest-example.json",
-		"../../examples-fhir/fhir5/activitydefinition-supplyrequest-example.json",
-		"../../examples-fhir/fhir5/activitydefinition-order-serum-dengue-virus-igm.json",
-		"../../examples-fhir/fhir5/activitydefinition-order-serum-zika-dengue-virus-igm.json",
-		"../../examples-fhir/fhir5/activitydefinition-administer-zika-virus-exposure-assessment.json",
-		"../../examples-fhir/fhir5/activitydefinition-provide-mosquito-prevention-advice.json",
+		"testdata/fhir5-json/activitydefinition-example.json",
+		"testdata/fhir5-json/activitydefinition-example-alteplase-dosing.json",
+		"testdata/fhir5-json/activitydefinition-predecessor-example.json",
+		"testdata/fhir5-json/activitydefinition-medicationorder-example.json",
+		"testdata/fhir5-json/activitydefinition-servicerequest-example.json",
+		"testdata/fhir5-json/activitydefinition-supplyrequest-example.json",
+		"testdata/fhir5-json/activitydefinition-order-serum-dengue-virus-igm.json",
+		"testdata/fhir5-json/activitydefinition-order-serum-zika-dengue-virus-igm.json",
+		"testdata/fhir5-json/activitydefinition-administer-zika-virus-exposure-assessment.json",
+		"testdata/fhir5-json/activitydefinition-provide-mosquito-prevention-advice.json",
 	}
 	for _, file := range exampleFiles {
 		data, err := os.ReadFile(file)
@@ -38,7 +38,7 @@ func TestActivityDefinition_Serialization(t *testing.T) {
 }
 
 func TestActivityDefinition_Deserialization(t *testing.T) {
-	jsonDir := "../../examples-fhir/fhir5"
+	jsonDir := "testdata/fhir5-json"
 	files := []string{
 		"activitydefinition-example.json",
 		"activitydefinition-example-alteplase-dosing.json",

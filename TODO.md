@@ -16,7 +16,7 @@ This document tracks the migration status of all FHIR resources from the JavaScr
 
 ### Tested (0/162)
 
-Resources with Go tests that serialize their examples in examples-fhir/fhir5 and deserialize the examples in examples-fhir/fhir5-json
+Resources with Go tests that serialize their examples in testdata/fhir5-json/fhir5 and deserialize the examples in testdata/fhir5-json/fhir5-json
 
 - [x] Account
 - [x] ActivityDefinition
