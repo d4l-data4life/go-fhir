@@ -28,8 +28,20 @@ type Extension struct {
 	// identifies the meaning of the extension
 	URL string `json:"url"`
 
-	// Value can be one of many types - using interface{} for flexibility
-	Value interface{} `json:"value,omitempty"`
+	// TODO: expand with other possible types
+	// Single-valued answer to the question
+	ValueBoolean    *bool       `json:"valueBoolean,omitempty"`
+	ValueDecimal    *float64    `json:"valueDecimal,omitempty"`
+	ValueInteger    *int        `json:"valueInteger,omitempty"`
+	ValueDate       *string     `json:"valueDate,omitempty"`
+	ValueDateTime   *string     `json:"valueDateTime,omitempty"`
+	ValueTime       *string     `json:"valueTime,omitempty"`
+	ValueString     *string     `json:"valueString,omitempty"`
+	ValueUri        *string     `json:"valueUri,omitempty"`
+	ValueAttachment *Attachment `json:"valueAttachment,omitempty"`
+	ValueCoding     *Coding     `json:"valueCoding,omitempty"`
+	ValueQuantity   *Quantity   `json:"valueQuantity,omitempty"`
+	ValueReference  *Reference  `json:"valueReference,omitempty"`
 }
 
 // Reference is a reference from one resource to another.
