@@ -36,6 +36,8 @@ type Composition struct {
 	// Who and/or what authored the composition
 	Author []common.Reference `json:"author"`
 
+	Title string `json:"title"`
+
 	// Who attested the composition
 	Attester []CompositionAttester `json:"attester,omitempty"`
 
